@@ -1,0 +1,96 @@
+@extends('layouts.app')
+
+@section('breadcumb')
+    <li class="breadcrumb-item"><a href="{{ route('master-data.index') }}">Master Data</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('boms.index') }}">Bill Of Materials</a></li>
+    <li class="breadcrumb-item active">Edit</li>
+@endsection
+
+@section('style')
+
+@endsection
+
+@section('content')
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Edit {{ $bom->name }}</h3>
+                    </div>
+                    <form method="POST" action="{{ route('boms.update', $bom->id) }}" novalidate>
+                        @method('patch')
+                        @csrf
+                        <div class="card-body">
+
+                            @include('components.form-message')
+
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input class="form-control @error('name') is-invalid @enderror" id="name" type="text" name="name" placeholder="name" required value="{{ old('name') ?? $bom->name }}">
+
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Description <small>(Optional)</small></label>
+                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" cols="30" rows="3" placeholder="Enter description">{{old('description') ?? $bom->description}}</textarea>
+
+                                @error('description')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Materials</label> <br>
+                                <small>Select All</small>
+                                <input type="checkbox" id="checkbox">
+
+                                <div class="select2-purple">
+                                    <select class="select2" name="materials[]" id="e1" data-placeholder="Select The materials" multiple data-dropdown-css-class="select2-purple" style="width: 100%;">
+                                        @php
+                                        $all_material = [];
+                                        foreach ($bom->materials->all() as $material_selected){
+                                            array_push($all_material,$material_selected->id);          
+                                        }
+                                        @endphp
+                                        @foreach ($materials as $material)
+                                        @if (in_array(($material->id), (old('materials') ?? $all_material)))
+                                            <option value="{{$material->id}}" selected>{{$material->name}}</option>
+                                        @else
+                                            <option value="{{$material->id}}">{{$material->name}}</option>
+                                        @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                
+                                @error('materials')
+                                    <span class="text-danger f-12">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-success btn-footer">Save</button>
+                            <a href="{{ route('boms.index') }}" class="btn btn-secondary btn-footer">Back</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@endsection
+
+@section('script')
+
+@endsection
