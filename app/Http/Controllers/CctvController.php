@@ -19,7 +19,7 @@ class CctvController extends Controller
 
     public function index()
     {
-        $data['page_title'] = 'Cctv';
+        $data['page_title'] = 'CCTV';
         $data['cctv'] = Cctv::orderBy('id', 'desc')->get();
 
         return view('cctv.index', $data);
@@ -27,7 +27,7 @@ class CctvController extends Controller
 
     public function create()
     {
-        $data['page_title'] = 'Add Cctv';
+        $data['page_title'] = 'Add CCTV';
 
         return view('cctv.create', $data);
     }
@@ -38,6 +38,7 @@ class CctvController extends Controller
             'name' => ['required', 'string'],
             'link' => ['required', 'string'],
             'description' => ['nullable', 'string'],
+            'address' => ['nullable', 'string'],
             'latitude' => ['nullable', 'regex:^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$^'],
             'longitude' => ['nullable', 'regex:^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$^'],
         ]);
@@ -46,6 +47,7 @@ class CctvController extends Controller
         $cctv->name = $request->get('name');
         $cctv->link = $request->get('link');
         $cctv->description = $request->get('description');
+        $cctv->address = $request->get('address');
         $cctv->latitude = $request->get('latitude');
         $cctv->longitude = $request->get('longitude');
 
@@ -56,7 +58,7 @@ class CctvController extends Controller
 
     public function edit($id)
     {
-        $data['page_title'] = 'Edit Cctv';
+        $data['page_title'] = 'Edit CCTV';
         $data['cctv'] = Cctv::findOrFail($id);
 
         return view('cctv.edit', $data);
@@ -68,6 +70,7 @@ class CctvController extends Controller
             'name' => ['required', 'string'],
             'link' => ['required', 'string'],
             'description' => ['nullable', 'string'],
+            'address' => ['nullable', 'string'],
             'latitude' => ['nullable', 'regex:^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$^'],
             'longitude' => ['nullable', 'regex:^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$^'],
         ]);
@@ -76,6 +79,7 @@ class CctvController extends Controller
         $cctv->name = $request->get('name');
         $cctv->link = $request->get('link');
         $cctv->description = $request->get('description');
+        $cctv->address = $request->get('address');
         $cctv->latitude = $request->get('latitude');
         $cctv->longitude = $request->get('longitude');
 
@@ -90,7 +94,7 @@ class CctvController extends Controller
             Cctv::where('id', $id)->delete();
         });
 
-        Session::flash('success', 'Cctv deleted successfully!');
+        Session::flash('success', 'CCTV deleted successfully!');
         return response()->json(['status' => '200']);
     }
 }

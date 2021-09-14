@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
         {{-- <img src="{{ asset('img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-        <span class="brand-text font-weight-bold">Cctv Monitoring</span>
+        <span class="brand-text font-weight-bold">CCTV Monitoring</span>
     </a>
 
     <!-- Sidebar -->
@@ -70,7 +70,7 @@
                     <a href="{{ route('cctv.index') }}" class="nav-link {{ (request()->segment(1) == 'cctv' ) ? 'active' : ''}}">
                         <i class="nav-icon fas fa-video"></i>
 
-                        <p>Cctv</p>
+                        <p>CCTV</p>
                     </a>
                 </li>
                 @endif

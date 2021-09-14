@@ -101,17 +101,23 @@
                         });
 
                         const html = `
-                            <div class="card card-bs card-primary br-20 mw-200">
+                            <div class="card card-bs card-primary br-20 mw-200" id="cctv${element.id}">
                                 <div class="card-header text-center">
                                     <h6>${element.name}</h6>
                                 </div>
                                 <div class="card-body">
+                                    <p class="text-md mt-0 mb-0"><b>Status:</b>
+                                        <span class="badge badge-pill badge-success">&nbsp;</span> Online
+                                    </p>
                                     <p class="text-md mt-0 mb-0"><b>Description:</b>
                                         ${ element.description ?? '' }
                                     </p>
+                                    <p class="text-md mt-0 mb-0"><b>Address:</b>
+                                        ${ element.address ?? '' }
+                                    </p>
                                     <div class="text-center mt-2">
                                         <a href="/cctv/${ element.id }/edit" target="blank" class="d-inline-block mx-auto btn btn-warning text-light">Edit</a>
-                                        <a href="${ element.link }" target="blank" class="d-inline-block mx-auto btn btn-secondary text-light">See</a>
+                                        <a href="chrome-extension://hehijbfgiekmjfkfjpbkbammjbdenadd/nhc.htm#url=${ element.link }" target="blank" class="d-inline-block mx-auto btn btn-secondary text-light">Monitoring View</a>
                                     </div>
                                 </div>
                             </div>

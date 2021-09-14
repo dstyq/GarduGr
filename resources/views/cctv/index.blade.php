@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('breadcumb')
-<li class="breadcrumb-item active">Location</li>
+<li class="breadcrumb-item active">CCTV</li>
 @endsection
 
 @section('style')
@@ -23,7 +23,7 @@
                             <div class="col-6">
                                 <span class="tx-bold text-lg">
                                     <i class="icon ion ion-ios-speedometer text-lg"></i>
-                                    Cctv
+                                    CCTV
                                 </span>
                             </div>
 
@@ -31,7 +31,7 @@
                             <div class="col-6 d-flex justify-content-end">
                                 <a href="{{ route('cctv.create') }}" class="btn btn-md btn-info">
                                     <i class="fa fa-plus"></i>
-                                    Cctv
+                                    CCTV
                                 </a>
                             </div>
                             @endcan
@@ -59,7 +59,7 @@
                                 <tr>
                                     <td onclick="openMap({{ $c->latitude }}, {{ $c->longitude }})" class="pointer">{{ $loop->iteration }}</td>
                                     <td onclick="openMap({{ $c->latitude }}, {{ $c->longitude }})" class="pointer">{{ $c->name }}</td>
-                                    <td class="pointer"><a href="{{ $c->link }}" target="blank">{{ $c->link }}</a></td>
+                                    <td class="pointer"><a href="chrome-extension://hehijbfgiekmjfkfjpbkbammjbdenadd/nhc.htm#url={{ $c->link }}" target="blank">{{ $c->link }}</a></td>
                                     <td onclick="openMap({{ $c->latitude }}, {{ $c->longitude }})" class="pointer">{{ Str::limit($c->description, 60, '...') }}</td>
                                     @if(auth()->user()->can('cctv-delete') || auth()->user()->can('cctv-edit'))
                                     <td>

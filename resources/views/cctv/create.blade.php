@@ -16,7 +16,7 @@
                 <div class="col-lg-6">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Add Cctv</h3>
+                            <h3 class="card-title">Add CCTV</h3>
                         </div>
 
                         <form method="POST" action="{{ route('cctv.store') }}">
@@ -42,6 +42,17 @@
                                     <input type="text" class="form-control @error('link') is-invalid @enderror" id="link" name="link" value="{{ old('link') }}" placeholder="Enter Link">
     
                                     @error('link')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+    
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <textarea name="address" class="form-control @error('address') is-invalid @enderror" id="address" cols="30" rows="3" placeholder="Enter Address">{{old('address')}}</textarea>
+    
+                                    @error('address')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
