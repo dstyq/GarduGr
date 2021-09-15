@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('breadcumb')
-<li class="breadcrumb-item active">CCTV</li>
+<li class="breadcrumb-item active">CCTV Management</li>
 @endsection
 
 @section('style')
@@ -23,7 +23,7 @@
                             <div class="col-6">
                                 <span class="tx-bold text-lg">
                                     <i class="icon ion ion-ios-speedometer text-lg"></i>
-                                    CCTV
+                                    CCTV Management
                                 </span>
                             </div>
 

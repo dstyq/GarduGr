@@ -10,6 +10,7 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\BomController;
 use App\Http\Controllers\CctvController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HistoryLogController;
 use App\Http\Controllers\LocationCategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MaintenanceController;
@@ -78,7 +79,11 @@ Route::middleware('auth:web')->group(function () {
     Route::resource('users', UserController::class)->except([
         'show'
     ]);;
-
+    
+    // History Log
+    Route::resource('history-log', HistoryLogController::class)->except([
+        'show', 'create', 'store', 'edit', 'update'
+    ]);;
     // // Categories
     // Route::resource('categories', CategoryController::class)->except([
     //     'show'

@@ -73,8 +73,8 @@
                 });
 
                 const map = L.map('map', {
-                    center: [lat, long],
-                    zoom: 14,
+                    center: [-1.695754, 120.409821],
+                    zoom: 5,
                     zoomControl: false,
                     fullscreenControl: true,
                     layers: [topography, sattelite, streets, grayscale]
@@ -117,7 +117,7 @@
                                     </p>
                                     <div class="text-center mt-2">
                                         <a href="/cctv/${ element.id }/edit" target="blank" class="d-inline-block mx-auto btn btn-warning text-light">Edit</a>
-                                        <a href="chrome-extension://hehijbfgiekmjfkfjpbkbammjbdenadd/nhc.htm#url=${ element.link }" target="blank" class="d-inline-block mx-auto btn btn-secondary text-light">Monitoring View</a>
+                                        <a href="#" target="blank" class="d-inline-block mx-auto btn btn-secondary text-light" onClick="openNew('${ element.link }')">Monitoring View</a>
                                     </div>
                                 </div>
                             </div>
@@ -143,5 +143,14 @@
             });
         }
     });
+
+    function openNew(url) {
+      var url = url
+      newwindow = window.open(url, 'name', ' location=0');
+      if (window.focus) {
+        newwindow.focus()
+      }
+      return false;
+    }
 </script>
 @endsection

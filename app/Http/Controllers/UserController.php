@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HistoryLog;
 use App\Models\User;
 Use File;
 use Illuminate\Http\Request;
@@ -48,6 +49,12 @@ class UserController extends Controller
             'role' => 'required',
         ]);
 
+        $newHistoryLog = new HistoryLog();
+        $newHistoryLog->datetime = date('Y-m-d H:i:s');
+        $newHistoryLog->type = 'Add User';
+        $newHistoryLog->user_id = auth()->user()->id;
+        $newHistoryLog->save();
+
         $user = new User();
         $user->name = $validateData['name'];
         $user->username = $validateData['username'];
@@ -86,6 +93,12 @@ class UserController extends Controller
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'role' => 'required',
         ]);
+
+        $newHistoryLog = new HistoryLog();
+        $newHistoryLog->datetime = date('Y-m-d H:i:s');
+        $newHistoryLog->type = 'Update User';
+        $newHistoryLog->user_id = auth()->user()->id;
+        $newHistoryLog->save();
 
         $user = User::findOrFail($id);
         $user->name = $validateData['name'];
@@ -126,6 +139,12 @@ class UserController extends Controller
                 }
             }
 
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Delete User';
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             $user->delete();
         });
         
@@ -146,6 +165,12 @@ class UserController extends Controller
             $user->password = Hash::make($request->get('new_password'));
             $user->save();
             
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Change Password';
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             return redirect()->route('users.edit', Auth::user()->id)->with('success', 'Password changed successfully!');
         } else {
             return redirect()->route('users.edit', Auth::user()->id)->with('failed', 'Password change failed');

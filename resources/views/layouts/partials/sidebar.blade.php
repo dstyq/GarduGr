@@ -70,7 +70,17 @@
                     <a href="{{ route('cctv.index') }}" class="nav-link {{ (request()->segment(1) == 'cctv' ) ? 'active' : ''}}">
                         <i class="nav-icon fas fa-video"></i>
 
-                        <p>CCTV</p>
+                        <p>CCTV Management</p>
+                    </a>
+                </li>
+                @endif
+
+                @if(auth()->user()->can('history-log-list'))
+                <li class="nav-item">
+                    <a href="{{ route('history-log.index') }}" class="nav-link {{ (request()->segment(1) == 'history-log' ) ? 'active' : ''}}">
+                        <i class="nav-icon fas fa-history"></i>
+
+                        <p>History</p>
                     </a>
                 </li>
                 @endif

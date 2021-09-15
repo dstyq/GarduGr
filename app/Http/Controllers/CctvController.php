@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cctv;
+use App\Models\HistoryLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -19,7 +20,7 @@ class CctvController extends Controller
 
     public function index()
     {
-        $data['page_title'] = 'CCTV';
+        $data['page_title'] = 'CCTV Management';
         $data['cctv'] = Cctv::orderBy('id', 'desc')->get();
 
         return view('cctv.index', $data);
@@ -42,6 +43,12 @@ class CctvController extends Controller
             'latitude' => ['nullable', 'regex:^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$^'],
             'longitude' => ['nullable', 'regex:^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$^'],
         ]);
+
+        $newHistoryLog = new HistoryLog();
+        $newHistoryLog->datetime = date('Y-m-d H:i:s');
+        $newHistoryLog->type = 'Add Cctv';
+        $newHistoryLog->user_id = auth()->user()->id;
+        $newHistoryLog->save();
 
         $cctv = new Cctv();
         $cctv->name = $request->get('name');
@@ -75,6 +82,12 @@ class CctvController extends Controller
             'longitude' => ['nullable', 'regex:^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$^'],
         ]);
 
+        $newHistoryLog = new HistoryLog();
+        $newHistoryLog->datetime = date('Y-m-d H:i:s');
+        $newHistoryLog->type = 'Update Cctv';
+        $newHistoryLog->user_id = auth()->user()->id;
+        $newHistoryLog->save();
+
         $cctv = Cctv::findOrFail($id);
         $cctv->name = $request->get('name');
         $cctv->link = $request->get('link');
@@ -91,6 +104,12 @@ class CctvController extends Controller
     public function destroy($id)
     {
         DB::transaction(function () use ($id) {
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Delete Cctv';
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             Cctv::where('id', $id)->delete();
         });
 

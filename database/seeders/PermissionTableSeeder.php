@@ -54,6 +54,8 @@ class PermissionTableSeeder extends Seeder
             'cctv-create',
             'cctv-edit',
             'cctv-delete',
+            'history-log-list',
+            'history-log-delete',
             // 'user-technical-list',
             // 'user-technical-create',
             // 'user-technical-edit',

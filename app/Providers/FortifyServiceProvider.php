@@ -6,6 +6,7 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Models\HistoryLog;
 use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -54,8 +55,12 @@ class FortifyServiceProvider extends ServiceProvider
             $user = User::where('email', $request->username)
                 ->orWhere('username', $request->username)->first();
     
-            if ($user &&
-                Hash::check($request->password, $user->password)) {
+            if ($user && Hash::check($request->password, $user->password)) {
+                $historyLog = new HistoryLog();
+                $historyLog->datetime = date('Y-m-d H:i:s');
+                $historyLog->type = 'Login';
+                $historyLog->user_id = $user->id;
+                $historyLog->save();
                 return $user;
             }
         });
