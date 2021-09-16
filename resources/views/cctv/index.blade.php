@@ -59,7 +59,7 @@
                                 <tr>
                                     <td onclick="openMap({{ $c->latitude }}, {{ $c->longitude }})" class="pointer">{{ $loop->iteration }}</td>
                                     <td onclick="openMap({{ $c->latitude }}, {{ $c->longitude }})" class="pointer">{{ $c->name }}</td>
-                                    <td class="pointer"><a href="chrome-extension://hehijbfgiekmjfkfjpbkbammjbdenadd/nhc.htm#url={{ $c->link }}" target="blank">{{ $c->link }}</a></td>
+                                    <td class="pointer"><a href="{{ $c->link }}" target="blank">{{ $c->link }}</a></td>
                                     <td onclick="openMap({{ $c->latitude }}, {{ $c->longitude }})" class="pointer">{{ Str::limit($c->description, 60, '...') }}</td>
                                     @if(auth()->user()->can('cctv-delete') || auth()->user()->can('cctv-edit'))
                                     <td>
