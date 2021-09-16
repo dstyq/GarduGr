@@ -77,14 +77,14 @@
                     zoom: 5,
                     zoomControl: false,
                     fullscreenControl: true,
-                    layers: [topography, sattelite, streets, grayscale]
+                    layers: [topography, sattelite, grayscale, streets]
                 });
 
                 const basemaps = {
                     "<div class='layers-control-img'><img src='{{ asset('img/topography.png') }}'></div> Topography": topography,
-                    "<div class='layers-control-img'><img src='{{ asset('img/street.png') }}'></div> Streets": streets,
                     "<div class='layers-control-img'><img src='{{ asset('img/satellite.png') }}'></div> Sattelite": sattelite,
                     "<div class='layers-control-img'><img src='{{ asset('img/grayscale.png') }}'></div> Grayscale": grayscale,
+                    "<div class='layers-control-img'><img src='{{ asset('img/street.png') }}'></div> Streets": streets,
                 };
 
                 L.control.layers(basemaps).addTo(map);
