@@ -146,7 +146,7 @@
 
     function openNew(url) {
       var url = url
-      newwindow = window.open(url, 'name', ' location=0');
+      newwindow = window.open(url, '_blank');
       if (window.focus) {
         newwindow.focus()
       }
