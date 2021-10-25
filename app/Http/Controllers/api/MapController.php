@@ -12,11 +12,22 @@ class MapController extends Controller
     public function getCctv()
     {
         $cctv = Cctv::get();
+        $data = $cctv->map(function($c) {
+            $data['id'] = $c->id;
+            $data['name'] = $c->name;
+            $data['description'] = $c->description;
+            $data['address'] = $c->address;
+            $data['link'] = $c->link;
+            $data['latitude'] = $c->location->latitude ?? '';
+            $data['longitude'] = $c->location->longitude ?? '';
+
+            return $data;
+        });
         
         return response()->json([
             'success' => true,
-            'message' => 'Show Cctv',
-            'data' => $cctv,
+            'message' => 'Show Device',
+            'data' => $data,
         ], 200);
     }
 
