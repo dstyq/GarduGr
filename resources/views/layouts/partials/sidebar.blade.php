@@ -27,7 +27,7 @@
                       <i class="nav-icon fas fa-tachometer-alt"></i>
 
                       <p>
-                        Dashboard <i class="right fas fa-angle-left"></i>
+                        Dashboard Maps<i class="right fas fa-angle-left"></i>
                       </p>
                     </a>
 
@@ -42,12 +42,22 @@
                         </li>
                         @endif
 
-                        @if(auth()->user()->can('dashbord-maps'))
+                        @if(auth()->user()->can('dashbord-maps-cctv'))
                         <li class="nav-item">
-                            <a href="{{ route('dashboard.maps') }}" class="nav-link {{ (request()->segment(1) == 'maps' ) ? 'active' : ''}}">
+                            <a href="{{ route('dashboard.maps-cctv') }}" class="nav-link {{ (request()->segment(1) == 'maps' ) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
 
-                                <p>Maps</p>
+                                <p>CCTV</p>
+                            </a>
+                        </li>
+                        @endif
+                        
+                        @if(auth()->user()->can('dashbord-maps-access-door'))
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.maps-access-door') }}" class="nav-link {{ (request()->segment(1) == 'maps' ) ? 'active' : ''}}">
+                                <i class="far fa-circle nav-icon"></i>
+
+                                <p>Acces Door</p>
                             </a>
                         </li>
                         @endif

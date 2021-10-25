@@ -14,7 +14,8 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('permission:dashbord-overview', ['only' => 'overview']);
-        $this->middleware('permission:dashbord-maps', ['only' => 'maps']);
+        $this->middleware('permission:dashbord-maps-cctv', ['only' => 'mapsCctv']);
+        $this->middleware('permission:dashbord-maps-access-door', ['only' => 'mapsAccessDoor']);
     }
 
     public function overview()
@@ -45,10 +46,17 @@ class DashboardController extends Controller
         return view('dashboard.overview', $data);
     }
 
-    public function maps()
+    public function mapsCctv()
     {
-        $data['page_title'] = 'Maps';
+        $data['page_title'] = 'Maps CCTV';
 
         return view('dashboard.maps', $data);
+    }
+    
+    public function mapsAccessDoor()
+    {
+        $data['page_title'] = 'Maps Access Door';
+
+        return view('dashboard.maps-access', $data);
     }
 }

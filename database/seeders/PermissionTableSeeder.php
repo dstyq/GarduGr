@@ -16,7 +16,8 @@ class PermissionTableSeeder extends Seeder
     {
         $permissions = [
             // 'dashbord-overview',
-            'dashbord-maps',
+            'dashbord-maps-cctv',
+            'dashbord-maps-access-door',
             // 'asset-list',
             // 'asset-create',
             // 'asset-edit',

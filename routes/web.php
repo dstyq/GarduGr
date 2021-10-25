@@ -46,7 +46,8 @@ Route::get('/', function () {
 Route::middleware('auth:web')->group(function () {
     // Dashboard
     Route::get('overview', [DashboardController::class, 'overview'])->name('dashboard.overview');
-    Route::get('maps', [DashboardController::class, 'maps'])->name('dashboard.maps');
+    Route::get('maps-cctv', [DashboardController::class, 'mapsCctv'])->name('dashboard.maps-cctv');
+    Route::get('maps-access-door', [DashboardController::class, 'mapsAccessDoor'])->name('dashboard.maps-access-door');
 
     // Asset
     // Route::resource('assets', AssetController::class);
