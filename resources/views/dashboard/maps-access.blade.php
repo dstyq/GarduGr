@@ -90,7 +90,7 @@
                 L.control.layers(basemaps).addTo(map);
 
                 // add marker
-                $.getJSON('api/cctv', data => {
+                $.getJSON('api/access-door', data => {
                     $.each(data.data, (index, element) => {
                         const icon = L.icon({
                             iconUrl: `img/cctv.png`,
