@@ -1,5 +1,8 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4" style="background: rgb(255,15,15) !important;
-background: linear-gradient(333deg, rgba(255,15,15,1) 35%, rgba(255,166,0,1) 100%) !important;">
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style=" background-image: url({{ asset('img/bg-sidebar2.png') }});
+background-repeat: no-repeat;
+background-position: center center;
+background-size: cover;
+background-color: #cccccc;">
     <!-- Brand Logo -->
     <a href="#" class="brand-link text-center">
         {{-- <img src="{{ asset('img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
