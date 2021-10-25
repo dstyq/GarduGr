@@ -6,7 +6,8 @@
 <link rel="stylesheet" href="https://www.domoritz.de/leaflet-locatecontrol/dist/L.Control.Locate.min.css" />
 
 <!-- Load Esri Leaflet from CDN -->
-<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css'
+    rel='stylesheet' />
 <link rel="stylesheet" href="https://www.domoritz.de/leaflet-locatecontrol/dist/L.Control.Locate.mapbox.min.css" />
 
 <link rel="stylesheet" href="{{ asset('css/maps.css') }}">
@@ -20,11 +21,11 @@
                 <div class="card">
                     <div class="card-body">
                         <div id="map">
+                        </div>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
-    </div>
 </section>
 @endsection
 
@@ -32,9 +33,14 @@
 <!-- Load Leaflet from CDN -->
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7"></script>
 <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.73.0/src/L.Control.Locate.min.js"></script>
+<script src="https://cdn.socket.io/4.3.2/socket.io.min.js"
+    integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous">
+</script>
 
 <!-- Load Esri Leaflet from CDN -->
-<script src="https://unpkg.com/esri-leaflet@2.5.3/dist/esri-leaflet.js" integrity="sha512-K0Vddb4QdnVOAuPJBHkgrua+/A9Moyv8AQEWi0xndQ+fqbRfAFd47z4A9u1AW/spLO0gEaiE1z98PK1gl5mC5Q==" crossorigin=""></script>
+<script src="https://unpkg.com/esri-leaflet@2.5.3/dist/esri-leaflet.js"
+    integrity="sha512-K0Vddb4QdnVOAuPJBHkgrua+/A9Moyv8AQEWi0xndQ+fqbRfAFd47z4A9u1AW/spLO0gEaiE1z98PK1gl5mC5Q=="
+    crossorigin=""></script>
 <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
 <script>
     $(document).ready(function() {
@@ -101,13 +107,13 @@
                         });
 
                         const html = `
-                            <div class="card card-bs card-primary br-20 mw-200" id="cctv${element.id}">
-                                <div class="card-header text-center">
+                            <div class="card card-bs card-danger mw-200" id="cctv${element.id}">
+                                <div class="card-header text-center" style="background: rgb(41,41,41) !important;background: linear-gradient(152deg, rgba(41,41,41,1) 17%, rgba(255,0,0,1) 100%) !important; padding: 10px 5px 3px 5px !important; margin: 0 !important">
                                     <h6>${element.name}</h6>
                                 </div>
                                 <div class="card-body">
                                     <p class="text-md mt-0 mb-0"><b>Status:</b>
-                                        <span class="badge badge-pill badge-success">&nbsp;</span> Online
+                                        <span class="badge badge-pill badge-danger" id="badge${element.id}">&nbsp;</span> <span id="text${element.id}">Offline</span>
                                     </p>
                                     <p class="text-md mt-0 mb-0"><b>Description:</b>
                                         ${ element.description ?? '' }
@@ -116,7 +122,7 @@
                                         ${ element.address ?? '' }
                                     </p>
                                     <div class="text-center mt-2">
-                                        <a href="/cctv/${ element.id }/edit" target="blank" class="d-inline-block mx-auto btn btn-warning text-light">Edit</a>
+                                        <a href="/device/${ element.id }/edit" target="blank" class="d-inline-block mx-auto btn btn-warning text-light">Edit</a>
                                         <a href="#" target="blank" class="d-inline-block mx-auto btn btn-secondary text-light" onClick="openNew('${ element.link }')">Monitoring View</a>
                                     </div>
                                 </div>
@@ -131,6 +137,9 @@
                                 .openOn(map);
                             }).addTo(map); 
                         }
+                        let link =  element.link.split("//");
+                        console.log(link[link.length - 1]);
+                        checkStatus(link[link.length - 1], element.id)
                     })
                 })
 
@@ -143,6 +152,46 @@
             });
         }
     });
+
+    async function checkStatus(ip, id) {
+        $.ajax({
+            url:'http://127.0.0.1:1010/checkStatus',
+            type: "POST",
+            data: {
+                host: ip,
+                id: id
+            },
+            dataType: "json",
+            success: function(data) {
+                console.log('success');
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    }
+
+    const socket = io('http://localhost:1010');
+
+    socket.on('realtimeStatus', function(data) {
+        let { id, status} = data
+        console.log(data);
+        changeStatus(id, status)
+    });
+
+    function changeStatus(id, status) {
+        if (status) {
+            $(`#badge${id}`).removeClass('badge-danger');
+            $(`#badge${id}`).addClass('badge-success');
+            $(`#text${id}`).text('Online');
+        } else {
+            $(`#badge${id}`).removeClass('badge-success');
+            $(`#badge${id}`).addClass('badge-danger');
+            $(`#text${id}`).text('Offline');
+        }
+    }
+
+    
 
     function openNew(url) {
       var url = url
