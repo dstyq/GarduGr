@@ -1,8 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4" style=" background-image: url({{ asset('img/bg-sidebar2.png') }});
-background-repeat: no-repeat;
-background-position: center center;
-background-size: cover;
-background-color: #cccccc;">
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style=" background-image: url({{ asset('img/bg-sidebar2.png') }}); background-repeat: no-repeat; background-position: center center; background-size: cover; background-color: #cccccc;">
     <!-- Brand Logo -->
     <a href="#" class="brand-link text-center">
         {{-- <img src="{{ asset('img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
@@ -25,13 +21,13 @@ background-color: #cccccc;">
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                @if(auth()->user()->can('dashbord-overview') || auth()->user()->can('dashbord-maps'))
-                <li class="nav-item {{ (request()->segment(1) == 'overview' || request()->segment(1) == 'maps') ? 'menu-open' : ''}}">
-                    <a href="#" class="nav-link {{ (request()->segment(1) == 'overview' || request()->segment(1) == 'maps') ? 'active' : ''}}">
+                @if(auth()->user()->can('dashbord-maps-access-door') || auth()->user()->can('dashbord-maps-cctv'))
+                <li class="nav-item {{ (request()->segment(1) == 'maps-access-door' || request()->segment(1) == 'maps-cctv') ? 'menu-open' : ''}}">
+                    <a href="#" class="nav-link {{ (request()->segment(1) == 'maps-access-door' || request()->segment(1) == 'maps-cctv') ? 'active' : ''}}">
                       <i class="nav-icon fas fa-tachometer-alt"></i>
 
                       <p class="text-white">
-                        Dashboard Maps<i class="right fas fa-angle-left"></i>
+                        Dashboard Maps<i class="right fas fa-angle-right"></i>
                       </p>
                     </a>
 
@@ -48,20 +44,64 @@ background-color: #cccccc;">
 
                         @if(auth()->user()->can('dashbord-maps-cctv'))
                         <li class="nav-item">
-                            <a href="{{ route('dashboard.maps-cctv') }}" class="nav-link {{ (request()->segment(1) == 'maps' ) ? 'active' : ''}}">
+                            <a href="{{ route('dashboard.maps-cctv') }}" class="nav-link {{ (request()->segment(1) == 'maps-cctv' ) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
 
-                                <p class="text-white">CCTV</p>
+                                <p>CCTV</p>
                             </a>
                         </li>
                         @endif
                         
                         @if(auth()->user()->can('dashbord-maps-access-door'))
                         <li class="nav-item">
-                            <a href="{{ route('dashboard.maps-access-door') }}" class="nav-link {{ (request()->segment(1) == 'maps' ) ? 'active' : ''}}">
+                            <a href="{{ route('dashboard.maps-access-door') }}" class="nav-link {{ (request()->segment(1) == 'maps-access-door' ) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
 
-                                <p class="text-white">Acces Door</p>
+                                <p>Acces Door</p>
+                            </a>
+                        </li>
+                        @endif
+                    </ul>
+                </li>
+                @endif
+
+                @if(auth()->user()->can('cctv-list') || auth()->user()->can('access-door-list'))
+                <li class="nav-item {{ (request()->segment(1) == 'cctv' || request()->segment(1) == 'access-door') ? 'menu-open' : ''}}">
+                    <a href="#" class="nav-link {{ (request()->segment(1) == 'cctv' || request()->segment(1) == 'access-door') ? 'active' : ''}}">
+                      <i class="nav-icon fas fa-video"></i>
+
+                      <p class="text-white">
+                        Device Management<i class="right fas fa-angle-right"></i>
+                      </p>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+                        {{-- @if(auth()->user()->can('dashbord-overview'))
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.overview') }}" class="nav-link {{ (request()->segment(1) == 'overview' ) ? 'active' : ''}}">
+                                <i class="far fa-circle nav-icon"></i>
+
+                                <p style="color: white !important;">Overview</p>
+                            </a>
+                        </li>
+                        @endif --}}
+
+                        @if(auth()->user()->can('cctv-list'))
+                        <li class="nav-item">
+                            <a href="{{ route('cctv.index') }}" class="nav-link {{ (request()->segment(1) == 'cctv' ) ? 'active' : ''}}">
+                                <i class="far fa-circle nav-icon"></i>
+
+                                <p>CCTV</p>
+                            </a>
+                        </li>
+                        @endif
+                        
+                        @if(auth()->user()->can('access-door-list'))
+                        <li class="nav-item">
+                            <a href="{{ route('access-door.index') }}" class="nav-link {{ (request()->segment(1) == 'access-door' ) ? 'active' : ''}}">
+                                <i class="far fa-circle nav-icon"></i>
+
+                                <p>Acces Door</p>
                             </a>
                         </li>
                         @endif
@@ -75,16 +115,6 @@ background-color: #cccccc;">
                         <i class="nav-icon fas fa-archive"></i>
 
                         <p>Assets</p>
-                    </a>
-                </li>
-                @endif
-
-                @if(auth()->user()->can('cctv-list'))
-                <li class="nav-item">
-                    <a href="{{ route('device.index') }}" class="nav-link {{ (request()->segment(1) == 'device' ) ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-video"></i>
-
-                        <p style="color: white !important;">Device Management</p>
                     </a>
                 </li>
                 @endif

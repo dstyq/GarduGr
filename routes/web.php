@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccessDoorController;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DepartementController;
@@ -59,7 +60,10 @@ Route::middleware('auth:web')->group(function () {
     // Route::resource('work-orders', WorkOrderController::class);
 
     // // Cctv
-    Route::resource('device', CctvController::class);
+    Route::resource('cctv', CctvController::class);
+    
+    // Access Door
+    Route::resource('access-door', AccessDoorController::class);
     
     // // Location
     Route::resource('locations', LocationController::class);

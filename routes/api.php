@@ -31,6 +31,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Map
 Route::get('cctv', [MapController::class, 'getCctv']);
+Route::get('access-door', [MapController::class, 'getAccessDoor']);
 Route::get('assets', [MapController::class, 'getAssets']);
 Route::get('legends', [MapController::class, 'getLegends']);
 

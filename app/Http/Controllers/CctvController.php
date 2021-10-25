@@ -21,7 +21,7 @@ class CctvController extends Controller
 
     public function index()
     {
-        $data['page_title'] = 'Device Management';
+        $data['page_title'] = 'Device Management CCTV';
         $data['cctv'] = Cctv::orderBy('id', 'desc')->get();
 
         return view('cctv.index', $data);
@@ -29,7 +29,7 @@ class CctvController extends Controller
 
     public function create()
     {
-        $data['page_title'] = 'Add Device';
+        $data['page_title'] = 'Add Device CCTV';
         $data['locations'] = Location::whereNotNull('parent_id')->get();
 
         return view('cctv.create', $data);
@@ -49,7 +49,7 @@ class CctvController extends Controller
 
         $newHistoryLog = new HistoryLog();
         $newHistoryLog->datetime = date('Y-m-d H:i:s');
-        $newHistoryLog->type = 'Add Device';
+        $newHistoryLog->type = 'Add Device CCTV';
         $newHistoryLog->user_id = auth()->user()->id;
         $newHistoryLog->save();
 
@@ -64,12 +64,12 @@ class CctvController extends Controller
 
         $cctv->save();
 
-        return redirect()->route('device.index')->with(['success' => 'Device added successfully!']);
+        return redirect()->route('cctv.index')->with(['success' => 'Device CCTV added successfully!']);
     }
 
     public function edit($id)
     {
-        $data['page_title'] = 'Edit Device';
+        $data['page_title'] = 'Edit Device CCTV';
         $data['locations'] = Location::whereNotNull('parent_id')->get();
         $data['cctv'] = Cctv::findOrFail($id);
 
@@ -90,7 +90,7 @@ class CctvController extends Controller
 
         $newHistoryLog = new HistoryLog();
         $newHistoryLog->datetime = date('Y-m-d H:i:s');
-        $newHistoryLog->type = 'Update Device';
+        $newHistoryLog->type = 'Update Device CCTV';
         $newHistoryLog->user_id = auth()->user()->id;
         $newHistoryLog->save();
 
@@ -105,7 +105,7 @@ class CctvController extends Controller
 
         $cctv->save();
 
-        return redirect()->route('device.index')->with(['success' => 'Device edited successfully!']);
+        return redirect()->route('cctv.index')->with(['success' => 'Device CCTV edited successfully!']);
     }
 
     public function destroy($id)
@@ -113,14 +113,14 @@ class CctvController extends Controller
         DB::transaction(function () use ($id) {
             $newHistoryLog = new HistoryLog();
             $newHistoryLog->datetime = date('Y-m-d H:i:s');
-            $newHistoryLog->type = 'Delete Device';
+            $newHistoryLog->type = 'Delete Device CCTV';
             $newHistoryLog->user_id = auth()->user()->id;
             $newHistoryLog->save();
 
             Cctv::where('id', $id)->delete();
         });
 
-        Session::flash('success', 'Device deleted successfully!');
+        Session::flash('success', 'Device CCTV deleted successfully!');
         return response()->json(['status' => '200']);
     }
 }

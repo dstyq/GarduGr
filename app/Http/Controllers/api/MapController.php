@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\Asset;
 use App\Models\Cctv;
+use App\Models\AccessDoor;
 use App\Models\LocationCategory;
 
 class MapController extends Controller
@@ -13,6 +14,28 @@ class MapController extends Controller
     {
         $cctv = Cctv::get();
         $data = $cctv->map(function($c) {
+            $data['id'] = $c->id;
+            $data['name'] = $c->name;
+            $data['description'] = $c->description;
+            $data['address'] = $c->address;
+            $data['link'] = $c->link;
+            $data['latitude'] = $c->location->latitude ?? '';
+            $data['longitude'] = $c->location->longitude ?? '';
+
+            return $data;
+        });
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Show Device',
+            'data' => $data,
+        ], 200);
+    }
+
+    public function getAccessDoor()
+    {
+        $access = AccessDoor::get();
+        $data = $access->map(function($c) {
             $data['id'] = $c->id;
             $data['name'] = $c->name;
             $data['description'] = $c->description;

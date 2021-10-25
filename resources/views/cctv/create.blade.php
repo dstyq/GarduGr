@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('breadcumb')
-<li class="breadcrumb-item"><a href="{{ route('device.index') }}">Device</a></li>
+<li class="breadcrumb-item"><a href="{{ route('cctv.index') }}">Device CCTV</a></li>
 <li class="breadcrumb-item active">Add</li>
 @endsection
 
@@ -19,7 +19,7 @@
                             <h3 class="card-title">Add Device</h3>
                         </div>
 
-                        <form method="POST" action="{{ route('device.store') }}">
+                        <form method="POST" action="{{ route('cctv.store') }}">
                             @csrf
 
                             <div class="card-body">
@@ -88,7 +88,7 @@
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-success btn-footer">Add</button>
-                                <a href="{{ route('device.index') }}" class="btn btn-secondary btn-footer">Back</a>
+                                <a href="{{ route('cctv.index') }}" class="btn btn-secondary btn-footer">Back</a>
                             </div>
                         </form>
                     </div>
