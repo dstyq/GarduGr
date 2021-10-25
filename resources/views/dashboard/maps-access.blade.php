@@ -93,9 +93,9 @@
                 $.getJSON('api/access-door', data => {
                     $.each(data.data, (index, element) => {
                         const icon = L.icon({
-                            iconUrl: `img/cctv.png`,
+                            iconUrl: `img/access.png`,
 
-                            iconSize:     [35, 35], // size of the icon
+                            iconSize:     [40, 40], // size of the icon
                             iconAnchor:   [15, 33], // point of the icon which will correspond to marker's location
                             popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
                         });

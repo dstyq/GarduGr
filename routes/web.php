@@ -36,7 +36,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $data['page_title'] = 'Login';
+    $data['page_title'] = "Login";
     return view('auth.login', $data);
 })->name('user.login');
 
