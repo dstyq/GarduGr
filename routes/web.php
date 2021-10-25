@@ -59,7 +59,10 @@ Route::middleware('auth:web')->group(function () {
     // Route::resource('work-orders', WorkOrderController::class);
 
     // // Cctv
-    Route::resource('cctv', CctvController::class);
+    Route::resource('device', CctvController::class);
+    
+    // // Location
+    Route::resource('locations', LocationController::class);
 
     // // Location Categories
     // Route::resource('location-categories', LocationCategoryController::class)->except([

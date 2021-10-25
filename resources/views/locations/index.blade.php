@@ -16,7 +16,7 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8">
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
@@ -46,8 +46,8 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>City</th>
-                                    <th>Address</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
                                     @if(auth()->user()->can('location-delete') || auth()->user()->can('location-detail') || auth()->user()->can('location-edit'))
                                     <th>Action</th>
                                     @endif
@@ -57,22 +57,15 @@
                                 @foreach ($locations as $location)
                                 <tr>
                                     <td onclick="openMap({{ $location->latitude }}, {{ $location->longitude }})" class="pointer">{{ $loop->iteration }}</td>
-                                    <td onclick="openMap({{ $location->latitude }}, {{ $location->longitude }})" class="pointer">{{ $location->city }}</td>
-                                    <td onclick="openMap({{ $location->latitude }}, {{ $location->longitude }})" class="pointer">{{ Str::limit($location->address, 60, '...') }}</td>
-                                    @if(auth()->user()->can('location-delete') || auth()->user()->can('location-detail') || auth()->user()->can('location-edit'))
+                                    <td onclick="openMap({{ $location->latitude }}, {{ $location->longitude }})" class="pointer">{{ Str::limit($location->name, 60, '...') }}</td>
+                                    <td onclick="openMap({{ $location->latitude }}, {{ $location->longitude }})" class="pointer">{{ ($location->parent_id) ? 'Sub Location of ' . $location->parent->name : 'Parent'}}</td>
+                                    @if(auth()->user()->can('location-delete') || auth()->user()->can('location-edit'))
                                     <td>
                                         <div class="btn-group" role="group">
                                             @can('location-edit')
                                             <a href="{{ route('locations.edit', $location->id) }}" class="btn btn-warning text-white">
                                                 <i class="far fa-edit"></i>
                                                 Edit
-                                            </a>
-                                            @endcan
-
-                                            @can('location-detail')
-                                            <a href="{{ route('locations.show', $location->id) }}" class="btn btn-info text-white">
-                                                <i class="fa fa-eye"></i>
-                                                Show
                                             </a>
                                             @endcan
 

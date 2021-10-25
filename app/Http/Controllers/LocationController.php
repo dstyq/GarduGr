@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asset;
+use App\Models\HistoryLog;
 use App\Models\Location;
 use App\Models\LocationCategory;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class LocationController extends Controller
     public function create()
     {
         $data['page_title'] = 'Add Location';
-        $data['location_categories'] = LocationCategory::orderBy('id', 'desc')->get();
+        $data['locations'] = Location::whereNull('parent_id')->get();
 
         return view('locations.create', $data);
     }
@@ -40,28 +41,28 @@ class LocationController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'unique:locations,name'],
-            'country' => ['required', 'string', 'regex:/^[\pL\s\-]+$/u', 'max:56', 'min:4'],
-            'province' => ['required', 'string', 'regex:/^[\pL\s\-]+$/u'],
-            'city' => ['required', 'string', 'regex:/^[\pL\s\-]+$/u'],
-            'address' => ['required', 'min:5', 'max:126', 'string', 'unique:locations,address'],
-            'postal_code' => ['required'],
             'latitude' => ['nullable', 'regex:^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$^'],
             'longitude' => ['nullable', 'regex:^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$^'],
-            'location_category_id' => ['required'],
+            'parent_location' => ['nullable'],
         ]);
 
         $location = new Location();
         $location->name = $request->get('name');
-        $location->country = $request->get('country');
-        $location->province = $request->get('province');
-        $location->city = $request->get('city');
-        $location->address = $request->get('address');
-        $location->postal_code = $request->get('postal_code');
+        $location->country = 'N/A';
+        $location->province = 'N/A';
+        $location->city = 'N/A';
+        $location->postal_code = 'N/A';
         $location->latitude = $request->get('latitude');
         $location->longitude = $request->get('longitude');
-        $location->location_category_id = $request->get('location_category_id');
+        $location->parent_id = $request->get('parent_location');
 
         $location->save();
+
+        $newHistoryLog = new HistoryLog();
+        $newHistoryLog->datetime = date('Y-m-d H:i:s');
+        $newHistoryLog->type = 'Add Location';
+        $newHistoryLog->user_id = auth()->user()->id;
+        $newHistoryLog->save();
 
         return redirect()->route('locations.index')->with(['success' => 'Location added successfully!']);
     }
@@ -77,7 +78,7 @@ class LocationController extends Controller
     public function edit($id)
     {
         $data['page_title'] = 'Edit Location';
-        $data['location_categories'] = LocationCategory::orderBy('id', 'desc')->get();
+        $data['locations'] = Location::whereNull('parent_id')->get();
         $data['location'] = Location::findOrFail($id);
 
         return view('locations.edit', $data);
@@ -87,28 +88,28 @@ class LocationController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'unique:location_categories,name,' . $id],            
-            'country' => ['required', 'string', 'regex:/^[\pL\s\-]+$/u', 'max:56', 'min:4'],
-            'province' => ['required', 'string', 'regex:/^[\pL\s\-]+$/u'],
-            'city' => ['required', 'string', 'regex:/^[\pL\s\-]+$/u'],
-            'address' => ['required', 'min:5', 'max:126', 'string', 'unique:locations,address,' . $id],
-            'postal_code' => ['required'],
             'latitude' => ['nullable', 'regex:^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$^'],
             'longitude' => ['nullable', 'regex:^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$^'],
-            'location_category_id' => ['required'],
+            'parent_location' => ['nullable'],
         ]);
 
         $location = Location::findOrFail($id);
         $location->name = $request->get('name');
-        $location->country = $request->get('country');
-        $location->province = $request->get('province');
-        $location->city = $request->get('city');
-        $location->address = $request->get('address');
-        $location->postal_code = $request->get('postal_code');
+        $location->country = 'N/A';
+        $location->province = 'N/A';
+        $location->city = 'N/A';
+        $location->postal_code = 'N/A';
         $location->latitude = $request->get('latitude');
         $location->longitude = $request->get('longitude');
-        $location->location_category_id = $request->get('location_category_id');
+        $location->parent_id = $request->get('parent_location');
 
         $location->save();
+
+        $newHistoryLog = new HistoryLog();
+        $newHistoryLog->datetime = date('Y-m-d H:i:s');
+        $newHistoryLog->type = 'Update Location';
+        $newHistoryLog->user_id = auth()->user()->id;
+        $newHistoryLog->save();
 
         return redirect()->route('locations.index')->with(['success' => 'Location updated successfully!']);
     }
@@ -116,7 +117,12 @@ class LocationController extends Controller
     public function destroy($id)
     {
         DB::transaction(function () use ($id) {
-            Asset::where('location_id', $id)->update(['location_id' => null]);
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Delete Location';
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+            // Asset::where('location_id', $id)->update(['location_id' => null]);
             Location::where('id', $id)->delete();
         });
 
