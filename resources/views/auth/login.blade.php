@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <style>
         body  {
-            background-image: url({{ asset('img/bg1.jpg') }});
+            background-image: url({{ asset('img/bg3.jpg.crdownload') }});
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
@@ -17,15 +17,15 @@
 </head>
 
 <body class="hold-transition login-page">
-    <div class="login-box">
+    <div class="login-box" style="border-radius: 50px 20px !important;">
         <!-- /.login-logo -->
-        <div class="card card-outline card-primary">
+        <div class="card card-outline card-primary" style="border-radius: 20px 20px !important;">
             <div class="card-header text-center">
-                <p class="h2"><b>Hyper Access</b></p>
+                <img src="https://dev-cctv.grooject.com/public/img/telkom.png" alt="Girl in a jacket" style="height: auto;width: 100%;">
             </div>
 
             <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg text-bold">ACCESS MAPS</p>
 
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
