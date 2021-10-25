@@ -64,12 +64,13 @@ class CctvController extends Controller
 
         $cctv->save();
 
-        return redirect()->route('device.index')->with(['success' => 'Cctv added successfully!']);
+        return redirect()->route('device.index')->with(['success' => 'Device added successfully!']);
     }
 
     public function edit($id)
     {
         $data['page_title'] = 'Edit Device';
+        $data['locations'] = Location::whereNotNull('parent_id')->get();
         $data['cctv'] = Cctv::findOrFail($id);
 
         return view('cctv.edit', $data);
@@ -84,6 +85,7 @@ class CctvController extends Controller
             'address' => ['nullable', 'string'],
             'latitude' => ['nullable', 'regex:^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$^'],
             'longitude' => ['nullable', 'regex:^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$^'],
+            'location' => ['required'],
         ]);
 
         $newHistoryLog = new HistoryLog();
@@ -99,10 +101,11 @@ class CctvController extends Controller
         $cctv->address = $request->get('address');
         $cctv->latitude = $request->get('latitude');
         $cctv->longitude = $request->get('longitude');
+        $cctv->location_id = $request->get('location');
 
         $cctv->save();
 
-        return redirect()->route('device.index')->with(['success' => 'Cctv edited successfully!']);
+        return redirect()->route('device.index')->with(['success' => 'Device edited successfully!']);
     }
 
     public function destroy($id)
@@ -117,7 +120,7 @@ class CctvController extends Controller
             Cctv::where('id', $id)->delete();
         });
 
-        Session::flash('success', 'CCTV deleted successfully!');
+        Session::flash('success', 'Device deleted successfully!');
         return response()->json(['status' => '200']);
     }
 }
