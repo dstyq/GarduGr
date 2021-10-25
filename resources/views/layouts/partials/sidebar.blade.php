@@ -1,9 +1,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background: rgb(255,15,15) !important;
 background: linear-gradient(333deg, rgba(255,15,15,1) 35%, rgba(255,166,0,1) 100%) !important;">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="#" class="brand-link text-center">
         {{-- <img src="{{ asset('img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-        <span class="brand-text font-weight-bold" style="color: white !important;">Hyper Access</span>
+        <span class="brand-text font-weight-bold" style="color: white !important;">ACCESS MAPS</span>
     </a>
 
     <!-- Sidebar -->
@@ -27,13 +27,13 @@ background: linear-gradient(333deg, rgba(255,15,15,1) 35%, rgba(255,166,0,1) 100
                     <a href="#" class="nav-link {{ (request()->segment(1) == 'overview' || request()->segment(1) == 'maps') ? 'active' : ''}}">
                       <i class="nav-icon fas fa-tachometer-alt"></i>
 
-                      <p>
+                      <p class="text-white">
                         Dashboard Maps<i class="right fas fa-angle-left"></i>
                       </p>
                     </a>
 
                     <ul class="nav nav-treeview">
-                        @if(auth()->user()->can('dashbord-overview'))
+                        {{-- @if(auth()->user()->can('dashbord-overview'))
                         <li class="nav-item">
                             <a href="{{ route('dashboard.overview') }}" class="nav-link {{ (request()->segment(1) == 'overview' ) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
@@ -41,14 +41,14 @@ background: linear-gradient(333deg, rgba(255,15,15,1) 35%, rgba(255,166,0,1) 100
                                 <p style="color: white !important;">Overview</p>
                             </a>
                         </li>
-                        @endif
+                        @endif --}}
 
                         @if(auth()->user()->can('dashbord-maps-cctv'))
                         <li class="nav-item">
                             <a href="{{ route('dashboard.maps-cctv') }}" class="nav-link {{ (request()->segment(1) == 'maps' ) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
 
-                                <p>CCTV</p>
+                                <p class="text-white">CCTV</p>
                             </a>
                         </li>
                         @endif
@@ -58,7 +58,7 @@ background: linear-gradient(333deg, rgba(255,15,15,1) 35%, rgba(255,166,0,1) 100
                             <a href="{{ route('dashboard.maps-access-door') }}" class="nav-link {{ (request()->segment(1) == 'maps' ) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
 
-                                <p>Acces Door</p>
+                                <p class="text-white">Acces Door</p>
                             </a>
                         </li>
                         @endif
