@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('breadcumb')
-<li class="breadcrumb-item active">CCTV Management</li>
+<li class="breadcrumb-item active">Device Management</li>
 @endsection
 
 @section('style')
@@ -23,15 +23,15 @@
                             <div class="col-6">
                                 <span class="tx-bold text-lg">
                                     <i class="icon ion ion-ios-speedometer text-lg"></i>
-                                    CCTV Management
+                                    Device Management
                                 </span>
                             </div>
 
                             @can('cctv-create')
                             <div class="col-6 d-flex justify-content-end">
-                                <a href="{{ route('cctv.create') }}" class="btn btn-md btn-info">
+                                <a href="{{ route('device.create') }}" class="btn btn-md btn-info">
                                     <i class="fa fa-plus"></i>
-                                    CCTV
+                                    Device
                                 </a>
                             </div>
                             @endcan
@@ -47,6 +47,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Name</th>
+                                    <th>Location</th>
                                     <th>Link</th>
                                     <th>Description</th>
                                     @if(auth()->user()->can('cctv-delete') || auth()->user()->can('cctv-edit'))
@@ -59,20 +60,21 @@
                                 <tr>
                                     <td onclick="openMap({{ $c->latitude }}, {{ $c->longitude }})" class="pointer">{{ $loop->iteration }}</td>
                                     <td onclick="openMap({{ $c->latitude }}, {{ $c->longitude }})" class="pointer">{{ $c->name }}</td>
+                                    <td onclick="openMap({{ $c->latitude }}, {{ $c->longitude }})" class="pointer">{{ $c->location->name ?? 'N/A' }}</td>
                                     <td class="pointer"><a href="{{ $c->link }}" target="blank">{{ $c->link }}</a></td>
                                     <td onclick="openMap({{ $c->latitude }}, {{ $c->longitude }})" class="pointer">{{ Str::limit($c->description, 60, '...') }}</td>
                                     @if(auth()->user()->can('cctv-delete') || auth()->user()->can('cctv-edit'))
                                     <td>
                                         <div class="btn-group" role="group">
                                             @can('cctv-edit')
-                                            <a href="{{ route('cctv.edit', $c->id) }}" class="btn btn-warning text-white">
+                                            <a href="{{ route('device.edit', $c->id) }}" class="btn btn-warning text-white">
                                                 <i class="far fa-edit"></i>
                                                 Edit
                                             </a>
                                             @endcan
 
                                             @can('cctv-delete')
-                                            <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Cctv', '{{ $c->name }}', 'cctv/' + {{ $c->id }}, '/cctv/')">
+                                            <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Cctv', '{{ $c->name }}', 'device/' + {{ $c->id }}, '/device/')">
                                                 <i class="far fa-trash-alt"></i>
                                                 Delete
                                             </a>

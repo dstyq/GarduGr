@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('breadcumb')
-<li class="breadcrumb-item"><a href="{{ route('cctv.index') }}">Cctv</a></li>
+<li class="breadcrumb-item"><a href="{{ route('device.index') }}">Device</a></li>
 <li class="breadcrumb-item active">Add</li>
 @endsection
 
@@ -16,10 +16,10 @@
                 <div class="col-lg-6">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Add CCTV</h3>
+                            <h3 class="card-title">Add Device</h3>
                         </div>
 
-                        <form method="POST" action="{{ route('cctv.store') }}">
+                        <form method="POST" action="{{ route('device.store') }}">
                             @csrf
 
                             <div class="card-body">
@@ -70,38 +70,25 @@
                                     @enderror
                                 </div>
                                 
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group ">
-                                            <label for="">Latitude</label>
-                                            <input class="form-control @error('latitude') is-invalid @enderror" type="text" name="latitude" id="latitude" placeholder="input latitude" value="{{old('latitude')}}">
-    
-                                            @error('latitude')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6">
-                                        <div class="form-group ">
-                                            <label for="">Longitude</label>
-                                            <input class="form-control @error('longitude') is-invalid @enderror" type="text" name="longitude" id="longitude" placeholder="input longitude" value="{{old('longitude')}}">
-    
-                                            @error('longitude')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                    </div>
+                                <div class="form-group">
+                                    <label>Location</label>
+                                    <select class="form-control" name="location">
+                                        <option selected disabled>Choose Location</option>
+                                        @foreach ($locations as $location)
+                                            <option value="{{ $location->id }}" {{ (old('location') == $location->id) ? 'selected' : '' }}>{{ $location->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('location')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-success btn-footer">Add</button>
-                                <a href="{{ route('cctv.index') }}" class="btn btn-secondary btn-footer">Back</a>
+                                <a href="{{ route('device.index') }}" class="btn btn-secondary btn-footer">Back</a>
                             </div>
                         </form>
                     </div>

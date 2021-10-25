@@ -5,6 +5,15 @@
     @include('layouts.partials.head')
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <style>
+        body  {
+            background-image: url({{ asset('img/bg1.jpg') }});
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-color: #cccccc;
+        }
+    </style>
 </head>
 
 <body class="hold-transition login-page">
@@ -12,7 +21,7 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <p class="h2"><b>Cctv Monitoring</b></p>
+                <p class="h2"><b>Hyper Access</b></p>
             </div>
 
             <div class="card-body">

@@ -39,83 +39,40 @@
                                             @enderror
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <label for="country">Country</label>
-                                                    <input type="text" class="form-control @error('country') is-invalid @enderror" id="country" name="country" value="{{ old('country') }}" placeholder="Enter country">
-                    
-                                                    @error('country')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <label for="province">Province</label>
-                                                    <input type="text" class="form-control @error('province') is-invalid @enderror" id="province" name="province" value="{{ old('province') }}" placeholder="Enter province">
-                    
-                                                    @error('province')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>              
-        
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <label for="city">City</label>
-                                                    <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" placeholder="Enter city">
-                    
-                                                    @error('city')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <label for="postal_code">Postal Code</label>
-                                                    <input type="text" class="form-control @error('postal_code') is-invalid @enderror" id="postal_code" name="postal_code" value="{{ old('postal_code') }}" placeholder="Enter Postal Code">
-                    
-                                                    @error('postal_code')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Category</label>
-                                            <select class="form-control" name="location_category_id">
-                                                <option disabled selected>Choose Category</option>
-                                                @foreach ($location_categories as $location_category)
-                                                    <option value="{{ $location_category->id }}" {{ (old('location_category_id') == $location_category->id) ? 'selected' : '' }}>{{ $location_category->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('location_category_id')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-            
-                                        <div class="form-group">
-                                            <label for="address">Address</label>
-                                            <textarea name="address" class="form-control @error('address') is-invalid @enderror" id="address" cols="30" rows="3" placeholder="Enter address">{{old('address')}}</textarea>
-            
-                                            @error('address')
+                                        <div class="form-group ">
+                                            <label for="">Latitude</label>
+                                            <input class="form-control @error('latitude') is-invalid @enderror" step="any" type="number" name="latitude" id="latitude" placeholder="input latitude" value="{{old('latitude')}}">
+    
+                                            @error('latitude')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group ">
+                                            <label for="">Longitude</label>
+                                            <input class="form-control @error('longitude') is-invalid @enderror" step="any" type="number" name="longitude" id="longitude" placeholder="input longitude" value="{{old('longitude')}}">
+    
+                                            @error('longitude')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Parent Location</label>
+                                            <select class="form-control" name="parent_location">
+                                                <option selected value="">No Parent Location</option>
+                                                @foreach ($locations as $location)
+                                                    <option value="{{ $location->id }}" {{ (old('parent_location') == $location->id) ? 'selected' : '' }}>{{ $location->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('parent_location')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                     </div>
@@ -123,34 +80,6 @@
                                         <div id="here-maps" class="form-group mb-3">
                                             <label for="">Pin Location</label>
                                             <div style="height: 21.5rem;" id="mapContainer"></div>
-                                        </div>
-                                        
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="form-group ">
-                                                    <label for="">Latitude</label>
-                                                    <input class="form-control @error('latitude') is-invalid @enderror" step="any" type="number" name="latitude" id="latitude" placeholder="input latitude" value="{{old('latitude')}}">
-            
-                                                    @error('latitude')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="form-group ">
-                                                    <label for="">Longitude</label>
-                                                    <input class="form-control @error('longitude') is-invalid @enderror" step="any" type="number" name="longitude" id="longitude" placeholder="input longitude" value="{{old('longitude')}}">
-            
-                                                    @error('longitude')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

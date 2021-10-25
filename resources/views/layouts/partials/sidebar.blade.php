@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
         {{-- <img src="{{ asset('img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-        <span class="brand-text font-weight-bold">CCTV Monitoring</span>
+        <span class="brand-text font-weight-bold">Hyper Access</span>
     </a>
 
     <!-- Sidebar -->
@@ -67,10 +67,10 @@
 
                 @if(auth()->user()->can('cctv-list'))
                 <li class="nav-item">
-                    <a href="{{ route('cctv.index') }}" class="nav-link {{ (request()->segment(1) == 'cctv' ) ? 'active' : ''}}">
+                    <a href="{{ route('device.index') }}" class="nav-link {{ (request()->segment(1) == 'device' ) ? 'active' : ''}}">
                         <i class="nav-icon fas fa-video"></i>
 
-                        <p>CCTV Management</p>
+                        <p>Device Management</p>
                     </a>
                 </li>
                 @endif
@@ -118,34 +118,12 @@
                 </li>
                 @endif
 
-                @if(auth()->user()->can('location-list') || auth()->user()->can('location-category-list'))
-                <li class="nav-item {{ (request()->segment(1) == 'locations' || request()->segment(1) == 'location-categories') ? 'menu-open' : ''}}">
-                  <a href="#" class="nav-link {{ (request()->segment(1) == 'locations' || request()->segment(1) == 'location-categories') ? 'active' : ''}}">
-                    <i class="nav-icon fas fa-map-marker-alt"></i>
-                    <p>
-                      Location
-                      <i class="right fas fa-angle-left"></i>
-                    </p>
+                @if(auth()->user()->can('location-list'))
+                <li class="nav-item">
+                  <a href="{{ route('locations.index') }}" class="nav-link {{ (request()->segment(1) == 'locations') ? 'active' : ''}}">
+                        <i class="nav-icon fas fa-map-marker-alt"></i>
+                        <p> Location</p>
                   </a>
-                  <ul class="nav nav-treeview">
-                    @if(auth()->user()->can('location-list'))
-                    <li class="nav-item">
-                      <a href="{{ route('locations.index') }}" class="nav-link {{ (request()->segment(1) == 'locations' ) ? 'active' : ''}}">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>All location</p>
-                      </a>
-                    </li>
-                    @endif
-
-                    @if(auth()->user()->can('location-category-list'))
-                    <li class="nav-item">
-                      <a href="{{ route('location-categories.index') }}" class="nav-link {{ (request()->segment(1) == 'location-categories') ? 'active' : ''}}">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Location Category</p>
-                      </a>
-                    </li>
-                    @endif
-                  </ul>
                 </li>
                 @endif
 
