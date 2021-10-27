@@ -43,6 +43,24 @@
     crossorigin=""></script>
 <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
 <script>
+    const officon = L.icon({
+        iconUrl: `img/location-off.png`,
+
+        iconSize:     [40, 40], // size of the icon
+        iconAnchor:   [15, 33], // point of the icon which will correspond to marker's location
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+
+    const onicon = L.icon({
+        iconUrl: `img/location-on.png`,
+
+        iconSize:     [40, 40], // size of the icon
+        iconAnchor:   [15, 33], // point of the icon which will correspond to marker's location
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+
+    var markers = []
+
     $(document).ready(function() {
         if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
@@ -76,14 +94,6 @@
                     minZoom: 0,
                     maxZoom: 22,
                     maxNativeZoom: 18,
-                });
-
-                const map = L.map('map', {
-                    center: [-1.695754, 120.409821],
-                    zoom: 5,
-                    zoomControl: false,
-                    fullscreenControl: true,
-                    layers: [topography, sattelite, grayscale, streets]
                 });
 
                 const basemaps = {
@@ -130,16 +140,17 @@
                         `;
 
                         if (element.latitude != "" && element.longitude != "") {
-                            L.marker([parseFloat(element.latitude), parseFloat(element.longitude)], {icon: icon}).on('click', function() { 
+                            markers[element.id] = L.marker([parseFloat(element.latitude), parseFloat(element.longitude)]).on('click', function() { 
                             L.popup()
                                 .setLatLng([parseFloat(element.latitude), parseFloat(element.longitude)])
                                 .setContent(html)
                                 .openOn(map);
                             }).addTo(map); 
+
+                            let link =  element.link.split("//");
+                            console.log(link[link.length - 1]);
+                            checkStatus(link[link.length - 1], element.id)
                         }
-                        let link =  element.link.split("//");
-                        console.log(link[link.length - 1]);
-                        checkStatus(link[link.length - 1], element.id)
                     })
                 })
 
@@ -175,7 +186,8 @@
 
     socket.on('realtimeStatus', function(data) {
         let { id, status} = data
-        console.log(data);
+        console.log("realtime data", data);
+        
         changeStatus(id, status)
     });
 
@@ -184,10 +196,17 @@
             $(`#badge${id}`).removeClass('badge-danger');
             $(`#badge${id}`).addClass('badge-success');
             $(`#text${id}`).text('Online');
+            if (typeof markers[id] != undefined) {
+                markers[id].setIcon(officon)
+            }
         } else {
             $(`#badge${id}`).removeClass('badge-success');
             $(`#badge${id}`).addClass('badge-danger');
             $(`#text${id}`).text('Offline');
+
+            if (typeof markers[id] != undefined) {
+                markers[id].setIcon(onicon)
+            }
         }
     }
 
