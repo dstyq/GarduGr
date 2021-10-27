@@ -25,6 +25,7 @@ app.post('/checkStatus', (req, res) => {
     console.log(req.body)
     if(dataId.indexOf(req.body.id) != -1) {
         clearInterval(prevNowPlaying);
+        dataId = []
     }
     dataId.push(req.body.id)
     prevNowPlaying = setInterval(() => {
