@@ -105,6 +105,7 @@
                             iconAnchor:   [15, 33], // point of the icon which will correspond to marker's location
                             popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
                         });
+                        console.log();
 
                         const html = `
                             <div class="card card-bs card-danger mw-200" id="cctv${element.id}">
@@ -122,7 +123,7 @@
                                         ${ element.address ?? '' }
                                     </p>
                                     <div class="text-center mt-2">
-                                        <a href="/device/${ element.id }/edit" target="blank" class="d-inline-block mx-auto btn btn-warning text-light">Edit</a>
+                                        <a href="/cctv/${ element.id }/edit" target="blank" class="d-inline-block mx-auto btn btn-warning text-light">Edit</a>
                                         <a href="#" target="blank" class="d-inline-block mx-auto btn btn-secondary text-light" onClick="openNew('${ element.link }')">Monitoring View</a>
                                     </div>
                                 </div>
@@ -130,7 +131,7 @@
                         `;
 
                         if (element.latitude != "" && element.longitude != "") {
-                            L.marker([parseFloat(element.latitude), parseFloat(element.longitude)], {icon: icon}).on('click', function() { 
+                            L.marker([parseFloat(element.latitude), parseFloat(element.longitude)], {icon: icon}, {title:'pp'}).on('click', function() { 
                             L.popup()
                                 .setLatLng([parseFloat(element.latitude), parseFloat(element.longitude)])
                                 .setContent(html)
@@ -138,8 +139,10 @@
                             }).addTo(map); 
                         }
                         let link =  element.link.split("//");
-                        console.log(link[link.length - 1]);
-                        checkStatus(link[link.length - 1], element.id)
+                        let newlink = link[link.length - 1].split("/");
+                        // let newlinkWithNoPort = newlink[newlink.length - 1].split(":");
+                        console.log(newlink[0]);
+                        checkStatus(newlink[0], element.id)
                     })
                 })
 
@@ -184,12 +187,15 @@
             $(`#badge${id}`).removeClass('badge-danger');
             $(`#badge${id}`).addClass('badge-success');
             $(`#text${id}`).text('Online');
+            // const statusip = "Online";
         } else {
             $(`#badge${id}`).removeClass('badge-success');
             $(`#badge${id}`).addClass('badge-danger');
             $(`#text${id}`).text('Offline');
+            // const statusip = "Offline";
         }
     }
+    // console.log(changeStatus()));
 
     
 

@@ -54,7 +54,7 @@
                         
                         @if(auth()->user()->can('dashbord-maps-access-door'))
                         <li class="nav-item">
-                            <a href="{{ route('dashboard.maps-access-door') }}" class="nav-link {{ (request()->segment(1) == 'maps-access-door' ) ? 'active' : ''}}">
+                            <a href="http://192.168.100.11:8000/" target="_blank" class="nav-link {{ (request()->segment(1) == 'maps-access-door' ) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
 
                                 <p>Acces Door</p>

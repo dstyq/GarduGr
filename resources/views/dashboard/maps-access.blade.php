@@ -116,7 +116,7 @@
                                         ${ element.address ?? '' }
                                     </p>
                                     <div class="text-center mt-2">
-                                        <a href="/cctv/${ element.id }/edit" target="blank" class="d-inline-block mx-auto btn btn-warning text-light">Edit</a>
+                                        <a href="/access-door/${ element.id }/edit" target="blank" class="d-inline-block mx-auto btn btn-warning text-light">Edit</a>
                                         <a href="#" target="blank" class="d-inline-block mx-auto btn btn-secondary text-light" onClick="openNew('${ element.link }')">Monitoring View</a>
                                     </div>
                                 </div>
