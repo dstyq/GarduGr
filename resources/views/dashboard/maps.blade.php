@@ -10,6 +10,9 @@
     rel='stylesheet' />
 <link rel="stylesheet" href="https://www.domoritz.de/leaflet-locatecontrol/dist/L.Control.Locate.mapbox.min.css" />
 
+{{-- Leaflet legend --}}
+<link rel="stylesheet" href="{{ asset('css/leaflet-control/leaflet.legend.css') }}" />
+
 <link rel="stylesheet" href="{{ asset('css/maps.css') }}">
 @endsection
 
@@ -33,21 +36,28 @@
 <!-- Load Leaflet from CDN -->
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7"></script>
 <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.73.0/src/L.Control.Locate.min.js"></script>
-<script src="https://cdn.socket.io/4.3.2/socket.io.min.js"
-    integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous">
-</script>
 
 <!-- Load Esri Leaflet from CDN -->
 <script src="https://unpkg.com/esri-leaflet@2.5.3/dist/esri-leaflet.js"
     integrity="sha512-K0Vddb4QdnVOAuPJBHkgrua+/A9Moyv8AQEWi0xndQ+fqbRfAFd47z4A9u1AW/spLO0gEaiE1z98PK1gl5mC5Q=="
     crossorigin=""></script>
 <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+
+{{-- Leaflet Legend --}}
+<script type="text/javascript" src="{{ asset('js/leaflet-control/leaflet.legend.js') }}"></script>
+
+{{-- Socket IO --}}
+<script src="https://cdn.socket.io/4.3.2/socket.io.min.js"
+    integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous">
+</script>
+
 <script>
+    $('body').addClass('sidebar-collapse')
     const officon = L.icon({
         iconUrl: `img/location-off.png`,
 
         iconSize:     [40, 40], // size of the icon
-        iconAnchor:   [15, 33], // point of the icon which will correspond to marker's location
+        iconAnchor:   [19, 39], // point of the icon which will correspond to marker's location
         popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     });
 
@@ -55,11 +65,16 @@
         iconUrl: `img/location-on.png`,
 
         iconSize:     [40, 40], // size of the icon
-        iconAnchor:   [15, 33], // point of the icon which will correspond to marker's location
+        iconAnchor:   [19, 39], // point of the icon which will correspond to marker's location
         popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     });
 
     var markers = []
+    var parentLocation = []
+    var subLocation = []
+    var parentStatus = []
+    var popups = []
+    var map;
 
     $(document).ready(function() {
         if(navigator.geolocation) {
@@ -96,6 +111,7 @@
                     maxNativeZoom: 18,
                 });
 
+                // Setting basemaps
                 const basemaps = {
                     "<div class='layers-control-img'><img src='{{ asset('img/topography.png') }}'></div> Topography": topography,
                     "<div class='layers-control-img'><img src='{{ asset('img/satellite.png') }}'></div> Sattelite": sattelite,
@@ -103,113 +119,320 @@
                     "<div class='layers-control-img'><img src='{{ asset('img/street.png') }}'></div> Streets": streets,
                 };
 
+                // Configure map
+                map = L.map('map', {
+                    center: [-1.695754, 120.409821],
+                    zoom: 5,
+                    zoomControl: false,
+                    fullscreenControl: false,
+                    layers: [topography, sattelite, grayscale, streets]
+                });
+
+                // Start Configuration Control
+
+                // Add change layer control
                 L.control.layers(basemaps).addTo(map);
 
-                // add marker
-                $.getJSON('api/cctv', data => {
-                    $.each(data.data, (index, element) => {
-                        const icon = L.icon({
-                            iconUrl: `img/cctv.png`,
-
-                            iconSize:     [35, 35], // size of the icon
-                            iconAnchor:   [15, 33], // point of the icon which will correspond to marker's location
-                            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-                        });
-
-                        const html = `
-                            <div class="card card-bs card-danger mw-200" id="cctv${element.id}">
-                                <div class="card-header text-center" style="background: rgb(41,41,41) !important;background: linear-gradient(152deg, rgba(41,41,41,1) 17%, rgba(255,0,0,1) 100%) !important; padding: 10px 5px 3px 5px !important; margin: 0 !important">
-                                    <h6>${element.name}</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p class="text-md mt-0 mb-0"><b>Status:</b>
-                                        <span class="badge badge-pill badge-danger" id="badge${element.id}">&nbsp;</span> <span id="text${element.id}">Offline</span>
-                                    </p>
-                                    <p class="text-md mt-0 mb-0"><b>Description:</b>
-                                        ${ element.description ?? '' }
-                                    </p>
-                                    <p class="text-md mt-0 mb-0"><b>Address:</b>
-                                        ${ element.address ?? '' }
-                                    </p>
-                                    <div class="text-center mt-2">
-                                        <a href="/device/${ element.id }/edit" target="blank" class="d-inline-block mx-auto btn btn-warning text-light">Edit</a>
-                                        <a href="#" target="blank" class="d-inline-block mx-auto btn btn-secondary text-light" onClick="openNew('${ element.link }')">Monitoring View</a>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-
-                        if (element.latitude != "" && element.longitude != "") {
-                            markers[element.id] = L.marker([parseFloat(element.latitude), parseFloat(element.longitude)]).on('click', function() { 
-                            L.popup()
-                                .setLatLng([parseFloat(element.latitude), parseFloat(element.longitude)])
-                                .setContent(html)
-                                .openOn(map);
-                            }).addTo(map); 
-
-                            let link =  element.link.split("//");
-                            console.log(link[link.length - 1]);
-                            checkStatus(link[link.length - 1], element.id)
-                        }
-                    })
+                // Add legend control
+                const legend = L.control.Legend({
+                    position: "bottomright",
+                    collapsed: false,
+                    title: 'Information',
+                    symbolWidth: 26,
+                    opacity: 0.8,
+                    column: 1,
+                    legends: [{
+                        label: "NAVR On",
+                        type: "image",
+                        url: "img/location-off.png",
+                    }, {
+                        label: "NAVR Off",
+                        type: "image",
+                        url: "img/location-on.png"
+                    }]
                 })
+                .addTo(map);
 
-                lc = L.control.locate({
+                // Add fullscreen control
+                L.control.fullscreen({
+                    position: 'topright'
+                }).addTo(map);              
+
+                // Get Current Location control
+                L.control.locate({
                     strings: {
                         title: "Show my location!"
                     },
+                    position: 'topright',
                     initialZoomLevel: 13
                 }).addTo(map);
+
+                // Add Zoom control
+                L.control.zoom({
+                    position: 'topright'
+                }).addTo(map);
+
+                // Start Search Control
+                L.Control.MyControl = L.Control.extend({
+                    onAdd: function(map) {
+                        let parentLocation = []
+                        $.ajax({
+                            type: 'GET',
+                            url: "/api/parent-location",
+                            dataType: 'json',
+                            async: false,
+                            success: function (data) {
+                                parentLocation = data.data
+                            },
+                            error: function (data) {
+                                console.log(data);
+                            }
+                        });
+
+                        var el = L.DomUtil.create('div', 'leaflet-bar my-control search-control');
+
+                        el.innerHTML = `<div onclick="switchMenu('expand')" id="test1"><i class="fas fa-search"></i></div>`;
+                        el.innerHTML += `<div class="d-none" id="test2">
+                            <select onchange="changeSubLocation(this.value);" id="selectLocation">
+                                <option value="none">None</option>   
+                                ${Object.keys(parentLocation).map(key => (
+                                    `<option value="${parentLocation[key].id}">${parentLocation[key].name}</option>`
+                                )).join('')}  
+                            </select>
+                            <i class="far fa-times-circle" onclick="switchMenu('collapse')"></i>
+
+                            <ul id="subLocationList">
+                            </ul>
+                        </div>`;
+
+                        return el;
+                    },
+
+                    onRemove: function(map) {
+                        // Nothing to do here
+                    }
+                });
+
+                L.control.myControl = function(opts) {
+                    return new L.Control.MyControl(opts);
+                }
+
+                L.control.myControl({
+                    position: 'topleft'
+                }).addTo(map);
+                // End Search Control
+
+                // Start Info Control
+                L.Control.Info = L.Control.extend({
+                    onAdd: function(map) {
+                        var el = L.DomUtil.create('div', 'leaflet-bar my-control info-control');
+                        el.innerHTML += `<span id="countParentLocation">0</span> Parent Location | <span id="countSubLocation">0</span> Sub Parent Location`;
+
+                        return el;
+                    },
+
+                    onRemove: function(map) {
+                        // Nothing to do here
+                    }
+                });
+
+                L.control.Info = function(opts) {
+                    return new L.Control.Info(opts);
+                }
+
+                L.control.Info({
+                    position: 'bottomleft'
+                }).addTo(map);
+                // End Info Control
+
+                // End Configure Control
+
+                 // get location
+                 $.getJSON('api/cctv', data => {
+                    // Foreach Parent location
+                    $.each(data.data, (index, element) => {
+                        // Configure parent location
+
+                        // if latitude and longitude exist
+                        if (element.latitude != "" && element.longitude != "") {
+                            // Add marker with default icon off
+                            markers[element.id] = L.marker([parseFloat(element.latitude), parseFloat(element.longitude)], {icon: onicon}).addTo(map);
+
+                            // Add tooltip
+                            markers[element.id].bindTooltip(element.name, {
+                                direction: 'bottom',
+                            }).openTooltip();
+
+                            $(markers[element.id]._icon).attr('id', `marker${element.id}`);
+                            $(markers[element.id]._icon).addClass('cctv');
+                            $(markers[element.id]._icon).addClass('parent-cctv');
+
+                            let parentLocationCount = $('#countParentLocation').text()
+                            $('#countParentLocation').text(parseInt(parentLocationCount) + 1)
+
+                            // Zoom marker parent location on click
+                            markers[element.id].on('click', function(e){
+                                $(markers[element.id]._icon).addClass('d-none');
+                                $('.cctv').addClass('d-none')
+                                $(`.child-location-${element.id}`).removeClass('d-none')
+                                $("#selectLocation").val(element.id).change()
+                                map.setView(e.latlng, 12);
+                            });
+                        }
+
+                        // foreach sublocation
+                        $.each(element.children, (i, e) => {
+                            // Configure Sublocation
+                            if (e.cctv.length > 0) {
+                                let cctv = e.cctv[0]
+
+                                // Pop Up sub location
+                                const html = `
+                                    <div class="card card-bs card-danger mw-200">
+                                        <div class="card-header text-center" style="background: rgb(41,41,41) !important;background: linear-gradient(152deg, rgba(41,41,41,1) 17%, rgba(255,0,0,1) 100%) !important; padding: 10px 5px 3px 5px !important; margin: 0 !important">
+                                            <h6>${cctv.name}</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="text-md mt-0 mb-0"><b>Status:</b>
+                                                <span class="badge badge-pill" id="badge${e.id}">&nbsp;</span> <span id="text${e.id}"></span>
+                                            </p>
+                                            <p class="text-md mt-0 mb-0"><b>Description:</b>
+                                                ${ cctv.description ?? '' }
+                                            </p>
+                                            <p class="text-md mt-0 mb-0"><b>Address:</b>
+                                                ${ cctv.address ?? '' }
+                                            </p>
+                                            <div class="text-center mt-2">
+                                                <a href="/cctv/${ cctv.id }/edit" target="blank" class="d-inline-block mx-auto btn btn-warning text-light">Edit</a>
+                                                <a href="#" target="blank" class="d-inline-block mx-auto btn btn-secondary text-light" onClick="openNew('${ cctv.link }')">Monitoring View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+
+                                // if latitude and longitude exist
+                                if (e.latitude != "" && e.longitude != "") {
+                                    subLocation.push(e.id)
+                                    let subLocationCount = $('#countSubLocation').text()
+                                    $('#countSubLocation').text(parseInt(subLocationCount) + 1)
+                                    // add marker with default icon off and when On click show pop up
+                                    popups[e.id] = L.popup()
+                                            .setLatLng([parseFloat(e.latitude), parseFloat(e.longitude)])
+                                            .setContent(html);
+
+                                    markers[e.id] = L.marker([parseFloat(e.latitude), parseFloat(e.longitude)], {icon: officon}).on('click', function() {                                             
+                                        popups[e.id].openOn(map);
+                                    }).addTo(map);
+
+                                    $(markers[e.id]._icon).attr('id', `marker${e.id}`);
+                                    $(markers[e.id]._icon).addClass(`child-location-${element.id}`);
+                                    $(markers[element.id]._icon).addClass('child-cctv');
+                                    $(markers[e.id]._icon).addClass('cctv');
+                                    $(markers[e.id]._icon).addClass('d-none');
+
+                                    // Zoom marker sublocation on click
+                                    markers[e.id].on('click', function(z){
+                                        map.setView([z.latlng.lat, z.latlng.lng], 16);
+                                    });
+                                }
+                            }
+                        })
+                    })
+                })
             });
         }
     });
 
-    async function checkStatus(ip, id) {
+    function changeSubLocation(sel = "none") {
         $.ajax({
-            url:'http://127.0.0.1:1010/checkStatus',
-            type: "POST",
-            data: {
-                host: ip,
-                id: id
+            type: 'GET',
+            url: "/api/sub-location-list/" + sel,
+            dataType: 'json',
+            success: function (data) {
+                $('#subLocationList').empty()
+                data.data.map((location) => {
+                    $("#subLocationList").append(`<li><a href="#${location.id}" onclick="focusSubLocation(${location.id})">${location.cctv[0].name}</a></li>`);
+                })
+
+                if (sel == 'none') {
+                    $('.child-cctv').addClass('d-none')
+                    $('.parent-cctv').removeClass('d-none')
+
+                    map.setView([-1.695754, 120.409821], 5);
+                } else {
+                    $(markers[sel]._icon).addClass('d-none');
+                    $('.cctv').addClass('d-none')
+                    $(`.child-location-${sel}`).removeClass('d-none')
+
+                    map.setView([data.location.latitude, data.location.longitude], 12);
+                }
             },
-            dataType: "json",
-            success: function(data) {
-                console.log('success');
-            },
-            error: function(err) {
-                console.log(err);
+            error: function (data) {
+                console.log(data);
             }
         });
+    }
+
+    function focusSubLocation(id) {
+        $.ajax({
+            type: 'GET',
+            url: "/api/location/" + id,
+            dataType: 'json',
+            success: function (data) {
+                map.setView([data.data.latitude, data.data.longitude], 16);
+                popups[id].openOn(map);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function switchMenu(status) {
+        if (status == "expand") {
+            $('#test1').addClass('d-none')
+            $('#test2').removeClass('d-none')
+        } else {
+            $('#test1').removeClass('d-none')
+            $('#test2').addClass('d-none')
+        }
     }
 
     const socket = io('http://localhost:1010');
 
     socket.on('realtimeStatus', function(data) {
-        let { id, status} = data
-        console.log("realtime data", data);
-        
-        changeStatus(id, status)
+        let { id, status, role, parent_id} = data
+        console.log(data);
+        changeStatus(id, status, role, parent_id)
     });
 
-    function changeStatus(id, status) {
+    function changeStatus(id, status, role, parent_id) {
         if (status) {
             $(`#badge${id}`).removeClass('badge-danger');
             $(`#badge${id}`).addClass('badge-success');
             $(`#text${id}`).text('Online');
-            if (typeof markers[id] != undefined) {
-                markers[id].setIcon(officon)
+            if (markers[id] != undefined && !$(`#marker${id}`).hasClass('d-none')) {
+                markers[id].setIcon(onicon)
             }
         } else {
             $(`#badge${id}`).removeClass('badge-success');
             $(`#badge${id}`).addClass('badge-danger');
             $(`#text${id}`).text('Offline');
+            if (markers[id] != undefined && !$(`#marker${id}`).hasClass('d-none')) {
+                markers[id].setIcon(officon)
+            }
+        }
 
-            if (typeof markers[id] != undefined) {
-                markers[id].setIcon(onicon)
+        if (markers[id] != undefined) {
+            $(markers[id]._icon).addClass('cctv');
+            if (role == "parent") {
+                $(markers[id]._icon).addClass('parent-cctv');
+            } else {
+                $(markers[id]._icon).addClass(`child-location-${parent_id}`);
+                $(markers[id]._icon).addClass('child-cctv');
             }
         }
     }
-
     
 
     function openNew(url) {

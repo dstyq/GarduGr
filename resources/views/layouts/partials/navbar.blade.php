@@ -7,6 +7,13 @@
     </ul>
 
     <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <img src="{{ asset('img/telkomsel-logo.png') }}" width="120px" class="image img" alt="User Image">
+        </li>
+    </ul>
+
+
+    <ul class="navbar-nav ml-auto">
         <li class="dropdown user user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                 <img src="{{ asset('img/users/'.(Auth::user()->avatar ?? 'user.png')) }}" class="user-image" alt="User Image">

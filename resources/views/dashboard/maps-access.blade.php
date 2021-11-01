@@ -93,9 +93,9 @@
                 $.getJSON('api/access-door', data => {
                     $.each(data.data, (index, element) => {
                         const icon = L.icon({
-                            iconUrl: `img/cctv.png`,
+                            iconUrl: `img/access.png`,
 
-                            iconSize:     [35, 35], // size of the icon
+                            iconSize:     [40, 40], // size of the icon
                             iconAnchor:   [15, 33], // point of the icon which will correspond to marker's location
                             popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
                         });
@@ -116,7 +116,7 @@
                                         ${ element.address ?? '' }
                                     </p>
                                     <div class="text-center mt-2">
-                                        <a href="/cctv/${ element.id }/edit" target="blank" class="d-inline-block mx-auto btn btn-warning text-light">Edit</a>
+                                        <a href="/access-door/${ element.id }/edit" target="blank" class="d-inline-block mx-auto btn btn-warning text-light">Edit</a>
                                         <a href="#" target="blank" class="d-inline-block mx-auto btn btn-secondary text-light" onClick="openNew('${ element.link }')">Monitoring View</a>
                                     </div>
                                 </div>

@@ -28,4 +28,9 @@ class Location extends Model
     {
         return $this->hasMany(Location::class, 'parent_id');
     }
+
+    public function cctv()
+    {
+        return $this->hasMany(Cctv::class, 'location_id');
+    }
 }

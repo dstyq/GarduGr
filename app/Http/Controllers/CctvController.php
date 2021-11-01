@@ -30,7 +30,7 @@ class CctvController extends Controller
     public function create()
     {
         $data['page_title'] = 'Add Device CCTV';
-        $data['locations'] = Location::whereNotNull('parent_id')->get();
+        $data['locations'] = Location::whereNotNull('parent_id')->whereDoesntHave('cctv')->get();
 
         return view('cctv.create', $data);
     }
@@ -70,8 +70,10 @@ class CctvController extends Controller
     public function edit($id)
     {
         $data['page_title'] = 'Edit Device CCTV';
-        $data['locations'] = Location::whereNotNull('parent_id')->get();
         $data['cctv'] = Cctv::findOrFail($id);
+        $data['locations'] = Location::whereNotNull('parent_id')->where(function ($query) use ($data) {
+            $query->whereDoesntHave('cctv')->orWhere('id', $data['cctv']->location_id);
+        })->get();
 
         return view('cctv.edit', $data);
     }

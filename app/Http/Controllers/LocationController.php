@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asset;
+use App\Models\Cctv;
 use App\Models\HistoryLog;
 use App\Models\Location;
 use App\Models\LocationCategory;
@@ -78,8 +79,8 @@ class LocationController extends Controller
     public function edit($id)
     {
         $data['page_title'] = 'Edit Location';
-        $data['locations'] = Location::whereNull('parent_id')->get();
         $data['location'] = Location::findOrFail($id);
+        $data['locations'] = Location::whereNull('parent_id')->get();
 
         return view('locations.edit', $data);
     }
@@ -122,7 +123,10 @@ class LocationController extends Controller
             $newHistoryLog->type = 'Delete Location';
             $newHistoryLog->user_id = auth()->user()->id;
             $newHistoryLog->save();
+
             // Asset::where('location_id', $id)->update(['location_id' => null]);
+            Location::where('parent_id', $id)->update(['parent_id' => null]);
+            Cctv::where('location_id', $id)->update(['location_id' => null]);
             Location::where('id', $id)->delete();
         });
 

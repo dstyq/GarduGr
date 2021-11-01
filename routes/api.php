@@ -34,6 +34,9 @@ Route::get('cctv', [MapController::class, 'getCctv']);
 Route::get('access-door', [MapController::class, 'getAccessDoor']);
 Route::get('assets', [MapController::class, 'getAssets']);
 Route::get('legends', [MapController::class, 'getLegends']);
+Route::get('parent-location', [MapController::class, 'getParentLocation']);
+Route::get('sub-location-list/{parentId}', [MapController::class, 'getSubLocationList']);
+Route::get('location/{id}', [MapController::class, 'getLocation']);
 
 // Assets
 Route::get('assets', [AssetController::class, 'getAssets']);
