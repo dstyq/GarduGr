@@ -27,7 +27,7 @@ class MapController extends Controller
 
     public function getParentLocation()
     {
-        $data = Location::has('children')->get();
+        $data = Location::has('children.cctv')->get();
 
         return response()->json([
             'success' => true,
