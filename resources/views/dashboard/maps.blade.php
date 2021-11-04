@@ -2,13 +2,10 @@
 
 @section('style')
 <!-- Load Leaflet from CDN -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
-<link rel="stylesheet" href="https://www.domoritz.de/leaflet-locatecontrol/dist/L.Control.Locate.min.css" />
+<link rel="stylesheet" href="{{ asset('css/leaflet/leaflet.css') }}" />
 
 <!-- Load Esri Leaflet from CDN -->
-<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css'
-    rel='stylesheet' />
-<link rel="stylesheet" href="https://www.domoritz.de/leaflet-locatecontrol/dist/L.Control.Locate.mapbox.min.css" />
+<link href='{{ asset('css/leaflet/leaflet-fullscreen.css') }}' rel='stylesheet' />
 
 {{-- Leaflet legend --}}
 <link rel="stylesheet" href="{{ asset('css/leaflet-control/leaflet.legend.css') }}" />
@@ -34,21 +31,18 @@
 
 @section('script')
 <!-- Load Leaflet from CDN -->
-<script src="https://cdn.jsdelivr.net/npm/leaflet@1.7"></script>
-<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.73.0/src/L.Control.Locate.min.js"></script>
+<script src="{{ asset('js/leaflet/leaflet.js') }}"></script>
+<script src="{{ asset('js/leaflet/leaflet-control-locate.js') }}"></script>
 
 <!-- Load Esri Leaflet from CDN -->
-<script src="https://unpkg.com/esri-leaflet@2.5.3/dist/esri-leaflet.js"
-    integrity="sha512-K0Vddb4QdnVOAuPJBHkgrua+/A9Moyv8AQEWi0xndQ+fqbRfAFd47z4A9u1AW/spLO0gEaiE1z98PK1gl5mC5Q=="
-    crossorigin=""></script>
-<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+<script src="{{ asset('js/leaflet/esri-leaflet.js') }}"></script>
+<script src='{{ asset('js/leaflet/leaflet-fullscreen.js') }}'></script>
 
 {{-- Leaflet Legend --}}
 <script type="text/javascript" src="{{ asset('js/leaflet-control/leaflet.legend.js') }}"></script>
 
 {{-- Socket IO --}}
-<script src="https://cdn.socket.io/4.3.2/socket.io.min.js"
-    integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous">
+<script src="{{ asset('js/socket/socket.js') }}">
 </script>
 
 <script>
@@ -142,13 +136,13 @@
                     opacity: 0.8,
                     column: 1,
                     legends: [{
-                        label: "NAVR On",
+                        label: "NVR ON ",
                         type: "image",
-                        url: "img/location-off.png",
+                        url: "img/location-on.png",
                     }, {
-                        label: "NAVR Off",
+                        label: "NVR OFF ",
                         type: "image",
-                        url: "img/location-on.png"
+                        url: "img/location-off.png"
                     }]
                 })
                 .addTo(map);
@@ -191,16 +185,16 @@
 
                         var el = L.DomUtil.create('div', 'leaflet-bar my-control search-control');
 
-                        el.innerHTML = `<div onclick="switchMenu('expand')" id="test1"><i class="fas fa-search"></i></div>`;
-                        el.innerHTML += `<div class="d-none" id="test2">
-                            <select onchange="changeSubLocation(this.value);" id="selectLocation">
+                        el.innerHTML = `<div onclick="switchMenu('expand')" id="test1"><img src="{{ asset('img/map.png') }}" width="30px" class="image img" ></div>`;
+                        el.innerHTML += `<div class="d-none p-2" id="test2">
+                            <select class="tx-30 select-search" onchange="changeSubLocation(this.value);" id="selectLocation">
                                 <option value="none">None</option>   
                                 ${Object.keys(parentLocation).map(key => (
                                     `<option value="${parentLocation[key].id}">${parentLocation[key].name}</option>`
                                 )).join('')}  
                             </select>
-                            <i class="far fa-times-circle" onclick="switchMenu('collapse')"></i>
-
+                            <img class="ml-2 img-close" onclick="switchMenu('collapse')" src="https://img.icons8.com/material-outlined/24/000000/multiply--v1.png"/>
+                            <hr>
                             <ul id="subLocationList">
                             </ul>
                         </div>`;
@@ -226,7 +220,7 @@
                 L.Control.Info = L.Control.extend({
                     onAdd: function(map) {
                         var el = L.DomUtil.create('div', 'leaflet-bar my-control info-control');
-                        el.innerHTML += `<span id="countParentLocation">0</span> Parent Location | <span id="countSubLocation">0</span> Sub Parent Location`;
+                        el.innerHTML += `<i class="fas fa-map-marked-alt"></i> <span id="countParentLocation">0</span> Region | <i class="fas fa-building"></i> <span id="countSubLocation">0</span> Office`;
 
                         return el;
                     },
@@ -323,6 +317,11 @@
                                     markers[e.id] = L.marker([parseFloat(e.latitude), parseFloat(e.longitude)], {icon: officon}).on('click', function() {                                             
                                         popups[e.id].openOn(map);
                                     }).addTo(map);
+
+                                    // Add tooltip
+                                    markers[e.id].bindTooltip(e.name, {
+                                        direction: 'bottom',
+                                    });
 
                                     $(markers[e.id]._icon).attr('id', `marker${e.id}`);
                                     $(markers[e.id]._icon).addClass(`child-location-${element.id}`);

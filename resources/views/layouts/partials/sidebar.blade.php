@@ -71,7 +71,8 @@
                       <i class="nav-icon fas fa-video"></i>
 
                       <p class="text-white">
-                        Device Management<i class="right fas fa-angle-right"></i>
+                        Device Management
+                        <i class="right fas fa-angle-right"></i>
                       </p>
                     </a>
 
@@ -96,7 +97,7 @@
                         </li>
                         @endif
                         
-                        @if(auth()->user()->can('access-door-list'))
+                        {{-- @if(auth()->user()->can('access-door-list'))
                         <li class="nav-item">
                             <a href="{{ route('access-door.index') }}" class="nav-link {{ (request()->segment(1) == 'access-door' ) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
@@ -104,7 +105,7 @@
                                 <p>Acces Door</p>
                             </a>
                         </li>
-                        @endif
+                        @endif --}}
                     </ul>
                 </li>
                 @endif
@@ -135,7 +136,8 @@
                         <i class="nav-icon fas fa-tools"></i>
 
                         <p style="color: white !important;">
-                            Maintenances <i class="right fas fa-angle-left"></i>
+                            Maintenances 
+                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">

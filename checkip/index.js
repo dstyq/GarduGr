@@ -22,7 +22,7 @@ const options = {
 const pool = new Pool({
     user: "postgres",
     host: "localhost",
-    database: "cctv_monitoring",
+    database: "cctv",
     password: "root",
     port: 5432,
 });
@@ -67,7 +67,7 @@ getLocation();
 function checkStatus() {
     if (dataLocation.length > 0) {
         dataLocation.map((location) => {
-            if (location.parent_id) {
+            if (location.parent_id && location.host) {
                 let link =  location.host.split("//");
                 let newlink = link[link.length - 1].split("/");
                 // let newlinkWithNoPort = newlink[newlink.length - 1].split(":");
