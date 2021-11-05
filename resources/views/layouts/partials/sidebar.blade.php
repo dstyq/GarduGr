@@ -54,7 +54,7 @@
                         
                         @if(auth()->user()->can('dashbord-maps-access-door'))
                         <li class="nav-item">
-                            <a href="webrun:C:\xampp\xampp-control.exe" class="nav-link {{ (request()->segment(1) == 'maps-access-door' ) ? 'active' : ''}}">
+                            <a href="webrun:C:\Program Files (x86)\Rosslare\AxTraxNG Client\Client.exe" class="nav-link {{ (request()->segment(1) == 'maps-access-door' ) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
 
                                 <p>Acces Door</p>

@@ -10,6 +10,9 @@
 <link rel="stylesheet" href="https://www.domoritz.de/leaflet-locatecontrol/dist/L.Control.Locate.mapbox.min.css" />
 
 <link rel="stylesheet" href="{{ asset('css/maps.css') }}">
+
+<style>
+</style>
 @endsection
 
 @section('content')
@@ -19,7 +22,14 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <div id="map">
+                        @foreach ($access as $item)
+                        <a onclick="run('{{ $item->tSnapLocation }}')" href="#">awda</a>
+                                <div><img src="{{ realpath($item->tSnapLocation) }}"  width="150px" height="200px">
+                                    {{-- <small>{{ str_replace("\\",'/',$item->t    SnapLocation) }}</small> --}}
+                                    <small></small>
+                                    {{-- <img src="/file:{{ str_replace("\\",'/',$item->tSnapLocation) }}" height="100" width="200" alt=""> --}}
+                                </div>
+                        @endforeach
                     </div>
                 </div>
             </div> 
@@ -36,7 +46,15 @@
 <!-- Load Esri Leaflet from CDN -->
 <script src="https://unpkg.com/esri-leaflet@2.5.3/dist/esri-leaflet.js" integrity="sha512-K0Vddb4QdnVOAuPJBHkgrua+/A9Moyv8AQEWi0xndQ+fqbRfAFd47z4A9u1AW/spLO0gEaiE1z98PK1gl5mC5Q==" crossorigin=""></script>
 <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
-<script>
+<script> 
+function run(ursl){
+
+var URL = ursl;
+
+window.open(URL, null);
+
+}
+run();
     $(document).ready(function() {
         if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {

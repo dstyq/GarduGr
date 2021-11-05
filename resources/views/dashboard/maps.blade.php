@@ -136,11 +136,11 @@
                     opacity: 0.8,
                     column: 1,
                     legends: [{
-                        label: "NVR ON ",
+                        label: "NVR-ACCESS ON",
                         type: "image",
                         url: "img/location-on.png",
                     }, {
-                        label: "NVR OFF ",
+                        label: "NVR-ACCESS OFF",
                         type: "image",
                         url: "img/location-off.png"
                     }]
