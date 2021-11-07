@@ -1,90 +1,139 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
-<head>
-    @include('layouts.partials.head')
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <style>
-        body  {
-            background-image: url({{ asset('img/bg3.jpg.crdownload') }});
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
-            background-color: #cccccc;
-        }
-    </style>
-</head>
+    <head>
+    
+        @include('layouts.partials.head')
+        <style>
+            .bg-right{
+                background-image: url('img/bg3.jpg.crdownload');
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: cover;
+                background-color: #cccccc;
+            }
+            .bg-dark{
+                position:absolute;
+                height:100%;
+                width:100%;
+                right:0;
+                bottom:0;
+                left:0;
+                top:0;
+                opacity:.4;
+                background-color:rgb(14, 1, 1)
+            }
+        </style>
 
-<body class="hold-transition login-page">
-    <div class="login-box" style="border-radius: 50px 20px !important;">
-        <!-- /.login-logo -->
-        <div class="card card-outline card-primary" style="border-radius: 20px 20px !important;">
-            <div class="card-header text-center">
-                <img src="https://dev-cctv.grooject.com/public/img/telkom.png" alt="Girl in a jacket" style="height: auto;width: 100%;">
+    </head>
+
+    <body data-topbar="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+        <div class="auth-page">
+            <div class="container-fluid p-0">
+                <div class="row g-0">
+                    <div class="col-xxl-3 col-lg-4 col-md-5">
+                        <div class="auth-full-page-content d-flex p-sm-5 p-4">
+                            <div class="w-100">
+                                <div class="d-flex flex-column h-100">
+                                    <div class="my-auto">
+                                        <div class="mb-4 mb-md-5 text-center">
+                                            <a href="index.html" class="d-block auth-logo">
+                                                <img src="{{ asset('img/telkomsel-logo.png') }}" alt="" height="50">
+                                            </a>
+                                        </div>
+                                        <div class="auth-content">
+                                            <div class="text-center">
+                                                <h5 class="mb-0">Welcome</h5>
+                                                <p class="text-muted mt-2">Sign in to dashboard monitoring.</p>
+                                            </div>
+                                            <form class="mt-4 pt-2" method="POST" action="{{ route('login') }}">
+                                                @csrf
+                                                <div class="form-floating form-floating-custom mb-4">
+                                                    <input id="username" type="text" class="form-control  @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autofocus placeholder="Enter Username Or Email">
+                                                    <label for="input-username">Username or Email</label>
+                                                    <div class="form-floating-icon">
+                                                    <i data-feather="users"></i>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-floating form-floating-custom mb-4 auth-pass-inputgroup">
+                                                    <input id="password-input" type="password" class="form-control pe-5 @error('password') is-invalid @enderror" name="password" required placeholder="Enter Password">
+                                                    
+                                                    <button type="button" class="btn btn-link position-absolute h-100 end-0 top-0" id="password-addon">
+                                                        <i class="mdi mdi-eye-outline font-size-18 text-muted"></i>
+                                                    </button>
+                                                    <label for="input-password">Password</label>
+                                                    <div class="form-floating-icon">
+                                                        <i data-feather="lock"></i>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-4">
+                                                    <div class="col">
+                                                        <div class="form-check font-size-15">
+                                                            <input type="checkbox" id="remember" {{  old('remember') ? 'checked' : ''  }}class="form-check-input">
+                                                            <label class="form-check-label font-size-13" for="remember-check">
+                                                                Remember me
+                                                            </label>
+                                                        </div>  
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="mb-3">
+                                                    <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Log In</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end auth full page content -->
+                    </div>
+                    <!-- end col -->
+                    <div class="col-xxl-9 col-lg-8 col-md-7 bg-right">
+                        <div class="auth-bg pt-md-5 p-4 d-flex">
+                            <div class="bg-dark"></div>
+                            {{-- <ul class="bg-bubbles">
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul> --}}
+                            <!-- end bubble effect -->
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
             </div>
+            <!-- end container fluid -->
+        </div>
 
-            <div class="card-body">
-                <p class="login-box-msg text-bold">ACCESS MAPS</p>
 
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
+        <!-- JAVASCRIPT -->
+        <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/metismenu/metisMenu.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
+        <!-- pace js -->
+        <script src="{{ asset('assets/libs/pace-js/pace.min.js') }}"></script>
 
-                    <div class="input-group mb-3">
-                        <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autofocus placeholder="Username Or Email">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
+        <script src="{{ asset('assets/js/pages/pass-addon.init.js') }}"></script>
 
-                        @error('username')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
+        <script src="{{ asset('assets/js/pages/feather-icon.init.js') }}"></script>
 
-                    <div class="input-group mb-3">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required placeholder="Password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input name="remember" type="checkbox" id="remember" {{  old('remember') ? 'checked' : ''  }}>
-                                <label for="remember">
-                                    Remember Me
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                        </div>
-                    </div>
-                </form>
-
-                {{-- <p class="mb-1">
-                    <a href="{{ route('user-technical.form-login') }}">Login to user technical</a>
-                </p> --}}
-            </div><!-- /.card-body -->
-        </div><!-- /.card -->
-    </div><!-- /.login-box -->
-
-    @include('layouts.partials.foot')
-
-</body>
+    </body>
 
 </html>
+

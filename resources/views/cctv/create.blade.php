@@ -15,8 +15,8 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Add Device</h3>
+                        <div class="card-header text-center" style="background-color: rgb(216, 19, 19);">
+                            <h3 class="card-title text-white">Add Device</h3>
                         </div>
 
                         <form method="POST" action="{{ route('cctv.store') }}">
@@ -26,7 +26,7 @@
 
                                 @include('components.form-message')
 
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <label for="name">Name</label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="Enter name">
     
@@ -37,7 +37,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <label for="name">Link</label>
                                     <input type="text" class="form-control @error('link') is-invalid @enderror" id="link" name="link" value="{{ old('link') }}" placeholder="Enter Link">
     
@@ -48,7 +48,7 @@
                                     @enderror
                                 </div>
     
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <label for="address">Address</label>
                                     <textarea name="address" class="form-control @error('address') is-invalid @enderror" id="address" cols="30" rows="3" placeholder="Enter Address">{{old('address')}}</textarea>
     
@@ -59,7 +59,7 @@
                                     @enderror
                                 </div>
     
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <label for="address">Description</label>
                                     <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" cols="30" rows="3" placeholder="Enter Description">{{old('description')}}</textarea>
     
@@ -70,7 +70,7 @@
                                     @enderror
                                 </div>
                                 
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <label>Location</label>
                                     <select class="form-control" name="location">
                                         <option selected disabled>Choose Location</option>

@@ -37,8 +37,11 @@
                             @endcan
                         </div>
 
-                        @include('components.flash-message')
-
+                        <div class="row">
+                            <div class="col-6">
+                                @include('components.flash-message')
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-body">

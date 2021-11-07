@@ -11,6 +11,49 @@
 <link rel="stylesheet" href="{{ asset('css/leaflet-control/leaflet.legend.css') }}" />
 
 <link rel="stylesheet" href="{{ asset('css/maps.css') }}">
+
+<style>
+    .page-content{
+        padding: calc(45px + 24px) calc(1px / 2) 45px calc(1px / 2) !important;
+    }
+
+    .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        padding: 0 !important;
+    }
+    .badge {
+        display: inline-block;
+        padding: 0.25em 0.4em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 0.25rem;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .badge {
+            transition: none;
+        }
+    }
+        .badge-pill {
+        padding-right: 0.6em;
+        padding-left: 0.6em;
+        border-radius: 10rem;
+        }
+
+        .badge-success {
+            color: #fff;
+            background-color: #28a745;
+        }
+
+        .badge-danger {
+            color: #fff;
+            background-color: #dc3545;
+        }
+</style>
 @endsection
 
 @section('content')
@@ -20,7 +63,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <div id="map">
+                        <div id="map" style="z-index: 1 !important">
                         </div>
                     </div>
                 </div>
@@ -41,9 +84,6 @@
 {{-- Leaflet Legend --}}
 <script type="text/javascript" src="{{ asset('js/leaflet-control/leaflet.legend.js') }}"></script>
 
-{{-- Socket IO --}}
-<script src="{{ asset('js/socket/socket.js') }}">
-</script>
 
 <script>
     $('body').addClass('sidebar-collapse')
@@ -284,7 +324,7 @@
                                 const html = `
                                     <div class="card card-bs card-danger mw-200">
                                         <div class="card-header text-center" style="background: rgb(41,41,41) !important;background: linear-gradient(152deg, rgba(41,41,41,1) 17%, rgba(255,0,0,1) 100%) !important; padding: 10px 5px 3px 5px !important; margin: 0 !important">
-                                            <h6>${cctv.name}</h6>
+                                            <h6 class=" text-white">${cctv.name}</h6>
                                         </div>
                                         <div class="card-body">
                                             <p class="text-md mt-0 mb-0"><b>Status:</b>
@@ -397,13 +437,14 @@
         }
     }
 
-    const socket = io('http://localhost:1010');
 
     socket.on('realtimeStatus', function(data) {
         let { id, status, role, parent_id} = data
         console.log(data);
         changeStatus(id, status, role, parent_id)
     });
+
+    
 
     function changeStatus(id, status, role, parent_id) {
         if (status) {

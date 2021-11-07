@@ -61,6 +61,7 @@ class PermissionTableSeeder extends Seeder
             'access-door-delete',
             'history-log-list',
             'history-log-delete',
+            'notification-log-list',
             // 'user-technical-list',
             // 'user-technical-create',
             // 'user-technical-edit',

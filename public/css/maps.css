@@ -77,7 +77,7 @@
 
 .search-control {
     border-radius: 7px;
-    padding: 0px !important;
+    padding: 7px !important;
     cursor: pointer;
     opacity: 0.9;
 }

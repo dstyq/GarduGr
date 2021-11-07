@@ -18,8 +18,8 @@
                 <div class="col-md-6">
                     <!-- general form elements -->
                     <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Add User</h3>
+                        <div class="card-header text-center" style="background-color: rgb(216, 19, 19);">
+                            <h3 class="card-title text-white">Add User</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -30,7 +30,7 @@
 
                                 @include('components.form-message')
 
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <label for="name">Name</label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}"  placeholder="Enter name">
 
@@ -41,7 +41,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <label for="username">Username</label>
                                     <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}"  placeholder="Enter username">
                                     @error('username')
@@ -51,7 +51,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <label for="email">Email address</label>
                                     <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}"  placeholder="Enter email">
                                     @error('email')
@@ -61,7 +61,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <label>Role</label>
                                     <select class="form-control" name="role">
                                         <option disabled selected>Select One Role Only</option>
@@ -76,7 +76,7 @@
                                     @enderror
                                 </div>
                                
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <label for="password">Password</label>
                                     <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" value="{{ old('password') }}"  placeholder="Password">
                                     @error('password')
@@ -86,13 +86,10 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <label for="avatar">Avatar</label>
                                     <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="avatar" name="avatar">
-                                            <label class="custom-file-label" for="avatar">Choose Image</label>
-                                        </div>
+                                        <input type="file" class="form-control" id="avatar" name="avatar">
                                     </div>
                                     {{-- <div class="small text-secondary">Kosongkan jika tidak mau diisi</div> --}}
                                 </div>

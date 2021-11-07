@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('breadcumb')
-<li class="breadcrumb-item active">Location</li>
-@endsection
-
 @section('style')
 <style>
     .pointer {
@@ -21,8 +17,8 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-6">
-                                <span class="tx-bold text-lg">
-                                    <i class="icon ion ion-ios-speedometer text-lg"></i>
+                                <span class="tx-bold font-size-18 text-lg">
+                                    <i class="mdi mdi-map-marker font-size-20 text-lg"></i>&nbsp;
                                     Location
                                 </span>
                             </div>
@@ -37,8 +33,11 @@
                             @endcan
                         </div>
 
-                        @include('components.flash-message')
-
+                        <div class="row">
+                            <div class="col-6">
+                                @include('components.flash-message')
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-body">

@@ -1,7 +1,14 @@
-<footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-        <b>Version</b> 1.0.0
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <script>document.write(new Date().getFullYear())</script> © Pandawa.
+            </div>
+            <div class="col-sm-6">
+                <div class="text-sm-end d-none d-sm-block">
+                    Design & Develop by <a href="#" class="text-decoration-underline">Neutroniot</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <strong>Copyright &copy;2021 <a href="#">Pandawa</a>.</strong> All rights
-    reserved.
 </footer>

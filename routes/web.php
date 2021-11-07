@@ -12,6 +12,7 @@ use App\Http\Controllers\BomController;
 use App\Http\Controllers\CctvController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HistoryLogController;
+use App\Http\Controllers\HistoryNotificationController;
 use App\Http\Controllers\LocationCategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MaintenanceController;
@@ -90,6 +91,9 @@ Route::middleware('auth:web')->group(function () {
     
     // History Log
     Route::resource('history-log', HistoryLogController::class)->except([
+        'show', 'create', 'store', 'edit', 'update'
+    ]);;
+    Route::resource('notification-log', HistoryNotificationController::class)->except([
         'show', 'create', 'store', 'edit', 'update'
     ]);;
     // // Categories

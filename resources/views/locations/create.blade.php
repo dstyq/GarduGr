@@ -1,10 +1,5 @@
 @extends('layouts.app')
 
-@section('breadcumb')
-<li class="breadcrumb-item"><a href="{{ route('locations.index') }}">Location</a></li>
-<li class="breadcrumb-item active">Add</li>
-@endsection
-
 @section('style')
 
 @endsection
@@ -15,8 +10,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Add Location</h3>
+                        <div class="card-header text-center" style="background-color: rgb(216, 19, 19);">
+                            <h3 class="card-title text-white">Add Location</h3>
                         </div>
 
                         <form method="POST" action="{{ route('locations.store') }}">
@@ -28,7 +23,7 @@
 
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group">
+                                        <div class="form-group mb-3">
                                             <label for="name">Name</label>
                                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="Enter name">
             
@@ -39,7 +34,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="form-group ">
+                                        <div class="form-group mb-3 ">
                                             <label for="">Latitude</label>
                                             <input class="form-control @error('latitude') is-invalid @enderror" step="any" type="number" name="latitude" id="latitude" placeholder="input latitude" value="{{old('latitude')}}">
     
@@ -50,7 +45,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="form-group ">
+                                        <div class="form-group mb-3 ">
                                             <label for="">Longitude</label>
                                             <input class="form-control @error('longitude') is-invalid @enderror" step="any" type="number" name="longitude" id="longitude" placeholder="input longitude" value="{{old('longitude')}}">
     
@@ -61,7 +56,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group mb-3">
                                             <label>Parent Location</label>
                                             <select class="form-control" name="parent_location">
                                                 <option selected value="">No Parent Location</option>

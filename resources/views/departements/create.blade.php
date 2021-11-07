@@ -16,8 +16,8 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Add Departement</h3>
+                    <div class="card-header text-center" style="background-color: rgb(216, 19, 19);">
+                        <h3 class="card-title text-white">Add Departement</h3>
                     </div>
                     <form method="POST" action="{{ route('departements.store') }}" novalidate>
                         @csrf
@@ -25,7 +25,7 @@
 
                             @include('components.form-message')
 
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="name">Name</label>
                                 <input class="form-control @error('name') is-invalid @enderror" id="name" type="text" name="name" placeholder="name" required value="{{ old('name') }}">
 
@@ -36,7 +36,7 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="">Permissions</label> <br>
                                 <small>Select All</small>
                                 <input type="checkbox" id="checkbox">

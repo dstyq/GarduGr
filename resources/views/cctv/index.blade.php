@@ -21,8 +21,8 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-6">
-                                <span class="tx-bold text-lg">
-                                    <i class="icon ion ion-ios-speedometer text-lg"></i>
+                                <span class="tx-bold font-size-18 text-lg">
+                                    <i class="mdi mdi-cctv font-size-22 text-lg"></i>&nbsp;
                                     Device Management CCTV
                                 </span>
                             </div>
@@ -36,9 +36,11 @@
                             </div>
                             @endcan
                         </div>
-
-                        @include('components.flash-message')
-
+                        <div class="row">
+                            <div class="col-6">
+                                @include('components.flash-message')
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-body">

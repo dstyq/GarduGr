@@ -1,50 +1,50 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+    
+    <head>
+        @include('layouts.partials.head')
+    </head>
 
-<head>
-    @include('layouts.partials.head')
-</head>
+    <body class="sidebar-enable" data-sidebar-size="sm">
 
-<body class="hold-transition sidebar-mini">
-    <!-- Site wrapper -->
-    <div class="wrapper">
-        <!-- Navbar -->
-        @include('layouts.partials.navbar')
-        <!-- /.navbar -->
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+            
+            <!-- Navbar -->
+            @include('layouts.partials.navbar')
+            <!-- /.navbar -->
 
-        <!-- Main Sidebar Container -->
-        @include('layouts.partials.sidebar')
+            <!-- Main Sidebar Container -->
+            @include('layouts.partials.sidebar')
+            
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="d-inline">{{ $page_title ?? 'Page' }}</h1>
-                            @yield('button')
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                @yield('breadcumb')
-                            </ol>
-                        </div>
-                    </div>
-                </div><!-- /.container-fluid -->
-            </section>
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
 
-            <!-- Main content -->
-            @yield('content')
-            <!-- /.content -->
+                <div class="page-content">
+                    <div class="container-fluid">
+
+                        @yield('content')
+                        
+                    </div> <!-- container-fluid -->
+                </div>
+                <!-- End Page-content -->
+
+                @include('layouts.partials.footer')
+
+            </div>
+            <!-- end main content-->
+
         </div>
-        <!-- /.content-wrapper -->
+        <!-- END layout-wrapper -->
+        
+        <div id="alert-1" class=" d-none toast d-block mx-auto">
+            <img src="{{ asset('img/telkomsel-logo.png') }}" alt="" class="d-block mx-auto" height="20">
+            <small style="color: black;" id="locationName"></small>
+        </div>
 
-        @include('layouts.partials.footer')
-    </div>
-    <!-- ./wrapper -->
-
-    @include('layouts.partials.foot')
-</body>
-
+        @include('layouts.partials.foot')
+    </body>
 </html>

@@ -1,10 +1,5 @@
 @extends('layouts.app')
 
-@section('breadcumb')
-    <li class="breadcrumb-item"><a href="{{ route('master-data.index') }}">Master Data</a></li>
-    <li class="breadcrumb-item active">Departements</li>
-@endsection
-
 @section('style')
     
 @endsection
@@ -18,10 +13,10 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-6">
-                                <span class="tx-bold text-lg">
+                                {{-- <span class="tx-bold text-lg">
                                     <i class="icon ion ion-ios-speedometer text-lg"></i>
                                     Departements
-                                </span>
+                                </span> --}}
                             </div>
 
                             @can('departement-create')
@@ -34,8 +29,11 @@
                             @endcan
                         </div>
 
-                        @include('components.flash-message')
-
+                        <div class="row">
+                            <div class="col-6">
+                                @include('components.flash-message')
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-body">
@@ -45,9 +43,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Name</th>
-                                        @can('departement-detail')
                                         <th>Permission</th>
-                                        @endcan
                                         @if(auth()->user()->can('departement-delete') || auth()->user()->can('departement-edit'))
                                         <th>Action</th>
                                         @endif

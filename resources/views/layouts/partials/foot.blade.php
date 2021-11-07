@@ -1,11 +1,20 @@
-<!-- jQuery -->
-<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- JAVASCRIPT -->
+<script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/libs/metismenu/metisMenu.min.js') }}"></script>
+<script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
+<script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
+<script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
+<!-- pace js -->
+{{-- <script src="{{ asset('assets/libs/pace-js/pace.min.js') }}"></script> --}}
+
+<!-- alertifyjs js -->
+<script src="{{ asset('assets/libs/alertifyjs/build/alertify.min.js') }}"></script>
+<!-- notification init -->
+<script src="{{ asset('assets/js/pages/notification.init.js') }}"></script>
+<script src="{{ asset('assets/js/app.js') }}"></script>
 <!-- overlayScrollbars -->
 <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('js/adminlte.min.js') }}"></script>
 <!-- Jquery Confirm -->
 <script src="{{ asset('plugins/jquery-confirm/js/jquery-confirm.js') }}"></script>
 <!-- DataTables  & Plugins -->
@@ -19,7 +28,25 @@
 <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
 
+{{-- Socket IO --}}
+<script src="{{ asset('js/socket/socket.js') }}"></script>
 <script>
+    const socket = io('http://localhost:1010');
+
+    socket.on('notifAccessDoor', function(data) {
+        let countBefore = $('#countAccessDoor').text()
+        $('#countAccessDoor').text(parseInt(countBefore) + 1)
+        alertify.error(data.accessDoor.tDesc)
+    });
+
+    socket.on('notifNvr', function(data) {
+        if (!data.status) {
+            console.log(data);
+            $('#locationName').text(data.nvr.location_name)
+            alertify.error($('#alert-1')[0])
+            // alertify.error(data.nvr.location_name)
+        }
+    });
     $(function () {
         bsCustomFileInput.init();
         //Initialize Select2 Elements

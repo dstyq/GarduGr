@@ -24,9 +24,9 @@
                     <div class="card-body">
                         @foreach ($access as $item)
                         <a onclick="run('{{ $item->tSnapLocation }}')" href="#">awda</a>
-                                <div><img src="{{ realpath($item->tSnapLocation) }}"  width="150px" height="200px">
-                                    {{-- <small>{{ str_replace("\\",'/',$item->t    SnapLocation) }}</small> --}}
-                                    <small></small>
+                                <div><img src="file:///{{ str_replace("\\",'/',$item->tSnapLocation) }}"  width="150px" height="200px">
+                                    <small>file:///{{ str_replace("\\",'/',$item->tSnapLocation) }}</small>
+                                    <a href="file:///{{ str_replace("\\",'/',$item->tSnapLocation) }}" target="_blank">test</a>
                                     {{-- <img src="/file:{{ str_replace("\\",'/',$item->tSnapLocation) }}" height="100" width="200" alt=""> --}}
                                 </div>
                         @endforeach

@@ -20,16 +20,19 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-6">
-                                <span class="tx-bold text-lg">
-                                    <i class="icon ion ion-ios-speedometer text-lg"></i>
+                            <div class="col-12">
+                                <span class="tx-bold font-size-18 text-lg">
+                                    <i class="icon ion ion-ios-speedometer font-size-20 text-lg"></i>&nbsp;
                                     History
                                 </span>
                             </div>
                         </div>
 
-                        @include('components.flash-message')
-
+                        <div class="row">
+                            <div class="col-6">
+                                @include('components.flash-message')
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-body">

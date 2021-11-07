@@ -16,8 +16,8 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Edit {{ $user->username }}</h3>
+                    <div class="card-header text-center" style="background-color: rgb(216, 19, 19);">
+                        <h3 class="card-title text-white">User Edit</h3>
                     </div>
                     <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                         @method('patch')
@@ -27,7 +27,7 @@
 
                             @include('components.form-message')
 
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="name">Name</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                     name="name" value="{{ old('name') ?? $user->name }}" placeholder="Enter name">
@@ -38,7 +38,7 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="username">Username</label>
                                 <input type="text" class="form-control @error('username') is-invalid @enderror"
                                     id="username" name="username" value="{{ old('username') ?? $user->username }}"
@@ -50,7 +50,7 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="email">Email address</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
                                     name="email" value="{{ old('email') ?? $user->email }}" placeholder="Enter email">
@@ -61,7 +61,7 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label>Roles</label>
                                 <select class="form-control" name="role">
                                     <option disabled selected>Select One Role Only</option>
@@ -78,16 +78,13 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="avatar">Avatar :</label>
                                 <img src="{{ asset('img/users/'.($user->avatar ?? 'user.png')) }}" width="110px"
                                     class="image img" />
 
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="avatar" name="avatar">
-                                        <label class="custom-file-label" for="avatar">Choose Image</label>
-                                    </div>
+                                <div class="input-group mt-3">
+                                    <input type="file" class="form-control" id="avatar" name="avatar">
                                 </div>
                                 {{-- <div class="small text-secondary">Kosongkan jika tidak mau diisi</div> --}}
                             </div>
@@ -105,8 +102,8 @@
             @if (Auth::user()->id == $user->id)
             <div class="col-md-6">
                 <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Change Password</h3>
+                    <div class="card-header text-center" style="background-color: rgb(216, 19, 19);">
+                        <h3 class="card-title text-white">Change Password</h3>
                     </div>
                     <form action="{{ route('users.change-password') }}" method="POST">
                         @method('patch')
@@ -115,7 +112,7 @@
 
                             @include('components.flash-message')
 
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
                                     id="password" name="password" value="{{ old('password') }}" placeholder="Password">
