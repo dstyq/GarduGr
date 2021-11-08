@@ -102,5 +102,21 @@
     function openMap(latitude, longitude) {
         window.open(`https://www.google.com/maps/search/${latitude},${longitude}`);
     }
+
+    async function checkStatus(ip, id, parentId) {
+        $.ajax({
+            url:'http://127.0.0.1:1010/checkStatus',
+            type: "POST",
+            dataType: "json",
+            success: function(data) {
+                console.log('success');
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    }
+
+    checkStatus()
 </script>
 @endsection

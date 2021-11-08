@@ -17,10 +17,27 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-12">
-                                <span class="tx-bold font-size-18 text-lg">
-                                    <i class="mdi mdi-bell font-size-20 text-lg"></i>&nbsp;
-                                    Notification Log
-                                </span>
+                                <div class="col-6">
+                                    <span class="tx-bold font-size-18 text-lg">
+                                        <i class="mdi mdi-bell font-size-20 text-lg"></i>&nbsp;
+                                        Notification Log
+                                    </span>
+                                </div>
+
+                                <div class="col-6">
+                                    <form action="" method="get">
+                                        <select name="notification" id="">
+                                            <option value="all">All</option>
+                                            <option value="nvr" {{ Request::get('notification') == 'nvr' ? 'selected' : '' }}>NVR</option>
+                                            <option value="access_door" {{ Request::get('notification') == 'access_door' ? 'selected' : '' }}>Access Door</option>
+                                        </select>
+
+                                        <input type="date" name="start_from" value="{{ date('Y-m-d', strtotime(Request::get('start_from') ?? 'today')) }}">
+                                        <input type="date" name="end_from" value="{{ date('Y-m-d', strtotime(Request::get('end_from') ?? 'today')) }}">
+
+                                        <input type="submit" value="send">
+                                    </form>
+                                </div>
                             </div>
                         </div>
 
@@ -32,9 +49,8 @@
                     </div>
 
                     {{-- {{ dd(Storage::disk('c-drive')->get('Users\Acer\Downloads\screencapture-cctv-monitoring-test-users-1-edit-2021-11-05-14_46_54.png')) }} --}}
+                    {{-- <img src="{{ '..'.Storage::disk('c-drive')->url('\Users\Acer\Downloads\screencapture-cctv-monitoring-test-users-1-edit-2021-11-05-14_46_54.png') }}" height="1000px"  width="100px"alt="" srcset=""> --}}
                     <div class="card-body">
-                        {{-- <img src="{{ Storage::disk('c-drive')->path('\Users\Acer\Downloads\screencapture-cctv-monitoring-test-users-1-edit-2021-11-05-14_46_54.png') }}" height="1000px"  width="100px"alt="" srcset=""> --}}
-
                         <table id="cctvTable" class="table table-hover table-responsive-xl">
                             <thead>
                                 <tr>

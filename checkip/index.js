@@ -43,7 +43,9 @@ var config = {
 
 const io = require("socket.io")(server, options);
 
-var dataLocation = [];
+var dataCctv = [];
+var dataAccessDoor = [];
+var dataAccessDoorStatus = [];
 var parentLocation = [];
 var accessDoorCount = 0;
 let dataNvr = []
@@ -57,9 +59,33 @@ function getLocation() {
             throw error;
         }
     
-        dataLocation = results.rows
+        dataCctv = results.rows
 
-        dataLocation.map((loc) => {
+        dataCctv.map((loc) => {
+            if (loc.parent_id != null) {
+                if (typeof parentLocation[loc.parent_id] == 'undefined') {
+                    parentLocation[loc.parent_id] = [{
+                        id: loc.location_id,
+                        status: false
+                    }]
+                } else {
+                    parentLocation[loc.parent_id].push({
+                        id: loc.location_id,
+                        status: false
+                    })
+                }
+            }
+        })
+    });
+
+    pool.query(`SELECT access_doors.id AS access_door_id, locations.id AS location_id, locations.name AS location_name,locations.parent_id AS parent_id, access_doors.link AS host FROM locations LEFT JOIN access_doors ON locations.id = access_doors.location_id`, (error, results) => {
+        if (error) {
+            throw error;
+        }
+    
+        dataAccessDoor = results.rows
+
+        dataAccessDoor.map((loc) => {
             if (loc.parent_id != null) {
                 if (typeof parentLocation[loc.parent_id] == 'undefined') {
                     parentLocation[loc.parent_id] = [{
@@ -80,8 +106,9 @@ function getLocation() {
 getLocation();
 
 async function checkStatus() {
-    if (dataLocation.length > 0) {
-        dataLocation.map(async (location) => {
+    // CCTV
+    if (dataCctv.length > 0) {
+        dataCctv.map(async (location) => {
             if (location.parent_id && location.host) {
                 let link =  location.host.split("//");
                 let newlink = link[link.length - 1].split("/");
@@ -153,6 +180,59 @@ async function checkStatus() {
                     }
                 } catch (error) {
                     console.log("ERROR GET LAST DATA NVR HISTORY", error);
+                }
+            }
+        })
+    }
+
+    // Access Door
+    if (dataAccessDoor.length > 0) {
+        dataAccessDoor.map(async (location) => {
+            if (location.parent_id && location.host) {
+                let link =  location.host.split("//");
+                let newlink = link[link.length - 1].split("/");
+                // let newlinkWithNoPort = newlink[newlink.length - 1].split(":");
+                let host = newlink[0]
+
+                try {
+                    
+                    let data = await ping.promise.probe(host);
+
+                    let index = dataAccessDoorStatus.findIndex((i) => {
+                        return i.location_id == location.location_id 
+                    })
+
+                    let insert = true;
+                    if (index >= 0) {
+                        if (dataAccessDoorStatus[index].status != data.alive) {
+                            dataAccessDoorStatus[index].status = data.alive
+                        } else {
+                            insert = false
+                        }
+                    } else {
+                        dataAccessDoorStatus.push({
+                            location_id: location.location_id,
+                            status: data.alive
+                        })
+                    }
+
+                    // insert notif nvr
+                   if (insert) {
+                    pool.query("INSERT INTO history_notifications (type, datetime, location, status) values ('access_door', '" + formatDate(Date.now()) + "', '" + location.location_id + "', '" + data.alive + "')", (err, res) => {
+                        if (err) {
+                            console.log("ERROR INSERT history_notifications ACCESS DOOR STATUS", err.stack)
+                        } else {
+                            // io.emit("notifAccessDoor", {
+                            //     access_door: location,
+                            //     status: data.alive
+                            // });
+
+                            console.log("SUCCESS INSERT history_notifications ACCESS DOOR STATUS", location.location_id)
+                        }
+                    })
+                   }
+                } catch (error) {
+                    console.log("ERROR GET LAST DATA ACCESS DOOR STATUS HISTORY", error);
                 }
             }
         })
