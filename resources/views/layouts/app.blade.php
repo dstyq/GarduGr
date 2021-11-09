@@ -17,7 +17,11 @@
             <!-- Main Sidebar Container -->
             @include('layouts.partials.sidebar')
             
-
+            <div class="topcorner" style="width: 400px;max-height: 400px;padding: 15px;box-shadow: -3px 7px 28px -6px rgba(0,0,0,0.75);-webkit-box-shadow: -3px 7px 28px -6px rgba(0,0,0,0.75);-moz-box-shadow: -3px 7px 28px -6px rgba(0,0,0,0.75);border-radius: 30px;background: white;z-index: 99999999999999999999999999999;"  class="topcorner">
+                <img src="" class="imgAccess" width="100%" height="auto" alt="" style="border-radius: 16px;">
+                <span class="locationName text-center" style="margin-top:10px;font-size:15px;font-weight:bold;display:block"></span>
+                {{-- <small class="font-size-13 locationName" style="color: black;" id="locationName"></small> --}}
+            </div>
             <!-- ============================================================== -->
             <!-- Start right Content here -->
             <!-- ============================================================== -->
@@ -40,11 +44,6 @@
         </div>
         <!-- END layout-wrapper -->
         
-        <div id="alert-1" class=" d-none toast d-block mx-auto">
-            <img src="{{ asset('img/telkomsel-logo.png') }}" alt="" class="d-block mx-auto" height="20">
-            <small style="color: black;" id="locationName"></small>
-        </div>
-
         @include('layouts.partials.foot')
     </body>
 </html>

@@ -33,20 +33,46 @@
 <script>
     const socket = io('http://localhost:1010');
 
+    $('.topcorner').hide();
+
     socket.on('notifAccessDoor', function(data) {
-        let countBefore = $('#countAccessDoor').text()
-        $('#countAccessDoor').text(parseInt(countBefore) + 1)
-        alertify.error(data.accessDoor.tDesc)
+     $('.topcorner').hide();
+        let countBefore = $('.countAccessDoor').text()
+        $('.locationName').text(data.accessDoor.tDesc)
+        let arrayPathImage = data.image.split("\\")
+        let image = arrayPathImage[arrayPathImage.length-1]
+        $('.imgAccess').attr('src', "http://localhost:1234/" + image)
+        $('.countAccessDoor').text(parseInt(countBefore) + 1)
+        // console.log(data.accessDoor);
+        $('.topcorner').fadeIn('fast');
+
+        setTimeout(() => {
+            $('.topcorner').fadeOut('fast');
+        }, 3000);
     });
 
-    socket.on('notifNvr', function(data) {
+    socket.on('notifAccessDoors', function(data) {
         if (!data.status) {
-            console.log(data);
-            $('#locationName').text(data.nvr.location_name)
-            alertify.error($('#alert-1')[0])
-            // alertify.error(data.nvr.location_name)
+            // console.log(data);
+            alertify.error(data.access_door.location_name)
         }
     });
+    socket.on('notifNvr', function(data) {
+        if (!data.status) {
+            // console.log(data);
+            alertify.error(data.nvr.location_name)
+        }
+    });
+
+    function openNew(url) {
+      var url = url
+      newwindow = window.open(url, '_blank');
+      if (window.focus) {
+        newwindow.focus()
+      }
+      return false;
+    }
+
     $(function () {
         bsCustomFileInput.init();
         //Initialize Select2 Elements

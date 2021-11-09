@@ -80,6 +80,12 @@
     .alertify.popup1 {
         background-image: url(https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg);
     }
+
+    .topcorner{
+        position:absolute;
+        top:76px;
+        right:17px;
+    }
 </style>
 
 @yield('style')

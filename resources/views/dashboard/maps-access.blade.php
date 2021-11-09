@@ -22,14 +22,33 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        @foreach ($access as $item)
-                        <a onclick="run('{{ $item->tSnapLocation }}')" href="#">awda</a>
-                                <div><img src="file:///{{ str_replace("\\",'/',$item->tSnapLocation) }}"  width="150px" height="200px">
-                                    <small>file:///{{ str_replace("\\",'/',$item->tSnapLocation) }}</small>
-                                    <a href="file:///{{ str_replace("\\",'/',$item->tSnapLocation) }}" target="_blank">test</a>
-                                    {{-- <img src="/file:{{ str_replace("\\",'/',$item->tSnapLocation) }}" height="100" width="200" alt=""> --}}
-                                </div>
+                        <ul>
+
+                            @foreach ($access as $item)
+                            <li>
+                                @php
+                                    
+                                    $lastArray = count(explode("\\",$item->tSnapLocation)); 
+                                    $image =  explode("\\",$item->tSnapLocation)[$lastArray-1]; 
+                                    $snapsot =  explode("\\",$item->tSnapLocation)[$lastArray-2]; 
+                                    $idcam =  explode("\\",$item->tSnapLocation)[$lastArray-3]; 
+                                @endphp
+                                <img src="http://localhost:1234/{{ $idcam }}/{{ $snapsot }}/{{ $image }}" width="200" height="auto"  alt="">
+                                <hr>
+                            </li>
+                            {{-- <button onclick="openNew('file://///server/share/folder')" >Open</button> --}}
+                            {{-- <iframe src="http://grootech.id/"  height="200" width="300" title="Iframe Example" frameborder="0"></iframe> --}}
+                        {{-- <small>file:///{{ str_replace("\\",'/',$item->tSnapLocation) }}</small> --}}
+                        {{-- a --}}
+                        {{-- <a onclick="run('{{ $item->tSnapLocation }}')" href="#">awda</a>
+                        <div><img src="file:///{{ str_replace("\\",'/',$item->tSnapLocation) }}"  width="150px" height="200px">
+                            <small>file:///{{ str_replace("\\",'/',$item->tSnapLocation) }}</small>
+                            <a href="file:///{{ str_replace("\\",'/',$item->tSnapLocation) }}" target="_blank">test</a>
+                            <img src="/file:{{ str_replace("\\",'/',$item->tSnapLocation) }}" height="100" width="200" alt="">
+                        </div> --}}
+                        
                         @endforeach
+                    </ul>
                     </div>
                 </div>
             </div> 
@@ -164,11 +183,16 @@ run();
 
     function openNew(url) {
       var url = url
-      newwindow = window.open(url, '_blank');
+      // console.log(url)
+      // window.open(url, '_blank');
+
+      newwindow = window.open(url, 'name', ' location=0');
       if (window.focus) {
         newwindow.focus()
       }
       return false;
     }
+
+   
 </script>
 @endsection

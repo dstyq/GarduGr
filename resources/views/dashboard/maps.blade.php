@@ -474,14 +474,16 @@
         }
     }
     
+    // function openNew(url) {
+    //   var url = url
+    //   // console.log(url)
+    //   // window.open(url, '_blank');
 
-    function openNew(url) {
-      var url = url
-      newwindow = window.open(url, '_blank');
-      if (window.focus) {
-        newwindow.focus()
-      }
-      return false;
-    }
+    //   newwindow = window.open(url, 'name', ' location=0');
+    //   if (window.focus) {
+    //     newwindow.focus()
+    //   }
+    //   return false;
+    // }
 </script>
 @endsection

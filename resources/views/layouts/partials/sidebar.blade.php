@@ -37,9 +37,9 @@
                         <li><a href="{{ route('cctv.index') }}">CCTV</a></li>
                         @endif
 
-                        {{-- @if(auth()->user()->can('access-door-list'))
+                        @if(auth()->user()->can('access-door-list'))
                         <li><a href="{{ route('access-door.index') }}">Access Door</a></li>
-                        @endif --}}
+                        @endif
                     </ul>
                 </li>
                 @endif

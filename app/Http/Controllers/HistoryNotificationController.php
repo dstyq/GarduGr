@@ -15,8 +15,18 @@ class HistoryNotificationController extends Controller
      */
     public function index(Request $request)
     {
+        if ($request->has('id')) {
+            if ($request->get('id') == "all") {
+                HistoryNotification::where('view', false)->update(['view' => true]);
+            } else {
+                HistoryNotification::where('id', $request->get('id'))->update(['view' => true]);
+            }
+
+            return redirect()->route('history-log.index');
+        }
+
         $data['page_title'] = 'History Log';
-        $notification = HistoryNotification::where('status', '!=', true);
+        $notification = HistoryNotification::orderBy('id', 'desc');
 
         if ($request->has('notification')) {
             if (!($request->get('notification') == 'all')) {

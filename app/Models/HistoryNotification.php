@@ -11,19 +11,37 @@ class HistoryNotification extends Model
 
     public function getStatus()
     {
-        if ($this->status == false) {
-            $status = 'Offline';
+        if ($this->status == false && $this->picture != "") {
+            $status = "<span class='badge bg-soft-warning text-warning'>Open Door</span>";
         } elseif($this->status == true) {
-            $status = "Online";
+            $status = "<span class='badge bg-soft-success text-success'>Online</span>";
         } else {
-            $status = "N/A";
+            $status = "<span class='badge bg-soft-danger text-danger'>Offline</span>";
         }
         return $status;
     }
 
     public function getLocation()
     {
-        $location = Location::where('id', $this->location)->first();
+        $location = $this->location;
+        if (strlen($this->location) <= 3) {
+            $location = optional(Location::where('id', $this->location)->first())->name;
+       }
         return $location;
+    }
+
+    public function getCctv()
+    {
+        if ($this->type == 'nvr') {
+            $link = optional(Cctv::where('location_id', $this->location)->first())->link;
+        } else {
+            $accessDoor = AccessDoor::where('name', $this->location)->first();
+            if ($accessDoor) {
+                $link = optional(Cctv::where('location_id', $accessDoor->location_id)->first())->link ?? "";
+            } else {
+                $link = "";
+            }
+        }
+        return $link;
     }
 }

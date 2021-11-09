@@ -59,7 +59,7 @@
                 <button type="button" class="btn header-item noti-icon position-relative" id="page-header-notifications-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i data-feather="bell" class="icon-lg"></i>
-                    <span class="badge bg-danger rounded-pill" id="countAccessDoor">{{ $history_notifications->count() }}</span>
+                    <span class="badge bg-danger rounded-pill countAccessDoor" id="">{{ $history_notifications->count() }}</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                     aria-labelledby="page-header-notifications-dropdown">
@@ -75,15 +75,15 @@
                     </div>
                     <div data-simplebar style="max-height: 230px;">
                         @foreach ($history_notifications as $notif)
-                        <a href="{{ route('notification-log.index') }}" class="text-reset notification-item">
+                        <a href="{{ route('notification-log.index').'?id='.$notif->id }}"class="text-reset notification-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" class="rounded-circle avatar-sm" alt="user-pic">
                                 </div>
                                 <div class="flex-grow-1">
-                                    <h6 class="mb-1">{{ ucwords(str_replace('_',' ', $notif->type)) }} ({{ $notif->getStatus() }})</h6>
+                                    <h6 class="mb-1">{{ ucwords(str_replace('_',' ', $notif->type)) }} {!! $notif->getStatus() !!}</h6>
                                     <div class="font-size-13 text-muted">
-                                        <p class="mb-1">{{ $notif->getLocation()->name }}</p>
+                                        <p class="mb-1">{{ $notif->getLocation()->name ?? $notif->location }}</p>
                                         <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>{{ $notif->datetime }}</span></p>
                                     </div>
                                 </div>
@@ -92,7 +92,7 @@
                         @endforeach
                     </div>
                     <div class="p-2 border-top d-grid">
-                        <a class="btn btn-sm btn-link font-size-14 text-center" href="{{ route('notification-log.index') }}">
+                        <a class="btn btn-sm btn-link font-size-14 text-center" href="{{ route('notification-log.index') }}?id=all">
                             <i class="mdi mdi-arrow-right-circle me-1"></i> <span>View More..</span> 
                         </a>
                     </div>
