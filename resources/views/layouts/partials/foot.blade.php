@@ -26,7 +26,7 @@
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
 <!-- Custom File input -->
 <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
-<script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
+<script src="{{ asset('js/datatables-checkboxes.js') }}"></script>
 
 {{-- Socket IO --}}
 <script src="{{ asset('js/socket/socket.js') }}"></script>
@@ -54,13 +54,18 @@
     socket.on('notifAccessDoors', function(data) {
         if (!data.status) {
             // console.log(data);
+            let countBefore = $('.countAccessDoor').text()
             alertify.error(data.access_door.location_name)
+            $('.countAccessDoor').text(parseInt(countBefore) + 1)
+
         }
     });
     socket.on('notifNvr', function(data) {
         if (!data.status) {
             // console.log(data);
+            let countBefore = $('.countAccessDoor').text()
             alertify.error(data.nvr.location_name)
+            $('.countAccessDoor').text(parseInt(countBefore) + 1)
         }
     });
 

@@ -6,9 +6,9 @@
         @include('layouts.partials.head')
         <style>
             .bg-right{
-                background-image: url('img/bg3.jpg.crdownload');
+                background-image: url('img/gedung-telkom.jpg');
                 background-repeat: no-repeat;
-                background-position: center center;
+                background-position: center;
                 background-size: cover;
                 background-color: #cccccc;
             }

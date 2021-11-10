@@ -22,7 +22,7 @@ class HistoryNotificationController extends Controller
                 HistoryNotification::where('id', $request->get('id'))->update(['view' => true]);
             }
 
-            return redirect()->route('history-log.index');
+            return redirect()->route('notification-log.index');
         }
 
         $data['page_title'] = 'History Log';

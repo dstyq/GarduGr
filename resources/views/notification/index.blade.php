@@ -24,9 +24,6 @@
                                             Notification Log
                                         </span>
                                     </div>
-                                    {{-- <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-center">
-                                        <h5 style="font-weight:800;">{{ $shift[0]['shift'] ?? $shift[1]['shift'] ?? 'SHIFT -' }}</h5>
-                                    </div> --}}
                                     <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right d-flex justify-content-end">
                                         <form action="" method="get" class="row col-12 text-right">
                                             <input class="form-control" style="width:25%;" type="date" name="start_from" value="{{ date('Y-m-d', strtotime(Request::get('start_from') ?? 'today')) }}">
@@ -40,31 +37,6 @@
                                         </form>
                                     </div>
                                 </div>
-                                {{-- <div class="col-6">
-                                    <span class="tx-bold font-size-18 text-lg">
-                                        <i class="mdi mdi-bell font-size-20 text-lg"></i>&nbsp;
-                                        Notification Log
-                                    </span>
-                                </div>
-
-                                <div class="col-6">
-                                    <form action="" method="get" class="row">
-                                        <div class="col-4">
-                                            <select name="notification" id="" class="form-select" style="width:20%;">
-                                                <option value="all">All</option>
-                                                <option value="nvr" {{ Request::get('notification') == 'nvr' ? 'selected' : '' }}>NVR</option>
-                                                <option value="access_door" {{ Request::get('notification') == 'access_door' ? 'selected' : '' }}>Access Door</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-4">
-                                            <input class="form-control" style="width:20%;" type="date" name="start_from" value="{{ date('Y-m-d', strtotime(Request::get('start_from') ?? 'today')) }}">
-                                        </div>
-                                        <div class="col-4">
-                                            <input class="form-control" style="width:20%;" type="date" name="end_from" value="{{ date('Y-m-d', strtotime(Request::get('end_from') ?? 'today')) }}">
-                                        </div>
-                                        <input class="btn btn-primary" type="submit" value="send">
-                                    </form>
-                                </div> --}}
                             </div>
                         </div>
 
@@ -89,7 +61,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($notifications as $notif)
-                                {{-- {{ dd($notif) }} --}}
+                                
                                 @php
                                 if($notif->type == "access_door" && $notif->picture != "") {
                                     $method = "openNew('" .$notif->getCctv() ."')";

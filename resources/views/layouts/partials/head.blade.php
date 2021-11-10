@@ -27,7 +27,7 @@
 <!-- Font Awesome -->
 <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
 <!-- Ionicons -->
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
 <!-- overlayScrollbars -->
 <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
 <!-- Google Font: Source Sans Pro -->
@@ -48,7 +48,7 @@
 <script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
 <!-- iCheck for checkboxes and radio inputs -->
 <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-<link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
+<link type="text/css" href="{{ asset('css/datatables-checkboxes.css') }}" rel="stylesheet" />
 <style>
     /* .btn-footer {
         width: 110px;
@@ -77,10 +77,6 @@
     .hidden {
         display: none !important;
     }
-    .alertify.popup1 {
-        background-image: url(https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg);
-    }
-
     .topcorner{
         position:absolute;
         top:76px;

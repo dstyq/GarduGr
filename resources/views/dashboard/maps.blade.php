@@ -57,7 +57,7 @@
 @endsection
 
 @section('content')
-<section class="content mt-2 mr-0 ml-0 pl-0 pr-0">
+<section class="content mt-4 mr-0 ml-0 pl-0 pr-0">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -322,27 +322,49 @@
 
                                 // Pop Up sub location
                                 const html = `
-                                    <div class="card card-bs card-danger mw-200">
-                                        <div class="card-header text-center" style="background: rgb(41,41,41) !important;background: linear-gradient(152deg, rgba(41,41,41,1) 17%, rgba(255,0,0,1) 100%) !important; padding: 10px 5px 3px 5px !important; margin: 0 !important">
+                                        <div class="card-header text-center" style="background: rgb(41,41,41) !important;background: linear-gradient(152deg, rgba(41,41,41,1) 17%, rgba(255,0,0,1) 100%) !important; padding: 10px 5px 3px 5px !important; margin: 0 !important; border-radius:15px 15px 0px 0px;">
                                             <h6 class=" text-white">${cctv.name}</h6>
                                         </div>
-                                        <div class="card-body">
-                                            <p class="text-md mt-0 mb-0"><b>Status:</b>
-                                                <span class="badge badge-pill" id="badge${e.id}">&nbsp;</span> <span id="text${e.id}"></span>
-                                            </p>
-                                            <p class="text-md mt-0 mb-0"><b>Description:</b>
-                                                ${ cctv.description ?? '' }
-                                            </p>
-                                            <p class="text-md mt-0 mb-0"><b>Address:</b>
-                                                ${ cctv.address ?? '' }
-                                            </p>
-                                            <div class="text-center mt-2">
-                                                <a href="/cctv/${ cctv.id }/edit" target="blank" class="d-inline-block mx-auto btn btn-warning text-light">Edit</a>
-                                                <a href="#" target="blank" class="d-inline-block mx-auto btn btn-secondary text-light" onClick="openNew('${ cctv.link }')">Monitoring View</a>
+                                        <div class="card card-bs card-danger mw-200 p-2" style="border-radius:0px 0px 15px 15px;">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <p class="text-md mt-0 mb-0">
+                                                            <b>Status :</b>&nbsp;
+                                                            <span class="badge " id="badge${e.id}"><span id="text${e.id}">Offline</span></span> 
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <hr style="width:100%;  margin:0.2rem 0 0.5rem 0 !important;">
+                                                <div class="row mt-1" >
+                                                    <div class="col-12">
+                                                        <p class="text-md mt-0 mb-0">
+                                                            <b>Address :</b>
+                                                        </p>
+                                                        <smal>
+                                                            ${ cctv.address ?? '' }
+                                                        </smal>
+                                                    </div>
+                                                </div>
+                                                <hr style="width:100%; margin:0.2rem 0 0.5rem 0 !important;">
+                                                <div class="row mt-1">
+                                                    <div class="col-12">
+                                                        <p class="text-md mt-0 mb-0">
+                                                            <b>Description :</b>
+                                                        </p>
+                                                        <smal>
+                                                            ${ cctv.description ?? '' }
+                                                        </smal>
+                                                    </div>
+                                                </div>
+                                                <hr style="width:100%; margin:0.2rem 0 1rem 0 !important;">
+                                                <div class="text-center ">
+                                                    <a href="/cctv/${ cctv.id }/edit" target="blank" class="d-inline-block mx-auto btn btn-warning text-light">Edit</a>
+                                                    <a href="#" target="blank" class="d-inline-block mx-auto btn btn-secondary text-light" onClick="openNew('${ cctv.link }')">Monitoring View</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                `;
+                                    `;
 
                                 // if latitude and longitude exist
                                 if (e.latitude != "" && e.longitude != "") {
