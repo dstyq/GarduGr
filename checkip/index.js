@@ -264,8 +264,6 @@ function checkAccessDoor() {
                     console.log(err);
                 } else {
                     accesDoorFromSql = data.recordset
-                    // console.log(accesDoorFromSql.length);
-                    // console.log(accessDoorCount);
                     if (accessDoorCount < accesDoorFromSql.length) {
                         // Update table accessdoorcount di table config_apps
                         pool.query("UPDATE config_apps SET access_door_count = " + accesDoorFromSql.length + " where id = 1", (err, res) => {
@@ -280,28 +278,25 @@ function checkAccessDoor() {
                         let image = "";
                         let dataDoor = accesDoorFromSql[accesDoorFromSql.length - 1]
                         request.query('select * from tblCameraSnapshot WHERE idEvent=' + dataDoor.IdAutoEvents, function (err, data) {
-                            console.log(data.recordset[0]);
                             if (data.recordsets.length != 0) {
-                                if (data.recordsets[0].length != 0) {
-                                    image = data.recordsets[0][0].tSnapLocation
-                                }
+                                image = data.recordsets[0][0].tSnapLocation
                             }
-
-                            // insert notif accessdoor
-                            pool.query("INSERT INTO history_notifications (type, datetime, location, picture) values ('access_door', '" + formatDate(dataDoor.dtEventReal) + "', '" + dataDoor.tDesc + "', '" + image + "')", (err, res) => {
-                                if (err) {
-                                    console.log("ERROR INSERT history_notifications ACCESS DOOR", err.stack)
-                                } else {
-                                    console.log("SUCCESS INSERT history_notifications ACCESS DOOR")
-                                }
-                            })
-                            
-                            accessDoorCount = accesDoorFromSql.length
-                            io.emit("notifAccessDoor", {
-                                accessDoor: accesDoorFromSql[accesDoorFromSql.length - 1],
-                                image: image
-                            });
                         })
+                        // insert notif accessdoor
+                        pool.query("INSERT INTO history_notifications (type, datetime, location, picture) values ('access_door', '" + formatDate(dataDoor.dtEventReal) + "', '" + dataDoor.tDesc + "', '" + image + "')", (err, res) => {
+                            if (err) {
+                                console.log("ERROR INSERT history_notifications ACCESS DOOR", err.stack)
+                            } else {
+                                console.log("SUCCESS INSERT history_notifications ACCESS DOOR")
+                            }
+                        })
+
+                        
+                        accessDoorCount = accesDoorFromSql.length
+                        io.emit("notifAccessDoor", {
+                            accessDoor: accesDoorFromSql[accesDoorFromSql.length - 1],
+                            image: image
+                        });
                     } else {
                         console.log('tidak ada perubahan');
                     }

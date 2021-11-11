@@ -87,11 +87,19 @@
                                         @if ($notif->picture != "")
                                             @php
                                                 $lastArray = count(explode("\\",$notif->picture)); 
-                                                $image =  explode("\\",$notif->picture)[$lastArray-1];
-                                                $snapshot =  explode("\\",$notif->picture)[$lastArray-2]; 
-                                                $idCam =  explode("\\",$notif->picture)[$lastArray-3];  
+                                                if($lastArray > 1){
+                                                    $image =  explode("\\",$notif->picture)[$lastArray-1];
+                                                    $snapshot =  explode("\\",$notif->picture)[$lastArray-2]; 
+                                                    $idCam =  explode("\\",$notif->picture)[$lastArray-3]; 
+                                                } 
                                             @endphp
-                                            <a href="http://localhost:1234/{{ $idCam }}/{{ $snapshot }}/{{ $image }}" target="_blank"><img src="http://localhost:1234/{{ $idCam }}/{{ $snapshot }}/{{ $image }}" width="100" height="auto" class="d-block mx-auto" alt=""></a>
+
+                                            @isset($image)
+                                                <a href="http://localhost:1234/{{ $idCam }}/{{ $snapshot }}/{{ $image }}" target="_blank"><img src="http://localhost:1234/{{ $idCam }}/{{ $snapshot }}/{{ $image }}" width="100" height="auto" class="d-block mx-auto" alt=""></a>
+                                            @else
+                                                <img src="{{ asset('img/no-image.png') }}" width="80" height="auto" class="d-block mx-auto" alt="">
+                                            @endisset
+
                                         @else
                                             <img src="{{ asset('img/no-image.png') }}" width="80" height="auto" class="d-block mx-auto" alt="">
                                         @endif
