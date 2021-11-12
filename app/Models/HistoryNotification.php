@@ -35,7 +35,14 @@ class HistoryNotification extends Model
         if ($this->type == 'nvr') {
             $link = optional(Cctv::where('location_id', $this->location)->first())->link;
         } else {
-            $accessDoor = AccessDoor::where('name', 'ilike', $this->location)->first();
+            $index = strpos($this->location, 'sensor');
+            if ($index >= 0) {
+                $location = substr($this->location, 0, strlen($this->location) - 7);
+            } else {
+                $location = $this->location;
+            }
+
+            $accessDoor = AccessDoor::where('name', 'ilike', $location)->first();
             if ($accessDoor) {
                 $link = optional(Cctv::where('location_id', $accessDoor->location_id)->first())->link ?? "";
             } else {
