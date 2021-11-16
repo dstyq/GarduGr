@@ -40,7 +40,7 @@
           </div>
 
           <div class="card-body">
-            <table id="userTable" class="table table-hover">
+            <table id="cctvTable" class="table table-hover d-none">
               <thead>
                 <tr>
                   <th>No</th>

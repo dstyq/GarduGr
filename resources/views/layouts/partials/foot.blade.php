@@ -5,8 +5,6 @@
 <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
 <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
 <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
-<!-- pace js -->
-{{-- <script src="{{ asset('assets/libs/pace-js/pace.min.js') }}"></script> --}}
 
 <!-- alertifyjs js -->
 <script src="{{ asset('assets/libs/alertifyjs/build/alertify.min.js') }}"></script>
@@ -33,7 +31,12 @@
 <script>
     const socket = io('http://localhost:1010');
 
-    $('.topcorner').hide();
+    $(document).ready(function(){
+        $('.topcorner').hide();
+        $('.loader').remove();
+        $('#cctvTable').removeClass('d-none');
+    })
+
 
     socket.on('notifAccessDoor', function(data) {
      $('.topcorner').hide();
@@ -43,29 +46,42 @@
         let image = arrayPathImage[arrayPathImage.length-1]
         $('.imgAccess').attr('src', "http://localhost:1234/" + image)
         $('.countAccessDoor').text(parseInt(countBefore) + 1)
-        // console.log(data.accessDoor);
+        // console.log(data.image);
         $('.topcorner').fadeIn('fast');
 
         setTimeout(() => {
             $('.topcorner').fadeOut('fast');
         }, 3000);
+        createNotif(data.res.id, 'Access Door', data.accessDoor.tDesc, "<span class='badge bg-soft-warning text-warning'>Open Door</span>", changeDate(data.res.datetime))
+
     });
 
     socket.on('notifAccessDoors', function(data) {
         if (!data.status) {
             // console.log(data);
             let countBefore = $('.countAccessDoor').text()
-            alertify.error(data.access_door.location_name)
+            status = 'Offline'
+            
+            alertify.error(data.access_door.location_name + ' ( ' + status +' )')
             $('.countAccessDoor').text(parseInt(countBefore) + 1)
+            createNotif(data.res.id, 'Access Door', data.access_door.location_name, "<span class='badge bg-soft-danger text-danger'>Offline</span>", changeDate(data.res.datetime))
+
 
         }
     });
+
     socket.on('notifNvr', function(data) {
         if (!data.status) {
-            // console.log(data);
+            console.log(data);
             let countBefore = $('.countAccessDoor').text()
-            alertify.error(data.nvr.location_name)
+            let status = ''
+            if (data.status == false) {
+                status = 'Offline'
+            }
+            alertify.error(data.nvr.location_name + ' ( ' + status +' )')
             $('.countAccessDoor').text(parseInt(countBefore) + 1)
+            createNotif(data.res.id, 'Nvr', data.nvr.location_name, "<span class='badge bg-soft-danger text-danger'>Offline</span>", changeDate(data.res.datetime))
+
         }
     });
 
@@ -76,6 +92,39 @@
         newwindow.focus()
       }
       return false;
+    }
+
+    function createNotif(id , type, name, status, datetime) {
+        let notif = `
+        <a href="{{ route('notification-log.index').'?id=' }} ${id}"class="text-reset notification-item">
+                <div class="d-flex">
+                    <div class="flex-shrink-0 me-3">
+                        <img src="{{ asset('assets/images/bel1.png') }}" class="rounded-circle avatar-sm" alt="user-pic">
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6 class="mb-1">${type} ${status}</h6>
+                        <div class="font-size-13 text-muted">
+                            <p class="mb-1">${name}</p>
+                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>${datetime}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        `;
+
+        $('#notificationList .simplebar-content').prepend(notif)
+    }
+
+    function changeDate(date) {
+        var date = new Date(date);
+        var dateStr =
+        date.getFullYear() + "-" +
+        ("00" + (date.getMonth() + 1)).slice(-2) + "-" +
+        ("00" + date.getDate()).slice(-2) + " " +
+        ("00" + date.getHours()).slice(-2) + ":" +
+        ("00" + date.getMinutes()).slice(-2) + ":" +
+        ("00" + date.getSeconds()).slice(-2);
+        return dateStr
     }
 
     $(function () {

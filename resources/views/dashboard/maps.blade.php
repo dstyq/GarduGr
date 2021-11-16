@@ -462,7 +462,7 @@
 
     socket.on('realtimeStatus', function(data) {
         let { id, status, role, parent_id} = data
-        console.log(data);
+        // console.log(data);
         changeStatus(id, status, role, parent_id)
     });
 

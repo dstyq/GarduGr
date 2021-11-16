@@ -33,7 +33,7 @@
                                                 <option value="nvr" {{ Request::get('notification') == 'nvr' ? 'selected' : '' }}>NVR</option>
                                                 <option value="access_door" {{ Request::get('notification') == 'access_door' ? 'selected' : '' }}>Access Door</option>
                                             </select>
-                                            <input class="d-inline btn-sm btn-primary" style="width:20%;" type="submit" value="send">
+                                            <input class="d-inline btn-sm btn-primary" style="width:20%;" type="submit" value="submit">
                                         </form>
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="card-body">
-                        <table id="cctvTable" class="table table-hover table-responsive-xl">
+                        <table id="cctvTable" class="table table-hover d-none table-responsive-xl">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -89,13 +89,11 @@
                                                 $lastArray = count(explode("\\",$notif->picture)); 
                                                 if($lastArray > 1){
                                                     $image =  explode("\\",$notif->picture)[$lastArray-1];
-                                                    $snapshot =  explode("\\",$notif->picture)[$lastArray-2]; 
-                                                    $idCam =  explode("\\",$notif->picture)[$lastArray-3]; 
                                                 } 
                                             @endphp
 
                                             @isset($image)
-                                                <a href="http://localhost:1234/{{ $idCam }}/{{ $snapshot }}/{{ $image }}" target="_blank"><img src="http://localhost:1234/{{ $idCam }}/{{ $snapshot }}/{{ $image }}" width="100" height="auto" class="d-block mx-auto" alt=""></a>
+                                                <a href="http://localhost:1234/{{ $image }}" target="_blank"><img src="http://localhost:1234/{{ $image }}" width="100" height="auto" class="d-block mx-auto" alt=""></a>
                                             @else
                                                 <img src="{{ asset('img/no-image.png') }}" width="80" height="auto" class="d-block mx-auto" alt="">
                                             @endisset

@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="card-body">
-                        <table id="cctvTable" class="table table-hover table-responsive-xl">
+                        <table id="cctvTable" class="table d-none table-hover table-responsive-xl">
                             <thead>
                                 <tr>
                                     <th>No</th>

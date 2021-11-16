@@ -73,17 +73,17 @@
                             </div>
                         </div>
                     </div>
-                    <div data-simplebar style="max-height: 230px;">
+                    <div data-simplebar style="max-height: 230px;" id="notificationList">
                         @foreach ($history_notifications as $notif)
                         <a href="{{ route('notification-log.index').'?id='.$notif->id }}"class="text-reset notification-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
-                                    <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" class="rounded-circle avatar-sm" alt="user-pic">
+                                    <img src="{{ asset('assets/images/bel1.png') }}" class="rounded-circle avatar-sm" alt="user-pic">
                                 </div>
                                 <div class="flex-grow-1">
                                     <h6 class="mb-1">{{ ucwords(str_replace('_',' ', $notif->type)) }} {!! $notif->getStatus() !!}</h6>
                                     <div class="font-size-13 text-muted">
-                                        <p class="mb-1">{{ $notif->getLocation()->name ?? $notif->location }}</p>
+                                        <p class="mb-1">{{ $notif->getLocation() }}</p>
                                         <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>{{ $notif->datetime }}</span></p>
                                     </div>
                                 </div>

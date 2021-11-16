@@ -40,7 +40,7 @@ class HistoryNotificationController extends Controller
             $notification = $notification->whereBetween('datetime', [$start_from, $end_from]);
         }
 
-        $data['notifications'] = $notification->get();
+        $data['notifications'] = $notification->whereBetween('datetime', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])->get();
 
         return view('notification.index', $data);
     }

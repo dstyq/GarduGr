@@ -145,13 +145,14 @@ async function checkStatus() {
 
                     // insert notif nvr
                    if (insert) {
-                    pool.query("INSERT INTO history_notifications (type, datetime, location, status) values ('nvr', '" + formatDate(Date.now()) + "', '" + location.location_id + "', '" + data.alive + "')", (err, res) => {
+                    pool.query("INSERT INTO history_notifications (type, datetime, location, status) values ('nvr', '" + formatDate(Date.now()) + "', '" + location.location_id + "', '" + data.alive + "') RETURNING id, datetime", (err, res) => {
                         if (err) {
                             console.log("ERROR INSERT history_notifications NVR", err.stack)
                         } else {
                             io.emit("notifNvr", {
                                 nvr: location,
-                                status: data.alive
+                                status: data.alive,
+                                res: res.rows[0]
                             });
 
                             console.log("SUCCESS INSERT history_notifications NVR", location.location_id)
@@ -218,13 +219,14 @@ async function checkStatus() {
 
                     // insert notif nvr
                    if (insert) {
-                    pool.query("INSERT INTO history_notifications (type, datetime, location, status) values ('access_door', '" + formatDate(Date.now()) + "', '" + location.location_id + "', '" + data.alive + "')", (err, res) => {
+                    pool.query("INSERT INTO history_notifications (type, datetime, location, status) values ('access_door', '" + formatDate(Date.now()) + "', '" + location.location_id + "', '" + data.alive + "')  RETURNING id, datetime", (err, res) => {
                         if (err) {
                             console.log("ERROR INSERT history_notifications ACCESS DOOR STATUS", err.stack)
                         } else {
                             io.emit("notifAccessDoors", {
                                 access_door: location,
-                                status: data.alive
+                                status: data.alive,
+                                res: res.rows[0]
                             });
 
                             console.log("SUCCESS INSERT history_notifications ACCESS DOOR STATUS", location.location_id)
@@ -281,28 +283,29 @@ function checkAccessDoor() {
                             if (data.recordsets.length != 0) {
                                 image = data.recordsets[0][0].tSnapLocation
                             }
-                        })
-                        // insert notif accessdoor
-                        pool.query("INSERT INTO history_notifications (type, datetime, location, picture) values ('access_door', '" + formatDate(dataDoor.dtEventReal) + "', '" + dataDoor.tDesc + "', '" + image + "')", (err, res) => {
-                            if (err) {
-                                console.log("ERROR INSERT history_notifications ACCESS DOOR", err.stack)
-                            } else {
-                                console.log("SUCCESS INSERT history_notifications ACCESS DOOR")
-                            }
-                        })
+                            // insert notif accessdoor
+                            pool.query("INSERT INTO history_notifications (type, datetime, location, picture) values ('access_door', '" + formatDate(dataDoor.dtEventReal) + "', '" + dataDoor.tDesc + "', '" + image + "')  RETURNING id, datetime", (err, res) => {
+                                if (err) {
+                                    console.log("ERROR INSERT history_notifications ACCESS DOOR", err.stack)
+                                } else {
+                                    console.log("SUCCESS INSERT history_notifications ACCESS DOOR")
 
+                                    accessDoorCount = accesDoorFromSql.length
+                                    io.emit("notifAccessDoor", {
+                                        accessDoor: accesDoorFromSql[accesDoorFromSql.length - 1],
+                                        image: image,
+                                        res: res.rows[0]
+                                    });
+                                }
+                            })
+                        })
                         
-                        accessDoorCount = accesDoorFromSql.length
-                        io.emit("notifAccessDoor", {
-                            accessDoor: accesDoorFromSql[accesDoorFromSql.length - 1],
-                            image: image
-                        });
                     } else {
                         console.log('tidak ada perubahan');
                     }
                 }
             });
-        }, 5000);
+        }, 3000);
     });
 }
 

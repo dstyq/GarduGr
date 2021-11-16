@@ -24,7 +24,7 @@ class HistoryNotification extends Model
     public function getLocation()
     {
         $location = $this->location;
-        if (strlen($this->location) <= 3) {
+        if (!preg_match("/[a-z]/i", $this->location)) {
             $location = optional(Location::where('id', $this->location)->first())->name;
        }
         return $location;
@@ -36,7 +36,7 @@ class HistoryNotification extends Model
             $link = optional(Cctv::where('location_id', $this->location)->first())->link;
         } else {
             $index = strpos($this->location, 'sensor');
-            if ($index >= 0) {
+            if ($index !== false) {
                 $location = substr($this->location, 0, strlen($this->location) - 7);
             } else {
                 $location = $this->location;
@@ -47,6 +47,7 @@ class HistoryNotification extends Model
                 $link = optional(Cctv::where('location_id', $accessDoor->location_id)->first())->link ?? "";
             } else {
                 $link = "";
+
             }
         }
         return $link;

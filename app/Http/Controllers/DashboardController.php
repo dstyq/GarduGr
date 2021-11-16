@@ -56,7 +56,6 @@ class DashboardController extends Controller
     public function mapsAccessDoor()
     {
         $data['page_title'] = 'Maps Access Door';
-        $data['access'] = DB::connection('sqlsrv')->select('select * from tblCameraSnapshot');
         
         return view('dashboard.maps-access', $data);
     }

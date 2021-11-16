@@ -22,7 +22,6 @@
                         <div class="row">
                             <div class="col-6">
                                 <span class="tx-bold text-lg">
-                                    <i class="icon ion ion-ios-speedometer text-lg"></i>
                                     Device Management Access Door
                                 </span>
                             </div>
@@ -45,7 +44,7 @@
                     </div>
 
                     <div class="card-body">
-                        <table id="cctvTable" class="table table-hover table-responsive-xl">
+                        <table id="cctvTable" class="table d-none table-hover table-responsive-xl">
                             <thead>
                                 <tr>
                                     <th>No</th>

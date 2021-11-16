@@ -23,6 +23,15 @@
                 opacity:.4;
                 background-color:rgb(14, 1, 1)
             }
+            @font-face {
+                font-family: 'Tangerine';
+                font-style: normal;
+                font-weight: normal;
+                src: local('Tangerine'), url('font/Cocon-Regular-Font.otf') format('truetype');
+            }
+            .font-telkom{
+                font-family: 'Tangerine' !important;
+            }
         </style>
 
     </head>
@@ -45,7 +54,7 @@
                                         </div>
                                         <div class="auth-content">
                                             <div class="text-center">
-                                                <h5 class="mb-0">Welcome</h5>
+                                                <h5 class="mb-0 font-telkom">Welcome</h5>
                                                 <p class="text-muted mt-2">Sign in to dashboard monitoring.</p>
                                             </div>
                                             <form class="mt-4 pt-2" method="POST" action="{{ route('login') }}">
@@ -82,10 +91,17 @@
                                                     
                                                 </div>
                                                 <div class="mb-3">
-                                                    <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Log In</button>
+                                                    <button class="btn btn-primary w-100 waves-effect waves-light font-telkom" type="submit">Log In</button>
                                                 </div>
                                             </form>
                                         </div>
+                                    </div>
+                                    <div class="text-center">
+                                            <a href="index.html" class="d-block auth-logo mb-2">
+                                            <img src="{{ asset('img/CMM.png') }}" alt="" height="40">
+                                        </a>
+                                        {{-- <p class="text-muted mt-2">cmm@Copyright2021.</p> --}}
+                                        <script>document.write(new Date().getFullYear())</script> © PT. Cahaya Mutiara Mandiri.
                                     </div>
                                 </div>
                             </div>
@@ -96,6 +112,11 @@
                     <div class="col-xxl-9 col-lg-8 col-md-7 bg-right">
                         <div class="auth-bg pt-md-5 p-4 d-flex">
                             <div class="bg-dark"></div>
+                            <div class="col-12 d-block my-auto text-center">
+                                {{-- <img src="{{ asset('img/telkomsel-logo-t.png') }}" width="60" height="auto" alt=""> --}}
+                                <h1 class="m-0 font-telkom" style="font-size:60px; color:rgba(212, 25, 25, 0.952); font-weight: 900;">TELKOMSEL</h1>
+                                <h2 class="m-0 p-0 font-telkom" style="font-size:40px; color:rgba(255, 255, 255, 0.952);">SMART MONITORING</h2>
+                            </div>
                             {{-- <ul class="bg-bubbles">
                                 <li></li>
                                 <li></li>

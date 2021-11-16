@@ -77,11 +77,21 @@
     .hidden {
         display: none !important;
     }
+    .loader{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        max-height: 730px;
+        background-color: #ffffff;
+        z-index: 9999999999999999999999;
+    }
     .topcorner{
         position:absolute;
         top:76px;
         right:17px;
+        z-index: 999999999;
     }
+
 </style>
 
 @yield('style')
