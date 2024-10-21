@@ -15,42 +15,39 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-
         // Validate the form data
-        $this->validate($request, [
+        $request->validate([
             'username' => 'required',
             'password' => 'required'
+        ], [
+            'username.required' => 'Username or Email is required.',
+            'password.required' => 'Password is required.'
         ]);
 
-        $username = $request->username; //the input field has name='username' in form
-        $password = $request->password; //the input field has name='password' in form
+        $credentials = [
+            'password' => $request->password,
+        ];
 
-        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
-            //user sent their email 
-            Auth::guard('user-technical')->attempt(['email' => $username, 'password' => $password]);
+        // Determine if the input is an email or username
+        if (filter_var($request->username, FILTER_VALIDATE_EMAIL)) {
+            $credentials['email'] = $request->username;
         } else {
-            //they sent their username instead 
-            Auth::guard('user-technical')->attempt(['username' => $username, 'password' => $password]);
+            $credentials['username'] = $request->username;
         }
 
-        //was any of those correct ?
-        if (Auth::guard('user-technical')->check()) {
-            //send them where they are going 
+        // Attempt to log the user in
+        if (Auth::guard('user-technical')->attempt($credentials)) {
             return redirect()->route('user-technical.dashboard');
         }
 
-        //Nope, something wrong during authentication 
-        return redirect()->back()->withErrors([
-            'username' => 'Please, check your credentials'
-        ]);
+        // If authentication fails, redirect back with input and error message
+        return redirect()->back()->withInput($request->only('username'))
+            ->withErrors(['username' => 'Please check your credentials.']);
     }
 
     public function logout()
     {
-        if (Auth::guard('user-technical')->check()) {
-            Auth::guard('user-technical')->logout();
-        }
-
+        Auth::guard('user-technical')->logout();
         return redirect()->route('user-technical.form-login');
     }
 }
