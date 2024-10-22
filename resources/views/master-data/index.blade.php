@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('breadcumb')
-    <li class="breadcrumb-item active">Master Data</li>
-@endsection
-
 @section('style')
    <style>
        .master-data {
@@ -14,7 +10,7 @@
             box-shadow: 0px 0px 33px -14px rgba(0,0,0,0.75);
             -webkit-box-shadow: 0px 0px 33px -14px rgba(0,0,0,0.75);
             -moz-box-shadow: 0px 0px 33px -14px rgba(0,0,0,0.75);
-            border-right: 4px solid red;
+            border-right: 4px solid rgb(0, 98, 128);";
        }
        .info-box {
             box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -60,208 +56,59 @@
    </style>
 @endsection
 
-@section('content')
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12 ">
-                <div class="row">
-                    @if(auth()->user()->can('departement-list'))
-                    <div class="col-md-3 col-sm-6 col-12 p-1" onclick="location.href='{{ route('departements.index') }}';">
-                        <div class="info-box bg-gradient-info master-data">
-                        <span class="info-box-icon" style="background-color: rgb(201, 4, 4);"><i class="fas fa-building text-white"></i></span>
+@section('breadcumb')
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18">{{ ($breadcumb ?? '') }}</h4>
 
-                        <div class="info-box-content">
-                            <span class="info-box-text font-size-18 text-bold">Departement</span>
-
-                            <span class="font-size-12" style="color: rgba(175, 174, 174, 0.788); line-height:normal;">Create, read, update, delete departement and privileges.</span>
-                        </div>
-                        <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    @endif
-
-                    @if(auth()->user()->can('user-list'))
-                    <div class="col-md-3 col-sm-6 col-12 p-1" onclick="location.href='{{ route('users.index') }}';">
-                        <div class="info-box bg-gradient-info master-data">
-                        <span class="info-box-icon" style="background-color: rgb(201, 4, 4);"><i class="fas fa-user text-white"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text font-size-18 text-bold">User</span>
-
-                            <span class="font-size-12" style="color: rgba(175, 174, 174, 0.788); line-height:normal;">Create, read, update, and delete User.</span>
-                        </div>
-                        <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    @endif
-
-                    @if (auth()->user()->can('user-technical-list'))
-                    <div class="col-md-3 col-sm-6 col-12" onclick="location.href='{{ route('user-technicals.index') }}';">
-                        <div class="info-box bg-gradient-info master-data">
-                        <span class="info-box-icon"><i class="fas fa-user-cog"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text text-bold">User Technical</span>
-
-                            <div class="progress">
-                            <div class="progress-bar" style="width: 100%"></div>
-                            </div>
-                            <span class="progress-description">
-                            </span>
-                        </div>
-                        <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    @endif
-
-                    @if (auth()->user()->can('user-group-list'))
-                    <div class="col-md-3 col-sm-6 col-12" onclick="location.href='{{ route('user-technical-groups.index') }}';">
-                        <div class="info-box bg-gradient-info master-data">
-                        <span class="info-box-icon"><i class="fas fa-users-cog"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text text-bold">User Groups</span>
-
-                            <div class="progress">
-                            <div class="progress-bar" style="width: 100%"></div>
-                            </div>
-                            <span class="progress-description">
-                            </span>
-                        </div>
-                        <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    @endif
-                    
-                    @if (auth()->user()->can('category-list'))
-                    <div class="col-md-3 col-sm-6 col-12" onclick="location.href='{{ route('categories.index') }}';">
-                        <div class="info-box bg-gradient-info master-data">
-                        <span class="info-box-icon"><i class="fas fa-th-large"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text text-bold">Category Assets</span>
-
-                            <div class="progress">
-                            <div class="progress-bar" style="width: 100%"></div>
-                            </div>
-                            <span class="progress-description">
-                            </span>
-                        </div>
-                        <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    @endif
-
-                    @if (auth()->user()->can('type-list'))
-                    <div class="col-md-3 col-sm-6 col-12" onclick="location.href='{{ route('types.index') }}';">
-                        <div class="info-box bg-gradient-info master-data">
-                        <span class="info-box-icon"><i class="fas fa-th"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text text-bold">Type Asset</span>
-
-                            <div class="progress">
-                            <div class="progress-bar" style="width: 100%"></div>
-                            </div>
-                            <span class="progress-description">
-                            </span>
-                        </div>
-                        <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    @endif
-
-                    @if (auth()->user()->can('material-list'))
-                    <div class="col-md-3 col-sm-6 col-12" onclick="location.href='{{ route('materials.index') }}';">
-                        <div class="info-box bg-gradient-info master-data">
-                        <span class="info-box-icon"><i class="fas fa-list"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text text-bold">Materials</span>
-
-                            <div class="progress">
-                            <div class="progress-bar" style="width: 100%"></div>
-                            </div>
-                            <span class="progress-description">
-                            </span>
-                        </div>
-                        <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    @endif
-
-                    @if (auth()->user()->can('bom-list'))
-                    <div class="col-md-3 col-sm-6 col-12" onclick="location.href='{{ route('boms.index') }}';">
-                        <div class="info-box bg-gradient-info master-data">
-                        <span class="info-box-icon"><i class="fas fa-clipboard-list"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text text-bold">Bill Of Materials</span>
-
-                            <div class="progress">
-                            <div class="progress-bar" style="width: 100%"></div>
-                            </div>
-                            <span class="progress-description">
-                            </span>
-                        </div>
-                        <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    @endif
-
-                    @if (auth()->user()->can('task-list'))
-                    <div class="col-md-3 col-sm-6 col-12" onclick="location.href='{{ route('tasks.index') }}';">
-                        <div class="info-box bg-gradient-info master-data">
-                        <span class="info-box-icon"><i class="fas fa-tasks"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text text-bold">Tasks</span>
-
-                            <div class="progress">
-                            <div class="progress-bar" style="width: 100%"></div>
-                            </div>
-                            <span class="progress-description">
-                            </span>
-                        </div>
-                        <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    @endif
-
-                    @if (auth()->user()->can('task-group-list'))
-                    <div class="col-md-3 col-sm-6 col-12" onclick="location.href='{{ route('task-groups.index') }}';">
-                        <div class="info-box bg-gradient-info master-data">
-                        <span class="info-box-icon"><i class="fas fa-clipboard-check"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text text-bold">Task Groups</span>
-
-                            <div class="progress">
-                            <div class="progress-bar" style="width: 100%"></div>
-                            </div>
-                            <span class="progress-description">
-                            </span>
-                        </div>
-                        <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    @endif
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item">home</li>
+                        <li class="breadcrumb-item">/</li>
+                        <li class="breadcrumb-item active"><a href="{{ route('dashboard.index') }}">{{ ($breadcumb ?? '') }}</a></li>
+                    </ol>
                 </div>
+
             </div>
         </div>
     </div>
-</section>
+@endsection
+
+@section('content')
+<div class="row mt-4">
+    <div class="col-lg-12 col-md-6">
+        <div class="row">
+            @if(auth()->user()->can('departement-list'))
+            <div class="col-md-4 col-sm-6 col-12 p-1" onclick="location.href='{{ route('departements.index') }}';">
+                <div class="info-box bg-gradient-info master-data">
+                    <span class="info-box-icon" style="background-color:rgb(0, 98, 128); "><i class="fas fa-building text-white"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text font-size-18 text-bold">Departement</span>
+
+                        <span class="font-size-12" style="color: rgba(175, 174, 174, 0.788); line-height:normal;">Create, read, update, delete departement and privileges.</span>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @if(auth()->user()->can('user-list'))
+            <div class="col-md-4 col-sm-6 col-12 p-1" onclick="location.href='{{ route('users.index') }}';">
+                <div class="info-box bg-gradient-info master-data">
+                    <span class="info-box-icon" style="background-color:rgb(0, 98, 128); "><i class="fas fa-user text-white"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text font-size-18 text-bold">User</span>
+
+                        <span class="font-size-12" style="color: rgba(175, 174, 174, 0.788); line-height:normal;">Create, read, update, and delete User.</span>
+                    </div>
+                </div>
+            </div>
+            @endif
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')

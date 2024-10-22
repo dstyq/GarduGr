@@ -5,32 +5,21 @@
 @endsection
 
 @section('content')
-    <section class="content">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18">Starter Page</h4>
 
-        <!-- Default box -->
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Hello World</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-                        <i class="fas fa-times"></i>
-                    </button>
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Utility</a></li>
+                        <li class="breadcrumb-item active">Starter Page</li>
+                    </ol>
                 </div>
-            </div>
-            <div class="card-body">
-                Let start creating amazing application!
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-                Hello World
-            </div>
-            <!-- /.card-footer-->
-        </div>
-        <!-- /.card -->
 
-    </section>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
 @endsection

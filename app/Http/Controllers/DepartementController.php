@@ -22,6 +22,7 @@ class DepartementController extends Controller
     public function index()
     {
         $data['page_title'] = 'Departements';
+        $data['breadcumb'] = 'Departements';
         $data['departements'] = Role::orderby('id', 'asc')->get();
         
         return view('departements.index', $data);

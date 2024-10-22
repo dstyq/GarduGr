@@ -1,14 +1,14 @@
 <footer class="footer">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 text-center">
-                <script>document.write(new Date().getFullYear())</script> © PT. Cahaya Mutiara Mandiri.
+            <div class="col-sm-6">
+                <script>document.write(new Date().getFullYear())</script> © Grootech.
             </div>
-            {{-- <div class="col-sm-6">
+            <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    Design & Develop by <a href="#" class="text-decoration-underline">Neutroniot</a>
+                    Design & Develop by Grootech
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
 </footer>

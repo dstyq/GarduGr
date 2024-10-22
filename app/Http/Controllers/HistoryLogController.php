@@ -10,14 +10,15 @@ use Illuminate\Support\Facades\Session;
 
 class HistoryLogController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('permission:history-log-list', ['only' => 'index']);
+    }
+
     public function index()
     {
         $data['page_title'] = 'History Log';
+        $data['breadcumb'] = 'History Log';
         $data['logs'] = HistoryLog::latest()->get();
 
         return view('history-logs.index', $data);

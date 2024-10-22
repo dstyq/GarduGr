@@ -24,7 +24,8 @@ class UserController extends Controller
     
     public function index()
     {
-        $data['page_title'] = 'List Users';
+        $data['page_title'] = 'Users List';
+        $data['breadcumb'] = 'Users List';
         $data['users'] = User::orderby('id', 'asc')->get();
 
         return view('users.index', $data);
@@ -33,6 +34,7 @@ class UserController extends Controller
     public function create()
     {
         $data['page_title'] = 'Add Users';
+        $data['breadcumb'] = 'Add Users';
         $data['roles'] = Role::pluck('name')->all();
 
         return view('users.create', $data);
@@ -78,6 +80,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $data['page_title'] = 'Edit User';
+        $data['breadcumb'] = 'Edit User';
         $data['user'] = User::findOrFail($id);
         $data['roles'] = Role::pluck('name')->all();
 
