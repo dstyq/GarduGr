@@ -28,7 +28,6 @@
         </div>
     </div>
     <!-- End page title -->
-
     <!-- Additional content can be added here -->
     <div class="row">
         <div class="col-md-6">
