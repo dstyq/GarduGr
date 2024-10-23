@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('permission:dashboard', ['only' => 'dashboard']);
@@ -20,6 +19,4 @@ class DashboardController extends Controller
 
         return view('dashboard.index', $data);
     }
-    
-   
 }
