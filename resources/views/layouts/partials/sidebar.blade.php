@@ -49,7 +49,7 @@
 
                 @if(auth()->user()->can('impedansi-trafo')) 
                     <li>
-                        <a href="{{ route('trafo.impedansi') }}" class="waves-effect">
+                        <a href="{{ route('impedansi-trafo.index') }}" class="waves-effect">
                             <i class="mdi mdi-bolt"></i>
                             <span key="t-impedansi">Impedansi Trafo</span>
                         </a>

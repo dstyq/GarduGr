@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Impedansi Trafo Index</h1>
+    <h1>Impedansi Trafo</h1>
     <p>Welcome to the Impedansi Trafo management page!</p>
 
     <div class="mb-3">

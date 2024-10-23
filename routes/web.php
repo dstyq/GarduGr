@@ -9,7 +9,7 @@ use App\Http\Controllers\GarduController;
 use App\Http\Controllers\ImpedansiTrafoController; 
 use Illuminate\Support\Facades\Route;
 
-// Route untuk halaman login
+// Rute untuk halaman login
 Route::get('/', function () {
     return view('auth.login', ['page_title' => 'Login']);
 })->name('user.login');
@@ -17,12 +17,12 @@ Route::get('/', function () {
 // Rute untuk memproses login
 Route::post('login', [AuthController::class, 'login'])->name('user.login.post');
 
-// Group rute yang memerlukan otentikasi
+// Grup rute yang memerlukan otentikasi
 Route::middleware(['auth'])->group(function () {
     
     // Dashboard
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard.index');
-    
+
     // Master Data
     Route::get('master-data', function () {
         return view('master-data.index', [
@@ -31,13 +31,13 @@ Route::middleware(['auth'])->group(function () {
         ]);
     })->name('master-data.index');
 
-    // Departements
+    // Departemen
     Route::resource('departements', DepartementController::class);
 
-    // Users
+    // Pengguna
     Route::patch('change-password', [UserController::class, 'changePassword'])->name('users.change-password');
     Route::resource('users', UserController::class)->except('show');
-    
+
     // History Log
     Route::resource('history-log', HistoryLogController::class)->except(['show', 'create', 'store', 'edit', 'update']);
 
