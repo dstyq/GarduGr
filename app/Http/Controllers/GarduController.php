@@ -22,6 +22,7 @@ class GarduController extends Controller
     {
         $request->validate([
             'gardu_induk' => 'nullable|string|max:255',
+            // Add validation for other fields if necessary
         ]);
 
         Gardu::create($request->all());
@@ -37,6 +38,7 @@ class GarduController extends Controller
     {
         $request->validate([
             'gardu_induk' => 'nullable|string|max:255',
+            // Add validation for other fields if necessary
         ]);
 
         $gardu->update($request->all());

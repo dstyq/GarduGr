@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ImpedansiTrafo extends Model
 {
-    use HasFactory;
-
+    protected $table = 'impedansi_trafo'; 
     protected $fillable = [
         'id_gardu',
         'mva_short_circuit',
@@ -26,9 +24,4 @@ class ImpedansiTrafo extends Model
         'i_nominal_20kv',
         'impedansi_sumber',
     ];
-
-    public function gardu()
-    {
-        return $this->belongsTo(Gardu::class, 'id_gardu');
-    }
 }

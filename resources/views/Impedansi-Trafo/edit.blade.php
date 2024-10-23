@@ -1,19 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container">
     <h1>Edit Impedansi Trafo</h1>
-    <form action="{{ route('impedansi_trafo.update', $trafo->id) }}" method="POST">
+    <form action="{{ route('impedansi-trafo.update', $impedansiTrafo->id) }}" method="POST">
         @csrf
         @method('PUT')
+        <!-- Add your input fields pre-filled with $impedansiTrafo values -->
         <div class="form-group">
-            <label for="nama_trafo">Nama Trafo</label>
-            <input type="text" name="nama_trafo" id="nama_trafo" class="form-control" value="{{ $trafo->nama_trafo }}" required>
+            <label>ID Gardu</label>
+            <input type="text" name="id_gardu" class="form-control" value="{{ $impedansiTrafo->id_gardu }}" required>
         </div>
-        <div class="form-group">
-            <label for="impedansi">Impedansi</label>
-            <input type="text" name="impedansi" id="impedansi" class="form-control" value="{{ $trafo->impedansi }}" required>
-        </div>
-        <button type="submit" class="btn btn-success">Update</button>
-        <a href="{{ route('impedansi_trafo.index') }}" class="btn btn-secondary">Kembali</a>
+        <!-- Add other fields similarly -->
+        <button type="submit" class="btn btn-warning">Update Impedansi Trafo</button>
     </form>
+</div>
 @endsection

@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h1>Data Gardu</h1>
+    <h1 class="mb-4">Data Gardu</h1>
     <a href="{{ route('gardu.create') }}" class="btn btn-primary mb-3">Tambah Gardu</a>
     <table class="table table-striped">
         <thead>
@@ -27,7 +27,7 @@
                             <form action="{{ route('gardu.destroy', $gardu->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus gardu ini?')">Hapus</button>
                             </form>
                         </td>
                     </tr>
@@ -35,5 +35,5 @@
             @endif
         </tbody>
     </table>
-    
+
 @endsection

@@ -5,6 +5,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\HistoryLogController;
+use App\Http\Controllers\GarduController; 
+use App\Http\Controllers\ImpedansiTrafoController; 
 use Illuminate\Support\Facades\Route;
 
 // Route untuk halaman login
@@ -38,4 +40,10 @@ Route::middleware(['auth'])->group(function () {
     
     // History Log
     Route::resource('history-log', HistoryLogController::class)->except(['show', 'create', 'store', 'edit', 'update']);
+
+    // Gardu
+    Route::resource('gardu', GarduController::class);
+
+    // Impedansi Trafo
+    Route::resource('impedansi-trafo', ImpedansiTrafoController::class);
 });

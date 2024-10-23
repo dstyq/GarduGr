@@ -6,18 +6,19 @@ use App\Models\ImpedansiTrafo;
 use App\Models\Gardu;
 use Illuminate\Http\Request;
 
+
 class ImpedansiTrafoController extends Controller
 {
     public function index()
     {
         $impedansiTrafo = ImpedansiTrafo::with('gardu')->get();
-        return view('impedansi_trafo.index', compact('impedansiTrafo'));
+        return view('impedansi-trafo.index', compact('impedansiTrafo'));
     }
 
     public function create()
     {
         $gardus = Gardu::all();
-        return view('impedansi_trafo.create', compact('gardus'));
+        return view('impedansi-trafo.create', compact('gardus'));
     }
 
     public function store(Request $request)
@@ -41,13 +42,13 @@ class ImpedansiTrafoController extends Controller
         ]);
 
         ImpedansiTrafo::create($request->all());
-        return redirect()->route('impedansi_trafo.index')->with('success', 'Impedansi Trafo berhasil ditambahkan.');
+        return redirect()->route('impedansi-trafo.index')->with('success', 'Impedansi Trafo berhasil ditambahkan.');
     }
 
     public function edit(ImpedansiTrafo $impedansiTrafo)
     {
         $gardus = Gardu::all();
-        return view('impedansi_trafo.edit', compact('impedansiTrafo', 'gardus'));
+        return view('impedansi-trafo.edit', compact('impedansiTrafo', 'gardus'));
     }
 
     public function update(Request $request, ImpedansiTrafo $impedansiTrafo)
@@ -58,12 +59,12 @@ class ImpedansiTrafoController extends Controller
         ]);
 
         $impedansiTrafo->update($request->all());
-        return redirect()->route('impedansi_trafo.index')->with('success', 'Impedansi Trafo berhasil diperbarui.');
+        return redirect()->route('impedansi-trafo.index')->with('success', 'Impedansi Trafo berhasil diperbarui.');
     }
 
     public function destroy(ImpedansiTrafo $impedansiTrafo)
     {
         $impedansiTrafo->delete();
-        return redirect()->route('impedansi_trafo.index')->with('success', 'Impedansi Trafo berhasil dihapus.');
+        return redirect()->route('impedansi-trafo.index')->with('success', 'Impedansi Trafo berhasil dihapus.');
     }
 }

@@ -10,7 +10,7 @@ class CreateImpedansiTrafoTable extends Migration
     {
         Schema::create('impedansi_trafo', function (Blueprint $table) {
             $table->id(); // Primary Key
-            $table->foreignId('id_gardu')->nullable()->constrained('gardu')->onDelete('cascade');
+            $table->foreignId('id_gardu')->nullable()->constrained('gardu')->onDelete('cascade'); // Foreign Key
             $table->decimal('mva_short_circuit')->nullable();
             $table->decimal('mva_di_busbar')->nullable();
             $table->decimal('kapasitas')->nullable();
@@ -25,7 +25,7 @@ class CreateImpedansiTrafoTable extends Migration
             $table->decimal('xt_1')->nullable();
             $table->decimal('i_nominal_20kv')->nullable();
             $table->decimal('impedansi_sumber')->nullable();
-            $table->timestamps(); // Columns created_at and updated_at
+            $table->timestamps(); // created_at and updated_at
         });
     }
 

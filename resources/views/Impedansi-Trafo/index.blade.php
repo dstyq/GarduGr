@@ -1,33 +1,48 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Data Impedansi Trafo</h1>
-    <a href="{{ route('impedansi_trafo.create') }}" class="btn btn-primary">Tambah Impedansi Trafo</a>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nama Trafo</th>
-                <th>Impedansi</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($impedansiTrafo as $trafo)
+<div class="container">
+    <h1>Impedansi Trafo Index</h1>
+    <p>Welcome to the Impedansi Trafo management page!</p>
+
+    <div class="mb-3">
+        <a href="{{ route('impedansi-trafo.create') }}" class="btn btn-primary">Add New Impedansi Trafo</a>
+    </div>
+
+    @if($impedansiTrafo->isEmpty())
+        <p>No Impedansi Trafo records found.</p>
+    @else
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>{{ $trafo->id }}</td>
-                    <td>{{ $trafo->nama_trafo }}</td>
-                    <td>{{ $trafo->impedansi }}</td>
-                    <td>
-                        <a href="{{ route('impedansi_trafo.edit', $trafo->id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('impedansi_trafo.destroy', $trafo->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Hapus</button>
-                        </form>
-                    </td>
+                    <th>ID</th>
+                    <th>ID Gardu</th>
+                    <th>MVA Short Circuit</th>
+                    <th>MVA Di Busbar</th>
+                    <th>Kapasitas</th>
+                    <th>Actions</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach($impedansiTrafo as $item)
+                    <tr>
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->id_gardu }}</td>
+                        <td>{{ $item->mva_short_circuit }}</td>
+                        <td>{{ $item->mva_di_busbar }}</td>
+                        <td>{{ $item->kapasitas }}</td>
+                        <td>
+                            <a href="{{ route('impedansi-trafo.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                            <form action="{{ route('impedansi-trafo.destroy', $item->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
+</div>
 @endsection
