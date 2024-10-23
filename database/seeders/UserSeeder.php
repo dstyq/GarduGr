@@ -17,25 +17,30 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        // Cek apakah pengguna dengan nama 'Root' sudah ada
         $user = User::where('name', 'Root')->first();
 
-        if ($user) {
-            $role = Role::where('name', 'Admin')->first();
+        // Jika pengguna tidak ada, buat pengguna baru
+        if (!$user) {
+            $user = User::create([
+                'name' => 'Root',
+                'username' => 'root',
+                'email' => 'root@root.com',
+                'password' => Hash::make('root'), // Hash password
+            ]);
+
+            // Buat role 'Admin' jika belum ada
+            $role = Role::firstOrCreate(['name' => 'Admin']);
         } else {
-            $user = new User();
-            $user->name = 'Root';
-            $user->username = 'root';
-            $user->email = 'root@root.com';
-            $user->password = Hash::make('root');
-    
-            $user->save();
-    
-            $role = Role::create(['name' => 'Admin']);
+            // Jika pengguna sudah ada, ambil role 'Admin'
+            $role = Role::where('name', 'Admin')->first();
         }
 
-        $permissions = Permission::pluck('id','id')->all();
+        // Ambil semua permissions dan sinkronisasikan dengan role
+        $permissions = Permission::pluck('id')->all();
         $role->syncPermissions($permissions);
-        $user->assignRole([$role->id]);
-        
+
+        // Assign role kepada pengguna
+        $user->assignRole($role);
     }
 }

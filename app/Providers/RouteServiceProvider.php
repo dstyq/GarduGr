@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/assets';
+    public const HOME = '/dashboard'; // Ganti dengan rute yang sesuai untuk dashboard Anda
 
     /**
      * The controller namespace for the application.
@@ -26,7 +26,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string|null
      */
-    // protected $namespace = 'App\\Http\\Controllers';
+    // protected $namespace = 'App\\Http\\Controllers'; // Uncomment jika menggunakan namespace controller
 
     /**
      * Define your route model bindings, pattern filters, etc.
