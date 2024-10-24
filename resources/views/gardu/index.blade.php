@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <h1 class="mb-4">Data Gardu</h1>
     <a href="{{ route('gardu.create') }}" class="btn btn-primary mb-3">Tambah Gardu</a>
     <table class="table table-striped">
@@ -35,5 +34,4 @@
             @endif
         </tbody>
     </table>
-
 @endsection
