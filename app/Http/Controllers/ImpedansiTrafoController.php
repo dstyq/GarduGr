@@ -8,16 +8,25 @@ use Illuminate\Http\Request;
 
 class ImpedansiTrafoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $impedansiTrafo = ImpedansiTrafo::with('gardu')->get();
+        $query = ImpedansiTrafo::with('gardu');
+
+        if ($request->has('search')) {
+            $query->whereHas('gardu', function($q) use ($request) {
+                $q->where('gardu_induk', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $impedansiTrafo = $query->get();
+
         return view('impedansi-trafo.index', compact('impedansiTrafo'));
     }
 
     public function create()
     {
-        $gardu = Gardu::all(); // Ambil semua data Gardu
-        return view('impedansi-trafo.create', compact('gardu')); // Kirim data gardu ke view
+        $gardu = Gardu::all(); 
+        return view('impedansi-trafo.create', compact('gardu')); 
     }
 
     public function store(Request $request)
@@ -46,8 +55,8 @@ class ImpedansiTrafoController extends Controller
 
     public function edit(ImpedansiTrafo $impedansiTrafo)
     {
-        $gardu = Gardu::all(); // Ambil semua data Gardu
-        return view('impedansi-trafo.edit', compact('impedansiTrafo', 'gardu')); // Kirim data ke view
+        $gardu = Gardu::all(); 
+        return view('impedansi-trafo.edit', compact('impedansiTrafo', 'gardu'));
     }
 
     public function update(Request $request, ImpedansiTrafo $impedansiTrafo)

@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ImpedansiTrafo extends Model
 {
-    protected $table = 'impedansi_trafo'; 
-    
+    protected $table = 'impedansi_trafo';
+
     protected $fillable = [
         'id_gardu',
         'mva_short_circuit',
@@ -25,4 +25,10 @@ class ImpedansiTrafo extends Model
         'i_nominal_20kv',
         'impedansi_sumber',
     ];
+
+    // Relasi ke model Gardu
+    public function gardu()
+    {
+        return $this->belongsTo(Gardu::class, 'id_gardu');
+    }
 }

@@ -9,6 +9,14 @@
         <a href="{{ route('gardu.create') }}" class="btn btn-primary">Add New Gardu</a>
     </div>
 
+    <!-- Filter Pencarian (Opsional) -->
+    <form method="GET" action="{{ route('impedansi-trafo.index') }}" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search by Gardu Name" value="{{ request()->get('search') }}">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+    </form>
+    
     @if($gardus->isEmpty())
         <div class="alert alert-warning" role="alert">
             No Gardu records found.
