@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-    
+<link rel="stylesheet" href="{{ asset('path/to/adminlte.css') }}">
+
     <head>
     @include('layouts.partials.head')
     </head>
@@ -45,5 +46,6 @@
         <!-- END layout-wrapper -->
 
         @include('layouts.partials.foot')
+        <script src="{{ asset('path/to/adminlte.js') }}"></script>
     </body>
 </html>
