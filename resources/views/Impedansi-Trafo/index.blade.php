@@ -10,9 +10,11 @@
     </div>
 
     @if($impedansiTrafo->isEmpty())
-        <p>No Impedansi Trafo records found.</p>
+        <div class="alert alert-warning" role="alert">
+            No Impedansi Trafo records found.
+        </div>
     @else
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -28,15 +30,15 @@
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->id_gardu }}</td>
-                        <td>{{ $item->mva_short_circuit }}</td>
-                        <td>{{ $item->mva_di_busbar }}</td>
-                        <td>{{ $item->kapasitas }}</td>
+                        <td>{{ number_format($item->mva_short_circuit, 2) }}</td>
+                        <td>{{ number_format($item->mva_di_busbar, 2) }}</td>
+                        <td>{{ number_format($item->kapasitas, 2) }}</td>
                         <td>
                             <a href="{{ route('impedansi-trafo.edit', $item->id) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('impedansi-trafo.destroy', $item->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this record?');">Delete</button>
                             </form>
                         </td>
                     </tr>

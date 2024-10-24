@@ -2,15 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Gardu extends Model
 {
-    use HasFactory;
-
-    protected $table = 'gardu';
-    
+    protected $table = 'gardu'; 
     protected $fillable = [
         'gardu_induk',
     ];

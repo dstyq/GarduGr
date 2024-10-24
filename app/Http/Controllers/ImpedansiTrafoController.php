@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ImpedansiTrafo;
+use App\Models\ImpedansiTrafo; 
 use App\Models\Gardu;
 use Illuminate\Http\Request;
-
 
 class ImpedansiTrafoController extends Controller
 {
@@ -17,8 +16,8 @@ class ImpedansiTrafoController extends Controller
 
     public function create()
     {
-        $gardus = Gardu::all();
-        return view('impedansi-trafo.create', compact('gardus'));
+        $gardu = Gardu::all(); // Ambil semua data Gardu
+        return view('impedansi-trafo.create', compact('gardu')); // Kirim data gardu ke view
     }
 
     public function store(Request $request)
@@ -47,15 +46,28 @@ class ImpedansiTrafoController extends Controller
 
     public function edit(ImpedansiTrafo $impedansiTrafo)
     {
-        $gardus = Gardu::all();
-        return view('impedansi-trafo.edit', compact('impedansiTrafo', 'gardus'));
+        $gardu = Gardu::all(); // Ambil semua data Gardu
+        return view('impedansi-trafo.edit', compact('impedansiTrafo', 'gardu')); // Kirim data ke view
     }
 
     public function update(Request $request, ImpedansiTrafo $impedansiTrafo)
     {
         $request->validate([
             'id_gardu' => 'nullable|exists:gardu,id',
-            // Validasi lainnya...
+            'mva_short_circuit' => 'nullable|numeric',
+            'mva_di_busbar' => 'nullable|numeric',
+            'kapasitas' => 'nullable|numeric',
+            'impedansi_trafo' => 'nullable|numeric',
+            'volt_primer' => 'nullable|numeric',
+            'volt_sekunder' => 'nullable|numeric',
+            'belitan_delta' => 'nullable|string|max:255',
+            'kapasitas_delta' => 'nullable|numeric',
+            'ratio_c_t_20kv_1' => 'nullable|numeric',
+            'ratio_c_t_20kv_2' => 'nullable|numeric',
+            'pentahanan_netral' => 'nullable|numeric',
+            'xt_1' => 'nullable|numeric',
+            'i_nominal_20kv' => 'nullable|numeric',
+            'impedansi_sumber' => 'nullable|numeric',
         ]);
 
         $impedansiTrafo->update($request->all());
