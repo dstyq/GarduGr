@@ -10,7 +10,7 @@ class GarduController extends Controller
     public function index()
     {
         $gardus = Gardu::all();
-        return view('gardu.index', compact('gardus'));
+        return view('gardu.index', compact('gardus')); 
     }
 
     public function create()
@@ -21,8 +21,7 @@ class GarduController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'gardu_induk' => 'nullable|string|max:255',
-            // Add validation for other fields if necessary
+            'gardu_induk' => 'required|string|max:255',
         ]);
 
         Gardu::create($request->all());
@@ -37,8 +36,7 @@ class GarduController extends Controller
     public function update(Request $request, Gardu $gardu)
     {
         $request->validate([
-            'gardu_induk' => 'nullable|string|max:255',
-            // Add validation for other fields if necessary
+            'gardu_induk' => 'required|string|max:255',
         ]);
 
         $gardu->update($request->all());

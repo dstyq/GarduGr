@@ -22,7 +22,7 @@
             No Impedansi Trafo records found.
         </div>
     @else
-        <div class="table-responsive"> <!-- Added responsive wrapper -->
+        <div class="table-responsive"> <!-- Responsive wrapper for table -->
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -65,11 +65,11 @@
                             <td>{{ number_format($item->i_nominal_20kv, 2) }}</td>
                             <td>{{ number_format($item->impedansi_sumber, 2) }}</td>
                             <td>
-                                <a href="{{ route('impedansi-trafo.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                                <a href="{{ route('impedansi-trafo.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                 <form action="{{ route('impedansi-trafo.destroy', $item->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this record?');">Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this record?');">Delete</button>
                                 </form>
                             </td>
                         </tr>

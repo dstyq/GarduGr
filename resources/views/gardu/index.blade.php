@@ -38,7 +38,7 @@
                         <td>
                             <a href="{{ route('gardu.edit', $gardu->id) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('gardu.destroy', $gardu->id) }}" method="POST" style="display:inline;">
-                                @csrf
+                                @csrf 
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this record?');">Delete</button>
                             </form>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ImpedansiTrafo; 
+use App\Models\ImpedansiTrafo;
 use App\Models\Gardu;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,7 @@ class ImpedansiTrafoController extends Controller
         $query = ImpedansiTrafo::with('gardu');
 
         if ($request->has('search')) {
-            $query->whereHas('gardu', function($q) use ($request) {
+            $query->whereHas('gardu', function ($q) use ($request) {
                 $q->where('gardu_induk', 'like', '%' . $request->search . '%');
             });
         }
@@ -25,8 +25,8 @@ class ImpedansiTrafoController extends Controller
 
     public function create()
     {
-        $gardu = Gardu::all(); 
-        return view('impedansi-trafo.create', compact('gardu')); 
+        $gardu = Gardu::all();
+        return view('impedansi-trafo.create', compact('gardu'));
     }
 
     public function store(Request $request)
@@ -50,13 +50,14 @@ class ImpedansiTrafoController extends Controller
         ]);
 
         ImpedansiTrafo::create($request->all());
+
         return redirect()->route('impedansi-trafo.index')->with('success', 'Impedansi Trafo berhasil ditambahkan.');
     }
 
     public function edit(ImpedansiTrafo $impedansiTrafo)
     {
         $gardu = Gardu::all(); 
-        return view('impedansi-trafo.edit', compact('impedansiTrafo', 'gardu'));
+        return view('Impedansi-Trafo.edit', compact('impedansiTrafo', 'gardu'));
     }
 
     public function update(Request $request, ImpedansiTrafo $impedansiTrafo)
@@ -80,12 +81,14 @@ class ImpedansiTrafoController extends Controller
         ]);
 
         $impedansiTrafo->update($request->all());
+
         return redirect()->route('impedansi-trafo.index')->with('success', 'Impedansi Trafo berhasil diperbarui.');
     }
 
     public function destroy(ImpedansiTrafo $impedansiTrafo)
     {
         $impedansiTrafo->delete();
+
         return redirect()->route('impedansi-trafo.index')->with('success', 'Impedansi Trafo berhasil dihapus.');
     }
 }
