@@ -84,8 +84,8 @@
             <label>Impedansi Sumber</label>
             <input type="number" step="0.01" name="impedansi_sumber" class="form-control">
         </div>
-
-        <button type="submit" class="btn btn-success">Add Impedansi Trafo</button>
+        <button type="submit" class="btn btn-success">save</button>
+        <a href="{{ route('impedansi-trafo.index') }}" class="btn btn-secondary">Back</a>
     </form>
 </div>
 @endsection

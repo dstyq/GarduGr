@@ -9,9 +9,8 @@
             <label for="gardu_induk">Nama Gardu Induk</label>
             <input type="text" name="gardu_induk" id="gardu_induk" class="form-control" required>
         </div>
-
-        <button type="submit" class="btn btn-success">Simpan</button>
-        <a href="{{ route('gardu.index') }}" class="btn btn-secondary">Kembali</a>
+        <button type="submit" class="btn btn-success">save</button>
+        <a href="{{ route('gardu.index') }}" class="btn btn-secondary">Back</a>
     </form>
 </div>
 @endsection
