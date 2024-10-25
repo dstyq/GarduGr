@@ -89,7 +89,7 @@
             <input type="number" step="0.01" name="impedansi_sumber" class="form-control" value="{{ $impedansiTrafo->impedansi_sumber }}">
         </div>
 
-        <button type="submit" class="btn btn-warning">Update Impedansi Trafo</button>
+        <button type="submit" class="btn btn-success">Update Impedansi Trafo</button>
         <a href="{{ route('impedansi-trafo.index') }}" class="btn btn-secondary">Back</a>
     </form>
 </div>
