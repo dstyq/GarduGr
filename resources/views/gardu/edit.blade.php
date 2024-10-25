@@ -23,8 +23,8 @@
             <input type="text" name="gardu_induk" id="gardu_induk" class="form-control" value="{{ old('gardu_induk', $gardu->gardu_induk) }}" required>
         </div>
 
-        <button type="submit" class="btn btn-success">Update</button>
-        <a href="{{ route('gardu.index') }}" class="btn btn-secondary">Kembali</a>
+        <button type="submit" class="btn btn-success">Update Gardu</button>
+        <a href="{{ route('gardu.index') }}" class="btn btn-secondary">Back</a>
     </form>
 </div>
 @endsection

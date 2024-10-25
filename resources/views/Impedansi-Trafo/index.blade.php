@@ -9,7 +9,7 @@
         <a href="{{ route('impedansi-trafo.create') }}" class="btn btn-primary">Add New Impedansi Trafo</a>
     </div>
 
-    <!-- Filter Pencarian (Opsional) -->
+    <!-- buat search -->
     <form method="GET" action="{{ route('impedansi-trafo.index') }}" class="mb-4">
         <div class="input-group">
             <input type="text" name="search" class="form-control" placeholder="Search by Gardu Name" value="{{ request()->get('search') }}">
@@ -22,7 +22,7 @@
             No Impedansi Trafo records found.
         </div>
     @else
-        <div class="table-responsive"> <!-- Responsive wrapper for table -->
+        <div class="table-responsive"> 
             <table class="table table-bordered">
                 <thead>
                     <tr>

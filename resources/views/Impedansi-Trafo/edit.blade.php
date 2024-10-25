@@ -90,7 +90,7 @@
         </div>
 
         <button type="submit" class="btn btn-warning">Update Impedansi Trafo</button>
-        <a href="{{ route('impedansi-trafo.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('impedansi-trafo.index') }}" class="btn btn-secondary">Back</a>
     </form>
 </div>
 @endsection
