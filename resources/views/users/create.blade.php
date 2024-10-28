@@ -14,7 +14,7 @@
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item">home</li>
                     <li class="breadcrumb-item">/</li>
-<li class="breadcrumb-item"><a href="{{ route('master-data.index') }}">Master Data</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('master-data.index') }}">Master Data</a></li>
                     <li class="breadcrumb-item">/</li>
                     <li class="breadcrumb-item active"><a href="{{ route('users.index') }}">{{ ($breadcumb ?? '') }}</a></li>
                 </ol>

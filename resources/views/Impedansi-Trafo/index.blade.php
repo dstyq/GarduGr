@@ -9,7 +9,7 @@
         <a href="{{ route('impedansi-trafo.create') }}" class="btn btn-primary">Add New Impedansi Trafo</a>
     </div>
 
-    <!-- buat search -->
+    <!-- Search Form -->
     <form method="GET" action="{{ route('impedansi-trafo.index') }}" class="mb-4">
         <div class="input-group">
             <input type="text" name="search" class="form-control" placeholder="Search by Gardu Name" value="{{ request()->get('search') }}">
@@ -26,7 +26,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th> <!-- Added sequential number column -->
                         <th>Nama Gardu</th>
                         <th>MVA Short Circuit</th>
                         <th>MVA Di Busbar</th>
@@ -46,9 +46,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($impedansiTrafo as $item)
+                    @foreach($impedansiTrafo as $index => $item)
                         <tr>
-                            <td>{{ $item->id }}</td>
+                            <td>{{ $index + 1 }}</td> <!-- Sequential numbering -->
                             <td>{{ $item->gardu->gardu_induk ?? 'N/A' }}</td>
                             <td>{{ number_format($item->mva_short_circuit, 2) }}</td>
                             <td>{{ number_format($item->mva_di_busbar, 2) }}</td>

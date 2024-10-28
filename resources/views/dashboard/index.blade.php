@@ -40,8 +40,7 @@
         <div class="col-md-6 mb-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Impedansi Trafo</h5>
-                    <p class="card-text">Check Impedansi Trafo.</p>
+                    <h5 class="card-title">Impedansi Trafo</h5>                    <p class="card-text">Check Impedansi Trafo.</p>
                     <a href="{{ route('impedansi-trafo.index') }}" class="btn btn-primary">View More</a>
                 </div>
             </div>
