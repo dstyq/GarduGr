@@ -69,7 +69,6 @@
 
                                 <button type="button" class="btn btn-secondary" onclick="calculateImpedance({{ $gardu->id }})">Calculate</button>
 
-                                <!-- Retained Other Fields -->
                                 <div class="form-group">
                                     <label>MVA di Busbar</label>
                                     <input type="number" step="0.01" name="mva_di_busbar" class="form-control" required>
