@@ -26,7 +26,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>No</th> <!-- Added sequential number column -->
+                        <th>No</th> 
                         <th>Nama Gardu</th>
                         <th>MVA Short Circuit</th>
                         <th>MVA Di Busbar</th>
@@ -48,22 +48,22 @@
                 <tbody>
                     @foreach($impedansiTrafo as $index => $item)
                         <tr>
-                            <td>{{ $index + 1 }}</td> <!-- Sequential numbering -->
+                            <td>{{ $index + 1 }}</td> 
                             <td>{{ $item->gardu->gardu_induk ?? 'N/A' }}</td>
-                            <td>{{ number_format($item->mva_short_circuit, 2) }}</td>
-                            <td>{{ number_format($item->mva_di_busbar, 2) }}</td>
-                            <td>{{ number_format($item->kapasitas, 2) }}</td>
-                            <td>{{ number_format($item->impedansi_trafo, 2) }}</td>
-                            <td>{{ number_format($item->volt_primer, 2) }}</td>
-                            <td>{{ number_format($item->volt_sekunder, 2) }}</td>
+                            <td>{{ number_format($item->mva_short_circuit) }}</td>
+                            <td>{{ number_format($item->mva_di_busbar) }}</td>
+                            <td>{{ number_format($item->kapasitas) }}</td>
+                            <td>{{ number_format($item->impedansi_trafo) }}</td>
+                            <td>{{ number_format($item->volt_primer) }}</td>
+                            <td>{{ number_format($item->volt_sekunder) }}</td>
                             <td>{{ $item->belitan_delta }}</td>
-                            <td>{{ number_format($item->kapasitas_delta, 2) }}</td>
-                            <td>{{ number_format($item->ratio_c_t_20kv_1, 2) }}</td>
-                            <td>{{ number_format($item->ratio_c_t_20kv_2, 2) }}</td>
-                            <td>{{ number_format($item->pentahanan_netral, 2) }}</td>
-                            <td>{{ number_format($item->xt_1, 2) }}</td>
-                            <td>{{ number_format($item->i_nominal_20kv, 2) }}</td>
-                            <td>{{ number_format($item->impedansi_sumber, 2) }}</td>
+                            <td>{{ number_format($item->kapasitas_delta) }}</td>
+                            <td>{{ number_format($item->ratio_c_t_20kv_1) }}</td>
+                            <td>{{ number_format($item->ratio_c_t_20kv_2) }}</td>
+                            <td>{{ number_format($item->pentahanan_netral) }}</td>
+                            <td>{{ number_format($item->xt_1) }}</td>
+                            <td>{{ number_format($item->i_nominal_20kv) }}</td>
+                            <td>{{ number_format($item->impedansi_sumber) }}</td>
                             <td>
                                 <a href="{{ route('impedansi-trafo.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                 <form action="{{ route('impedansi-trafo.destroy', $item->id) }}" method="POST" style="display:inline;">
