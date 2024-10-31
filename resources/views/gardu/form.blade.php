@@ -4,6 +4,7 @@
             @csrf
             <input type="hidden" name="id_gardu" value="{{ $gardu->id }}">
             
+            <!-- CALCULATE 1 -->
             <div class="form-group">
                 <label>MVA Short Circuit (MVA)</label>
                 <input type="number" step="0.01" name="mva_short_circuit" class="form-control" id="mva_short_circuit_{{ $gardu->id }}" required>
@@ -28,7 +29,7 @@
             </div>
             -->
 
-
+            <!-- CALCULATE 2 -->
             <div class="form-group">
                 <label>Kapasitas (MVA)</label>
                 <input type="number" step="0.01" name="kapasitas" class="form-control" id="kapasitas_{{ $gardu->id }}" required>
@@ -61,6 +62,7 @@
 
             <button type="button" class="btn btn-secondary" onclick="calculateKapasitasDelta({{ $gardu->id }})">Calculate Kapasitas Delta</button>
 
+            <!-- CALCULATE 3 -->
             <div class="form-group row">
                 <div class="col-md-6">
                     <label>Ratio C T 20kV 1</label>
