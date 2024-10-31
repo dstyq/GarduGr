@@ -24,10 +24,12 @@
             <input type="number" step="0.01" name="mva_short_circuit" class="form-control" value="{{ $impedansiTrafo->mva_short_circuit }}" required>
         </div>
 
+        <!--- 
         <div class="form-group">
             <label>MVA di Busbar</label>
             <input type="number" step="0.01" name="mva_di_busbar" class="form-control" value="{{ $impedansiTrafo->mva_di_busbar }}" required>
         </div>
+        --->
 
         <div class="form-group">
             <label>Kapasitas</label>

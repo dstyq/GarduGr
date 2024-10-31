@@ -45,7 +45,7 @@
                         <th>No</th> 
                         <th>Nama Gardu</th>
                         <th>MVA Short Circuit</th>
-                        <th>MVA Di Busbar</th>
+                <!---   <th>MVA Di Busbar</th>   --->
                         <th>Kapasitas</th>
                         <th>Impedansi Trafo</th>
                         <th>Volt Primer</th>
@@ -67,7 +67,7 @@
                             <td>{{ $index + 1 }}</td> 
                             <td>{{ $item->gardu->gardu_induk ?? 'N/A' }}</td>
                             <td>{{ number_format($item->mva_short_circuit) }}</td>
-                            <td>{{ number_format($item->mva_di_busbar) }}</td>
+                    <!---   <td>{{ number_format($item->mva_di_busbar) }}</td>   --->
                             <td>{{ number_format($item->kapasitas) }}</td>
                             <td>{{ number_format($item->impedansi_trafo) }}</td>
                             <td>{{ number_format($item->volt_primer) }}</td>

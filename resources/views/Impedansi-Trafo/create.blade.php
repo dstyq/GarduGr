@@ -20,10 +20,12 @@
             <input type="number" step="0.01" name="mva_short_circuit" class="form-control">
         </div>
 
+        <!--- 
         <div class="form-group">
             <label>MVA di Busbar</label>
             <input type="number" step="0.01" name="mva_di_busbar" class="form-control">
         </div>
+        --->
 
         <div class="form-group">
             <label>Kapasitas</label>
