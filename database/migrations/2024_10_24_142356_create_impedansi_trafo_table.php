@@ -12,7 +12,7 @@ class CreateImpedansiTrafoTable extends Migration
             $table->id(); // Big Integer ID
             $table->foreignId('id_gardu')->nullable()->constrained('gardu')->onDelete('cascade');
             $table->decimal('mva_short_circuit', 10, 2)->nullable();
-            $table->decimal('mva_di_busbar', 10, 2)->nullable();
+            //$table->decimal('mva_di_busbar', 10, 2)->nullable();
             $table->decimal('kapasitas', 10, 2)->nullable();
             $table->decimal('impedansi_trafo', 10, 2)->nullable();
             $table->decimal('volt_primer', 10, 2)->nullable();
@@ -23,6 +23,7 @@ class CreateImpedansiTrafoTable extends Migration
             $table->decimal('ratio_c_t_20kv_2', 10, 2)->nullable();
             $table->decimal('pentahanan_netral', 10, 2)->nullable();
             $table->decimal('xt_1', 10, 2)->nullable();
+            $table->decimal('xt_0', 10, 2)->nullable();
             $table->decimal('i_nominal_20kv', 10, 2)->nullable();
             $table->decimal('impedansi_sumber', 10, 2)->nullable();
             $table->timestamps();

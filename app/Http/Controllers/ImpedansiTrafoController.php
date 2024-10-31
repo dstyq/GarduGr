@@ -34,7 +34,7 @@ class ImpedansiTrafoController extends Controller
         $request->validate([
             'id_gardu' => 'nullable|exists:gardu,id',
             'mva_short_circuit' => 'nullable|numeric',
-            'mva_di_busbar' => 'nullable|numeric',
+            //'mva_di_busbar' => 'nullable|numeric',
             'kapasitas' => 'nullable|numeric',
             'impedansi_trafo' => 'nullable|numeric',
             'volt_primer' => 'nullable|numeric',
@@ -45,6 +45,7 @@ class ImpedansiTrafoController extends Controller
             'ratio_c_t_20kv_2' => 'nullable|numeric',
             'pentahanan_netral' => 'nullable|numeric',
             'xt_1' => 'nullable|numeric',
+            'xt_0' => 'nullable|numeric',
             'i_nominal_20kv' => 'nullable|numeric',
             'impedansi_sumber' => 'nullable|numeric',
         ]);
@@ -65,7 +66,7 @@ class ImpedansiTrafoController extends Controller
         $request->validate([
             'id_gardu' => 'nullable|exists:gardu,id',
             'mva_short_circuit' => 'nullable|numeric',
-            'mva_di_busbar' => 'nullable|numeric',
+            //'mva_di_busbar' => 'nullable|numeric',
             'kapasitas' => 'nullable|numeric',
             'impedansi_trafo' => 'nullable|numeric',
             'volt_primer' => 'nullable|numeric',
@@ -76,6 +77,7 @@ class ImpedansiTrafoController extends Controller
             'ratio_c_t_20kv_2' => 'nullable|numeric',
             'pentahanan_netral' => 'nullable|numeric',
             'xt_1' => 'nullable|numeric',
+            'xt_0' => 'nullable|numeric',
             'i_nominal_20kv' => 'nullable|numeric',
             'impedansi_sumber' => 'nullable|numeric',
         ]);

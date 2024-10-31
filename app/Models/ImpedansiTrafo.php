@@ -11,7 +11,7 @@ class ImpedansiTrafo extends Model
     protected $fillable = [
         'id_gardu',
         'mva_short_circuit',
-        'mva_di_busbar',
+        //'mva_di_busbar',
         'kapasitas',
         'impedansi_trafo',
         'volt_primer',
@@ -22,6 +22,7 @@ class ImpedansiTrafo extends Model
         'ratio_c_t_20kv_2',
         'pentahanan_netral',
         'xt_1',
+        'xt_0',
         'i_nominal_20kv',
         'impedansi_sumber',
     ];
