@@ -55,14 +55,6 @@
                 <input type="text" name="belitan_delta" class="form-control" required>
             </div>
 
-            <div class="form-group">
-                <label>Kapasitas Delta (MVA)</label>
-                <input type="number" step="0.01" name="kapasitas_delta" class="form-control" id="kapasitas_delta_{{ $gardu->id }}" required readonly>
-            </div>
-
-            <button type="button" class="btn btn-secondary" onclick="calculateKapasitasDelta({{ $gardu->id }})">Calculate Kapasitas Delta</button>
-
-            <!-- CALCULATE 3 -->
             <div class="form-group row">
                 <div class="col-md-6">
                     <label>Ratio C T 20kV 1</label>
@@ -78,12 +70,18 @@
                 <label>Pentahanan Netral (Ohm)</label>
                 <input type="number" step="0.01" name="pentahanan_netral" class="form-control" required>
             </div>
+
+            <div class="form-group">
+                <label>Kapasitas Delta (MVA)</label>
+                <input type="number" step="0.01" name="kapasitas_delta" class="form-control" id="kapasitas_delta_{{ $gardu->id }}" required readonly>
+            </div>
             
             <div class="form-group">
                 <label>I Nominal 20kV (Ampere)</label>
                 <input type="number" step="0.01" name="i_nominal_20kv" class="form-control" id="i_nominal_20kv_{{ $gardu->id }}" required readonly>
             </div>
             
+            <button type="button" class="btn btn-secondary" onclick="calculateKapasitasDelta({{ $gardu->id }})">Calculate Kapasitas Delta</button>
             <button type="button" class="btn btn-secondary" onclick="calculateINominal({{ $gardu->id }})">Calculate I Nominal 20kV</button>
 
             <!--

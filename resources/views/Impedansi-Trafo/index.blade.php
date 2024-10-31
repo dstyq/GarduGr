@@ -71,12 +71,11 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this record?');">Delete</button>
                                 </form>
-                                <button class="btn btn-info btn-sm" onclick="toggleForm({{ $item->gardu->id }})">Add Impedansi</button>
                             </td>
                         </tr>
                         <tr id="form-{{ $item->gardu->id }}" style="display: none;">
                             <td colspan="16">
-                                @include('partials.form', ['gardu' => $item->gardu])
+                                @include('gardu.form', ['gardu' => $item->gardu])
                             </td>
                         </tr>
                     @endforeach
