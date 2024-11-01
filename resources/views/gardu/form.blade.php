@@ -125,4 +125,36 @@ function calculateINominal(garduId) {
     }
 }
 
+function calculateXT1(garduId) {
+    var impedansiTrafo = parseFloat(document.querySelector('input[name="impedansi_trafo"]').value) || 0;
+    var voltSekunder = parseFloat(document.getElementById('volt_sekunder_' + garduId).value) || 0;
+    var kapasitas = parseFloat(document.getElementById('kapasitas_' + garduId).value) || 0;
+
+    if (impedansiTrafo > 0 && voltSekunder > 0 && kapasitas > 0) {
+        // Calculate XT 1
+        var xt1 = (impedansiTrafo / 100) * (voltSekunder ** 2) / kapasitas;
+        document.getElementById('xt_1_' + garduId).value = xt1.toFixed(9);
+    } else {
+        alert('Please enter valid values for Impedansi Trafo, Volt Sekunder, and Kapasitas to calculate XT 1.');
+    }
+}
+
+function calculateXT2(garduId) {
+    var belitanDelta = document.querySelector('input[name="belitan_delta"]').value.trim();
+    var xt1 = parseFloat(document.getElementById('xt_1_' + garduId).value) || 0;
+    var kapasitas = parseFloat(document.getElementById('kapasitas_' + garduId).value) || 0;
+    var kapasitasDelta = parseFloat(document.getElementById('kapasitas_delta_' + garduId).value) || 0;
+
+    // Calculate XT 2
+    var xt2;
+    if (belitanDelta) {
+        // If belitan delta exists
+        xt2 = (kapasitas / kapasitasDelta) * xt1;
+    } else {
+        // If belitan delta does not exist
+        xt2 = xt1 * 10;
+    }
+    document.getElementById('xt_2_' + garduId).value = xt2.toFixed(9);
+}
+
 </script>
