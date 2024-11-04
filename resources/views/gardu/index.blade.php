@@ -49,6 +49,7 @@
             <tbody>
                 @foreach($gardus as $index => $gardu)
                     <tr>
+                        <td>{{ $index + 1 }}</td>
                         <td>{{ $gardu->gardu_induk }}</td>
                         <td>
                             <a href="{{ route('gardu.edit', $gardu->id) }}" class="btn btn-warning">Edit</a>

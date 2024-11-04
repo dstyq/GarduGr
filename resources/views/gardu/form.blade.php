@@ -79,11 +79,23 @@
             <button type="button" class="btn btn-secondary" onclick="calculateXT1({{ $gardu->id }})">Calculate XT 1</button>
 
             <div class="form-group">
-                <label for="xt_2_{{ $gardu->id }}">XT 2 (Ohm)</label>
-                <input type="number" step="0.01" name="xt_2" class="form-control" id="xt_2_{{ $gardu->id }}" required readonly>
+                <label for="xt_0_{{ $gardu->id }}">XT 0 (Ohm)</label>
+                <input type="number" step="0.01" name="xt_2" class="form-control" id="xt_0_{{ $gardu->id }}" required readonly>
             </div>
 
-            <button type="button" class="btn btn-secondary" onclick="calculateXT2({{ $gardu->id }})">Calculate XT 2</button>
+            <button type="button" class="btn btn-secondary" onclick="calculateXT0({{ $gardu->id }})">Calculate XT 0</button>
+
+            <div class="form-group">
+                <label for="xlpe_al_cable_{{ $gardu->id }}">XLPE-AL Cable (mH/km)</label>
+                <input type="number" step="0.01" name="inductance_per_km" class="form-control" id="xlpe_al_cable_{{ $gardu->id }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="xlpe_al_cable_output_{{ $gardu->id }}">XLPE-AL Cable (ωL)</label>
+                <input type="number" step="0.01" name="xlpe_al_cable" class="form-control" id="xlpe_al_cable_output_{{ $gardu->id }}" required readonly>
+            </div>
+
+            <button type="button" class="btn btn-secondary" onclick="calculateXLPEALCable({{ $gardu->id }})">Calculate XLPE-AL Cable</button>
 
             <button type="submit" class="btn btn-success">Add Impedansi Trafo</button>
         </form>
@@ -139,22 +151,34 @@ function calculateXT1(garduId) {
     }
 }
 
-function calculateXT2(garduId) {
+function calculateXT0(garduId) {
     var belitanDelta = document.querySelector('input[name="belitan_delta"]').value.trim();
     var xt1 = parseFloat(document.getElementById('xt_1_' + garduId).value) || 0;
     var kapasitas = parseFloat(document.getElementById('kapasitas_' + garduId).value) || 0;
     var kapasitasDelta = parseFloat(document.getElementById('kapasitas_delta_' + garduId).value) || 0;
 
-    // Calculate XT 2
-    var xt2;
+    // Calculate XT 0
+    var xt0;
     if (belitanDelta) {
         // If belitan delta exists
-        xt2 = (kapasitas / kapasitasDelta) * xt1;
+        xt0 = (kapasitas / kapasitasDelta) * xt1;
     } else {
         // If belitan delta does not exist
-        xt2 = xt1 * 10;
+        xt0 = xt1 * 10;
     }
-    document.getElementById('xt_2_' + garduId).value = xt2.toFixed(9);
+    document.getElementById('xt_0_' + garduId).value = xt0.toFixed(9);
 }
 
+function calculateXLPEALCable(garduId) {
+    var inductance = parseFloat(document.getElementById('xlpe_al_cable_' + garduId).value) || 0;
+    const PI = 3.141592653589793;
+
+    if (inductance > 0) {
+        // Calculate XLPE-AL Cable
+        var xlpeALCable = (2 * PI * 50 * inductance) / 1000;
+        document.getElementById('xlpe_al_cable_output_' + garduId).value = xlpeALCable.toFixed(9);
+    } else {
+        alert('Please enter a valid value for Inductance.');
+    }
+}
 </script>

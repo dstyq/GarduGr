@@ -48,6 +48,7 @@ class ImpedansiTrafoController extends Controller
             'xt_0' => 'nullable|numeric',
             'i_nominal_20kv' => 'nullable|numeric',
             'impedansi_sumber' => 'nullable|numeric',
+            'xlpe_al_cable' => 'nullable|string|max:255', 
         ]);
 
         ImpedansiTrafo::create($request->all());
@@ -58,7 +59,7 @@ class ImpedansiTrafoController extends Controller
     public function edit(ImpedansiTrafo $impedansiTrafo)
     {
         $gardu = Gardu::all(); 
-        return view('Impedansi-Trafo.edit', compact('impedansiTrafo', 'gardu'));
+        return view('impedansi-trafo.edit', compact('impedansiTrafo', 'gardu'));
     }
 
     public function update(Request $request, ImpedansiTrafo $impedansiTrafo)
@@ -80,6 +81,7 @@ class ImpedansiTrafoController extends Controller
             'xt_0' => 'nullable|numeric',
             'i_nominal_20kv' => 'nullable|numeric',
             'impedansi_sumber' => 'nullable|numeric',
+            'xlpe_al_cable' => 'nullable|string|max:255', 
         ]);
 
         $impedansiTrafo->update($request->all());

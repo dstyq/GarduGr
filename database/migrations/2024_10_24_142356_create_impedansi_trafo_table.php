@@ -26,6 +26,7 @@ class CreateImpedansiTrafoTable extends Migration
             $table->decimal('xt_0', 10, 2)->nullable();
             $table->decimal('i_nominal_20kv', 10, 2)->nullable();
             $table->decimal('impedansi_sumber', 10, 2)->nullable();
+            $table->string('xlpe_al_cable')->nullable();
             $table->timestamps();
         });
     }

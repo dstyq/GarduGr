@@ -11,7 +11,7 @@ class CreateGarduTable extends Migration
         Schema::create('gardu', function (Blueprint $table) {
             $table->id(); // Primary Key
             $table->string('gardu_induk')->nullable(); 
-            $table->timestamps(); // Kolom created_at dan updated_at
+            $table->timestamps(); 
         });
     }
 

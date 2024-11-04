@@ -78,6 +78,11 @@
         </div>
 
         <div class="form-group">
+            <label>XT 0</label>
+            <input type="number" step="0.01" name="xt_0" class="form-control">
+        </div>
+
+        <div class="form-group">
             <label>I Nominal 20kV</label>
             <input type="number" step="0.01" name="i_nominal_20kv" class="form-control">
         </div>
@@ -86,6 +91,12 @@
             <label>Impedansi Sumber</label>
             <input type="number" step="0.01" name="impedansi_sumber" class="form-control">
         </div>
+
+        <div class="form-group">
+            <label>XLPE-AL Cable</label>
+            <input type="number" step="0.01" name="xlpe_al_cable" class="form-control">
+        </div>
+
         <button type="submit" class="btn btn-success">save</button>
         <a href="{{ route('impedansi-trafo.index') }}" class="btn btn-secondary">Back</a>
     </form>

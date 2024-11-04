@@ -45,7 +45,7 @@
                         <th>No</th> 
                         <th>Nama Gardu</th>
                         <th>MVA Short Circuit</th>
-                <!---   <th>MVA Di Busbar</th>   --->
+                        <!--<th>MVA Di Busbar</th>-->
                         <th>Kapasitas</th>
                         <th>Impedansi Trafo</th>
                         <th>Volt Primer</th>
@@ -56,8 +56,10 @@
                         <th>Ratio C T 20kV 2</th>
                         <th>Pentahanan Netral</th>
                         <th>XT 1</th>
+                        <th>XT 0</th>
                         <th>I Nominal 20kV</th>
                         <th>Impedansi Sumber</th>
+                        <th>XLPE-AL Cable</th> <!-- Added new header -->
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -67,7 +69,7 @@
                             <td>{{ $index + 1 }}</td> 
                             <td>{{ $item->gardu->gardu_induk ?? 'N/A' }}</td>
                             <td>{{ number_format($item->mva_short_circuit) }}</td>
-                    <!---   <td>{{ number_format($item->mva_di_busbar) }}</td>   --->
+                            <!--<td>{{ number_format($item->mva_di_busbar) }}</td>-->
                             <td>{{ number_format($item->kapasitas) }}</td>
                             <td>{{ number_format($item->impedansi_trafo) }}</td>
                             <td>{{ number_format($item->volt_primer) }}</td>
@@ -78,8 +80,10 @@
                             <td>{{ number_format($item->ratio_c_t_20kv_2) }}</td>
                             <td>{{ number_format($item->pentahanan_netral) }}</td>
                             <td>{{ number_format($item->xt_1) }}</td>
+                            <td>{{ number_format($item->xt_0) }}</td>
                             <td>{{ number_format($item->i_nominal_20kv) }}</td>
                             <td>{{ number_format($item->impedansi_sumber) }}</td>
+                            <td>{{ number_format($item->xlpe_al_cable) }}</td> 
                             <td>
                                 <a href="{{ route('impedansi-trafo.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                 <form action="{{ route('impedansi-trafo.destroy', $item->id) }}" method="POST" style="display:inline;">

@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ImpedansiTrafo extends Model
 {
-    protected $table = 'impedansi_trafo';
+    use HasFactory;
 
     protected $fillable = [
         'id_gardu',
         'mva_short_circuit',
-        //'mva_di_busbar',
         'kapasitas',
         'impedansi_trafo',
         'volt_primer',
@@ -25,6 +25,7 @@ class ImpedansiTrafo extends Model
         'xt_0',
         'i_nominal_20kv',
         'impedansi_sumber',
+        'xlpe_al_cable', 
     ];
 
     // Relasi ke model Gardu
