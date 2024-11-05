@@ -4,6 +4,8 @@
             @csrf
             <input type="hidden" name="id_gardu" value="{{ $gardu->id }}">
 
+            <!-- Hubung Singkat Sistem Transmisi -->
+            <h5 class="mt-4">HUBUNG SINGKAT SISTEM TRANSMISI</h5>
             <div class="form-group">
                 <label for="mva_short_circuit_{{ $gardu->id }}">MVA Short Circuit (MVA)</label>
                 <input type="number" step="0.01" name="mva_short_circuit" class="form-control" id="mva_short_circuit_{{ $gardu->id }}" required>
@@ -18,22 +20,28 @@
                 <label for="impedansi_sumber_{{ $gardu->id }}">Impedansi Sumber (Ohm)</label>
                 <input type="number" step="0.01" name="impedansi_sumber" class="form-control" id="impedansi_sumber_{{ $gardu->id }}" required readonly>
             </div>
-
             <button type="button" class="btn btn-secondary" onclick="calculateImpedance({{ $gardu->id }})">Calculate Impedansi Sumber</button>
 
+            <!-- Impedansi Trafo Tenaga dari Data Name Plate Trafo -->
+            <h5 class="mt-4">IMPEDANSI TRAFO TENAGA DARI DATA NAME PLATE TRAFO</h5>
             <div class="form-group">
                 <label for="kapasitas_{{ $gardu->id }}">Kapasitas (MVA)</label>
                 <input type="number" step="0.01" name="kapasitas" class="form-control" id="kapasitas_{{ $gardu->id }}" required>
             </div>
 
             <div class="form-group">
-                <label for="impedansi_trafo">Impedansi Trafo (%)</label>
-                <input type="number" step="0.01" name="impedansi_trafo" class="form-control" required>
+                <label for="impedansi_trafo_{{ $gardu->id }}">Impedansi Trafo (%)</label>
+                <input type="number" step="0.01" name="impedansi_trafo" class="form-control" id="impedansi_trafo_{{ $gardu->id }}" required>
             </div>
 
             <div class="form-group">
-                <label for="volt_primer">Volt Primer (kV)</label>
-                <input type="number" step="0.01" name="volt_primer" class="form-control" required>
+                <label for="volt_primer_{{ $gardu->id }}">Volt Primer (kV)</label>
+                <input type="number" step="0.01" name="volt_primer" class="form-control" id="volt_primer_{{ $gardu->id }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="volt_sekunder_2_{{ $gardu->id }}">Volt Sekunder (kV)</label>
+                <input type="number" step="0.01" name="volt_sekunder_2" class="form-control" id="volt_sekunder_2_{{ $gardu->id }}" required>
             </div>
 
             <div class="form-group">
@@ -45,16 +53,15 @@
                 <label for="kapasitas_delta_{{ $gardu->id }}">Kapasitas Delta (MVA)</label>
                 <input type="number" step="0.01" name="kapasitas_delta" class="form-control" id="kapasitas_delta_{{ $gardu->id }}" required readonly>
             </div>
-
             <button type="button" class="btn btn-secondary" onclick="calculateKapasitasDelta({{ $gardu->id }})">Calculate Kapasitas Delta</button>
 
             <div class="form-group">
                 <label for="i_nominal_20kv_{{ $gardu->id }}">I Nominal 20kV (Ampere)</label>
                 <input type="number" step="0.01" name="i_nominal_20kv" class="form-control" id="i_nominal_20kv_{{ $gardu->id }}" required readonly>
             </div>
-
             <button type="button" class="btn btn-secondary" onclick="calculateINominal({{ $gardu->id }})">Calculate I Nominal 20kV</button>
 
+            <!-- Ratio C T 20kV -->
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="ratio_c_t_20kv_1">Ratio C T 20kV 1</label>
@@ -71,20 +78,20 @@
                 <input type="number" step="0.01" name="pentahanan_netral" class="form-control" required>
             </div>
 
+            <!-- XT Calculations -->
             <div class="form-group">
                 <label for="xt_1_{{ $gardu->id }}">XT 1 (Ohm)</label>
                 <input type="number" step="0.01" name="xt_1" class="form-control" id="xt_1_{{ $gardu->id }}" required readonly>
             </div>
-
             <button type="button" class="btn btn-secondary" onclick="calculateXT1({{ $gardu->id }})">Calculate XT 1</button>
 
             <div class="form-group">
                 <label for="xt_0_{{ $gardu->id }}">XT 0 (Ohm)</label>
-                <input type="number" step="0.01" name="xt_2" class="form-control" id="xt_0_{{ $gardu->id }}" required readonly>
+                <input type="number" step="0.01" name="xt_0" class="form-control" id="xt_0_{{ $gardu->id }}" required readonly>
             </div>
-
             <button type="button" class="btn btn-secondary" onclick="calculateXT0({{ $gardu->id }})">Calculate XT 0</button>
 
+            <!-- XLPE-AL Cable -->
             <div class="form-group">
                 <label for="xlpe_al_cable_{{ $gardu->id }}">XLPE-AL Cable (mH/km)</label>
                 <input type="number" step="0.01" name="inductance_per_km" class="form-control" id="xlpe_al_cable_{{ $gardu->id }}" required>
@@ -94,91 +101,165 @@
                 <label for="xlpe_al_cable_output_{{ $gardu->id }}">XLPE-AL Cable (ωL)</label>
                 <input type="number" step="0.01" name="xlpe_al_cable" class="form-control" id="xlpe_al_cable_output_{{ $gardu->id }}" required readonly>
             </div>
-
             <button type="button" class="btn btn-secondary" onclick="calculateXLPEALCable({{ $gardu->id }})">Calculate XLPE-AL Cable</button>
 
-            <button type="submit" class="btn btn-success">Add Impedansi Trafo</button>
+            <!-- Impedansi Penyulang 20kV -->
+            <h5 class="mt-4">IMPEDANSI PENYULANG 20kV</h5>
+            <p>Data impedansi jaringan/km</p>
+
+            <div class="form-group">
+                <label for="z1_km_{{ $gardu->id }}">Z1/km</label>
+                <input type="number" step="0.01" name="z1_km" class="form-control" id="z1_km_{{ $gardu->id }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="z1_km_output_{{ $gardu->id }}">Z1/km Output</label>
+                <input type="number" step="0.01" name="z1_km_output" class="form-control" id="z1_km_output_{{ $gardu->id }}" required readonly>
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="calculateZ1Km({{ $gardu->id }})">Calculate Z1/km</button>
+
+            <div class="form-group">
+                <label>Z0/km</label>
+                <div>
+                    <input type="number" step="0.01" name="z0_km_1" class="form-control" id="z0_km_{{ $gardu->id }}_1" required readonly>
+                </div>
+                <div>
+                    <input type="number" step="0.01" name="z0_km_2" class="form-control" id="z0_km_{{ $gardu->id }}_2" required readonly>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="calculateZ0Km({{ $gardu->id }})">Calculate Z0/km</button>
+
+            <table class="table table-bordered">
+                <tbody>
+                <th colspan="2" class="text-center">Z1 Jar</th>
+                    <tr>
+                        <td>RI1</td>
+                        <td><input type="text" class="form-control" name="ri1_z1" /></td>
+                        <td>RI2</td>
+                        <td><input type="text" class="form-control" name="ri2_z0" /></td>
+                    <th colspan="2" class="text-center">Z0 Jar</th>
+                        <td>RI1</td>
+                        <td><input type="text" class="form-control" name="j_xi1_z1" /></td>
+                        <td>RI2</td>
+                        <td><input type="text" class="form-control" name="j_xi2_z0" /></td>
+                    </tr>
+                    <tr>
+                        <td>j XI1</td>
+                        <td><input type="text" class="form-control" name="ri1_z1" /></td>
+                        <td>j XI2</td>
+                        <td><input type="text" class="form-control" name="ri2_z0" /></td>
+                        <td>j XI1</td>
+                        <td><input type="text" class="form-control" name="j_xi1_z1" /></td>
+                        <td>j XI2</td>
+                        <td><input type="text" class="form-control" name="j_xi2_z0" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" class="text-center">
+                            <button type="submit" class="btn btn-primary">Calculate</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+       
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-success mt-3">Add Impedansi Trafo</button>
         </form>
     </td>
 </tr>
 
 <script>
+// Function to calculate impedance
 function calculateImpedance(garduId) {
-    var mvaShortCircuit = parseFloat(document.getElementById('mva_short_circuit_' + garduId).value) || 0;
-    var voltSekunder = parseFloat(document.getElementById('volt_sekunder_' + garduId).value) || 0;
-
+    const mvaShortCircuit = parseFloat(document.getElementById('mva_short_circuit_' + garduId).value) || 0;
+    const voltSekunder = parseFloat(document.getElementById('volt_sekunder_' + garduId).value) || 0;
     if (mvaShortCircuit > 0 && voltSekunder > 0) {
-        // Calculate Impedance Sumber
-        var impedanceSumber = (voltSekunder ** 2) / mvaShortCircuit;
-        document.getElementById('impedansi_sumber_' + garduId).value = impedanceSumber.toFixed(9); 
+        const impedanceSumber = (voltSekunder ** 2) / mvaShortCircuit;
+        document.getElementById('impedansi_sumber_' + garduId).value = impedanceSumber.toFixed(9);
     } else {
         alert('Please enter valid values for MVA Short Circuit and Volt Sekunder.');
     }
 }
 
+// Function to calculate kapasitas delta
 function calculateKapasitasDelta(garduId) {
-    var kapasitas = parseFloat(document.getElementById('kapasitas_' + garduId).value) || 0;
-
-    // Calculate Kapasitas Delta
-    var kapasitasDelta = kapasitas / 3;
-    document.getElementById('kapasitas_delta_' + garduId).value = kapasitasDelta.toFixed(0); 
+    const kapasitas = parseFloat(document.getElementById('kapasitas_' + garduId).value) || 0;
+    const kapasitasDelta = kapasitas / 3;
+    document.getElementById('kapasitas_delta_' + garduId).value = kapasitasDelta.toFixed(2);
 }
 
+// Function to calculate I Nominal
 function calculateINominal(garduId) {
-    var kapasitas = parseFloat(document.getElementById('kapasitas_' + garduId).value) || 0;
-    var voltSekunder = parseFloat(document.getElementById('volt_sekunder_' + garduId).value) || 0;
-
-    // Calculate I Nominal 20kV
+    const kapasitas = parseFloat(document.getElementById('kapasitas_' + garduId).value) || 0;
+    const voltSekunder = parseFloat(document.getElementById('volt_sekunder_2_' + garduId).value) || 0;
     if (voltSekunder > 0) {
-        var iNominal = (kapasitas * 1000) / (voltSekunder * Math.sqrt(3));
+        const iNominal = (kapasitas * 1000) / (voltSekunder * Math.sqrt(3));
         document.getElementById('i_nominal_20kv_' + garduId).value = iNominal.toFixed(6);
     } else {
         alert('Please enter a valid value for Volt Sekunder to calculate I Nominal.');
     }
 }
 
+// Function to calculate XT1
 function calculateXT1(garduId) {
-    var impedansiTrafo = parseFloat(document.querySelector('input[name="impedansi_trafo"]').value) || 0;
-    var voltSekunder = parseFloat(document.getElementById('volt_sekunder_' + garduId).value) || 0;
-    var kapasitas = parseFloat(document.getElementById('kapasitas_' + garduId).value) || 0;
+    const impedansiTrafo = parseFloat(document.getElementById('impedansi_trafo_' + garduId).value) || 0;
+    const voltSekunder = parseFloat(document.getElementById('volt_sekunder_2_' + garduId).value) || 0;
+    const kapasitas = parseFloat(document.getElementById('kapasitas_' + garduId).value) || 0;
 
     if (impedansiTrafo > 0 && voltSekunder > 0 && kapasitas > 0) {
-        // Calculate XT 1
-        var xt1 = (impedansiTrafo / 100) * (voltSekunder ** 2) / kapasitas;
+        const xt1 = (impedansiTrafo / 100) * (voltSekunder ** 2) / kapasitas;
         document.getElementById('xt_1_' + garduId).value = xt1.toFixed(9);
     } else {
         alert('Please enter valid values for Impedansi Trafo, Volt Sekunder, and Kapasitas to calculate XT 1.');
     }
 }
 
+// Function to calculate XT0
 function calculateXT0(garduId) {
-    var belitanDelta = document.querySelector('input[name="belitan_delta"]').value.trim();
-    var xt1 = parseFloat(document.getElementById('xt_1_' + garduId).value) || 0;
-    var kapasitas = parseFloat(document.getElementById('kapasitas_' + garduId).value) || 0;
-    var kapasitasDelta = parseFloat(document.getElementById('kapasitas_delta_' + garduId).value) || 0;
+    const belitanDelta = document.querySelector('input[name="belitan_delta"]').value.trim();
+    const xt1 = parseFloat(document.getElementById('xt_1_' + garduId).value) || 0;
+    const kapasitas = parseFloat(document.getElementById('kapasitas_' + garduId).value) || 0;
+    const kapasitasDelta = parseFloat(document.getElementById('kapasitas_delta_' + garduId).value) || 0;
 
-    // Calculate XT 0
-    var xt0;
+    let xt0;
     if (belitanDelta) {
-        // If belitan delta exists
         xt0 = (kapasitas / kapasitasDelta) * xt1;
     } else {
-        // If belitan delta does not exist
         xt0 = xt1 * 10;
     }
     document.getElementById('xt_0_' + garduId).value = xt0.toFixed(9);
 }
 
+// Function to calculate XLPE-AL Cable
 function calculateXLPEALCable(garduId) {
-    var inductance = parseFloat(document.getElementById('xlpe_al_cable_' + garduId).value) || 0;
-    const PI = 3.141592653589793;
+    const inductance = parseFloat(document.getElementById('xlpe_al_cable_' + garduId).value) || 0;
+    const PI = Math.PI;
 
     if (inductance > 0) {
-        // Calculate XLPE-AL Cable
-        var xlpeALCable = (2 * PI * 50 * inductance) / 1000;
+        const xlpeALCable = (2 * PI * 50 * inductance) / 1000;
         document.getElementById('xlpe_al_cable_output_' + garduId).value = xlpeALCable.toFixed(9);
     } else {
         alert('Please enter a valid value for Inductance.');
     }
 }
+
+// Function to calculate Z1/km
+function calculateZ1Km(garduId) {
+    const xlpeALCableOutput = parseFloat(document.getElementById('xlpe_al_cable_output_' + garduId).value) || 0;
+    document.getElementById('z1_km_output_' + garduId).value = xlpeALCableOutput.toFixed(9);
+}
+
+// Function to calculate Z0/km
+function calculateZ0Km(garduId) {
+    const z1Km = parseFloat(document.getElementById('z1_km_' + garduId).value) || 0;
+    const z1KmOutput = parseFloat(document.getElementById('z1_km_output_' + garduId).value) || 0;
+
+    const z0Km1 = 2.2 * z1Km;
+    const z0Km2 = 3 * z1KmOutput;
+
+    document.getElementById('z0_km_' + garduId + '_1').value = z0Km1.toFixed(3);
+    document.getElementById('z0_km_' + garduId + '_2').value = z0Km2.toFixed(9);
+}
+
 </script>
