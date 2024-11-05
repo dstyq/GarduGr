@@ -130,45 +130,58 @@
             <button type="button" class="btn btn-secondary" onclick="calculateZ0Km({{ $gardu->id }})">Calculate Z0/km</button>
 
             <table class="table table-bordered">
-                <tbody>
-                <th colspan="2" class="text-center">Z1 Jar</th>
-                    <tr>
-                        <td>RI1</td>
-                        <td><input type="text" class="form-control" name="ri1_z1" /></td>
-                        <td>RI2</td>
-                        <td><input type="text" class="form-control" name="ri2_z0" /></td>
-                    <th colspan="2" class="text-center">Z0 Jar</th>
-                        <td>RI1</td>
-                        <td><input type="text" class="form-control" name="j_xi1_z1" /></td>
-                        <td>RI2</td>
-                        <td><input type="text" class="form-control" name="j_xi2_z0" /></td>
-                    </tr>
-                    <tr>
-                        <td>j XI1</td>
-                        <td><input type="text" class="form-control" name="ri1_z1" /></td>
-                        <td>j XI2</td>
-                        <td><input type="text" class="form-control" name="ri2_z0" /></td>
-                        <td>j XI1</td>
-                        <td><input type="text" class="form-control" name="j_xi1_z1" /></td>
-                        <td>j XI2</td>
-                        <td><input type="text" class="form-control" name="j_xi2_z0" /></td>
-                    </tr>
-                    <tr>
-                        <td colspan="8" class="text-center">
-                            <button type="submit" class="btn btn-primary">Calculate</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <thead>
+        <tr>
+        <th colspan="2" class="text-center">Z1 Jar</th>
+        <th colspan="2" class="text-center" style="padding-left: 250px;">Z0 Jar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>RI1</td>
+            <td><input type="text" class="form-control" name="ri1_z1" /></td>
+            <td>RI2</td>
+            <td><input type="text" class="form-control" name="ri2_z0" /></td>
+            <td>RI1</td>
+            <td><input type="text" class="form-control" name="ri1_z2" /></td>
+            <td>RI2</td>
+            <td><input type="text" class="form-control" name="ri2_z2" /></td>
+        </tr>
+        <tr>
+            <td>j XI1</td>
+            <td><input type="text" class="form-control" name="j_xi1_z1" /></td>
+            <td>j XI2</td>
+            <td><input type="text" class="form-control" name="j_xi2_z0" /></td>
+            <td>j XI1</td>
+            <td><input type="text" class="form-control" name="j_xi1_z2" /></td>
+            <td>j XI2</td>
+            <td><input type="text" class="form-control" name="j_xi2_z2" /></td>
+        </tr>
+        <tr>
+            <td colspan="8" class="text-center">
+                <button type="submit" class="btn btn-primary">Calculate</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-       
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="">Seksi GI-GH1</label>
+                    <input type="number" step="0.01" name="" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="">Seksi G1-ujung</label>
+                    <input type="number" step="0.01" name="" class="form-control" required>
+                </div>
+            </div>
 
             <!-- Submit Button -->
             <button type="submit" class="btn btn-success mt-3">Add Impedansi Trafo</button>
         </form>
     </td>
 </tr>
-
+        
 <script>
 // Function to calculate impedance
 function calculateImpedance(garduId) {
