@@ -180,6 +180,12 @@
                 </tbody>
             </table>
 
+            <!-- Sumary Impedansi -->
+            <h5 class="mt-4">SUMARY IMPEDANSI</h5>
+
+            <!-- Impedansi Ukuran Positif -->
+            <h5 class="mt-4">IMPEDANSI URUTAN POSITIF </h5>
+            
             <!-- Submit Button -->
             <button type="submit" class="btn btn-success mt-3">Add Impedansi Trafo</button>
         </form>
@@ -318,5 +324,6 @@ function calculateZ0JarwithRI2(garduId){
 function calculateZ0JarwithjXl2(garduId){
     const
 }
+
 
 </script>
