@@ -187,7 +187,7 @@
 </tr>
 
 <script>
-// Function to calculate impedance
+// Function to calculate impedansi sumber 
 function calculateImpedance(garduId) {
     const mvaShortCircuit = parseFloat(document.getElementById('mva_short_circuit_' + garduId).value) || 0;
     const voltSekunder = parseFloat(document.getElementById('volt_sekunder_' + garduId).value) || 0;
@@ -281,44 +281,42 @@ function calculateZ0Km(garduId) {
 
 // Function to Z1 Jar and RI1
 function calculateZ1JarwithRT1(garduId){
-    
+    const 
 }
 
 // Function to Z1 Jar and j Xl1
 function calculateZ1JarwithjXl1(garduId){
-
+    const
 }
 
 // Function to Z1 Jar and RI2
 function calculateZ1JarwithRI2(garduId){
-
+    const
 }
 
 // Function to Z1 Jar and j Xl2
 function calculateZ1JarwithjXl2(garduId){
-
+    const
 }
-
 
 // Function to Z0 Jar and RI1
 function calculateZ0JarwithRI1(garduId){
-
+    const
 }
 
 // Function to Z0 Jar and j Xl1
 function calculateZ0JarwithjXl1(garduId){
-
+    const 
 }
 
 // Function to Z0 Jar and RI2
 function calculateZ0JarwithRI2(garduId){
-
+    const 
 }
 
 // Function to Z0 Jar and j Xl2
 function calculateZ0JarwithjXl2(garduId){
-
+    const
 }
-
 
 </script>
