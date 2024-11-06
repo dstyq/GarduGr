@@ -132,11 +132,11 @@
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="">Seksi GI-GH1</label>
-                    <input type="number" step="0.01" name="" class="form-control" required>
+                    <input type="number" step="0.01" name="seksi_gi_gh" class="form-control" required>
                 </div>
                 <div class="col-md-6">
                     <label for="">Seksi G1-ujung</label>
-                    <input type="number" step="0.01" name="" class="form-control" required>
+                    <input type="number" step="0.01" name="seksi_g1_ujung" class="form-control" required>
                 </div>
             </div>
             
@@ -287,43 +287,53 @@ function calculateZ0Km(garduId) {
 
 // Function to Z1 Jar and RI1
 function calculateZ1JarwithRT1(garduId){
-    const 
+    const z1Km = parseFloat(document.getElementById('z1_km_' + garduId).value) || 0;
+    const seksiGIGH1 = parseFloat(document.getElementById('seksi_gi_gh1').value) || 0;
+
 }
 
 // Function to Z1 Jar and j Xl1
 function calculateZ1JarwithjXl1(garduId){
-    const
+    const z1KmOutput = parseFloat(document.getElementById('z1_km_output_' + garduId).value) || 0;
+    const seksiGIGH1 = parseFloat(document.getElementById('seksi_gi_gh1').value) || 0;
+
 }
 
 // Function to Z1 Jar and RI2
 function calculateZ1JarwithRI2(garduId){
-    const
+    const z1Km = parseFloat(document.getElementById('z1_km_' + garduId).value) || 0;
+    const seksiGIujung = parseFloat(document.getElementById('seksi_gi_ujung').value) || 0;
+
 }
 
 // Function to Z1 Jar and j Xl2
 function calculateZ1JarwithjXl2(garduId){
-    const
+    const z1KmOutput = parseFloat(document.getElementById('z1_km_output_' + garduId).value) || 0;
+    const seksiGIujung = parseFloat(document.getElementById('seksi_gi_ujung').value) || 0;
+
 }
 
 // Function to Z0 Jar and RI1
 function calculateZ0JarwithRI1(garduId){
-    const
+    const seksiGIGH1 = parseFloat(document.getElementById('seksi_gi_gh1').value) || 0;
 }
 
 // Function to Z0 Jar and j Xl1
 function calculateZ0JarwithjXl1(garduId){
-    const 
+    const seksiGIGH1 = parseFloat(document.getElementById('seksi_gi_gh1').value) || 0;
 }
 
 // Function to Z0 Jar and RI2
 function calculateZ0JarwithRI2(garduId){
     const 
+    const seksiGIujung = parseFloat(document.getElementById('seksi_gi_ujung').value) || 0;
 }
 
 // Function to Z0 Jar and j Xl2
 function calculateZ0JarwithjXl2(garduId){
     const
-}
+    const seksiGIujung = parseFloat(document.getElementById('seksi_gi_ujung').value) || 0;
 
+}
 
 </script>
