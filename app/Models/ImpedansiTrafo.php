@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ImpedansiTrafo extends Model
 {
     use HasFactory;
-
+    protected $table = 'impedansi_trafo'; 
+    
     protected $fillable = [
         'id_gardu',
         'mva_short_circuit',

@@ -46,7 +46,7 @@
 
             <div class="form-group">
                 <label for="belitan_delta">Belitan Delta</label>
-                <input type="text" name="belitan_delta" class="form-control" required>
+                <input type="text" name="belitan_delta" class="form-control">
             </div>
 
             <div class="form-group">
@@ -113,7 +113,7 @@
             </div>
 
             <div class="form-group">
-                <label for="z1_km_output_{{ $gardu->id }}">Z1/km Output</label>
+                <label for="z1_km_output_{{ $gardu->id }}"></label>
                 <input type="number" step="0.01" name="z1_km_output" class="form-control" id="z1_km_output_{{ $gardu->id }}" required readonly>
             </div>
             <button type="button" class="btn btn-secondary" onclick="calculateZ1Km({{ $gardu->id }})">Calculate Z1/km</button>
@@ -128,43 +128,7 @@
                 </div>
             </div>
             <button type="button" class="btn btn-secondary" onclick="calculateZ0Km({{ $gardu->id }})">Calculate Z0/km</button>
-
-            <table class="table table-bordered">
-    <thead>
-        <tr>
-        <th colspan="2" class="text-center">Z1 Jar</th>
-        <th colspan="2" class="text-center" style="padding-left: 250px;">Z0 Jar</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>RI1</td>
-            <td><input type="text" class="form-control" name="ri1_z1" /></td>
-            <td>RI2</td>
-            <td><input type="text" class="form-control" name="ri2_z0" /></td>
-            <td>RI1</td>
-            <td><input type="text" class="form-control" name="ri1_z2" /></td>
-            <td>RI2</td>
-            <td><input type="text" class="form-control" name="ri2_z2" /></td>
-        </tr>
-        <tr>
-            <td>j XI1</td>
-            <td><input type="text" class="form-control" name="j_xi1_z1" /></td>
-            <td>j XI2</td>
-            <td><input type="text" class="form-control" name="j_xi2_z0" /></td>
-            <td>j XI1</td>
-            <td><input type="text" class="form-control" name="j_xi1_z2" /></td>
-            <td>j XI2</td>
-            <td><input type="text" class="form-control" name="j_xi2_z2" /></td>
-        </tr>
-        <tr>
-            <td colspan="8" class="text-center">
-                <button type="submit" class="btn btn-primary">Calculate</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
+            
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="">Seksi GI-GH1</label>
@@ -175,13 +139,53 @@
                     <input type="number" step="0.01" name="" class="form-control" required>
                 </div>
             </div>
+            
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" class="text-center" style="text-align: left; padding-left: 20px;">Z1 Jar</th>
+                    <th colspan="2" class="text-center" style="text-align: left; padding-left: 50px;">Z0 Jar</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td>RI1</td>
+                        <td><input type="text" class="form-control" name="ri1_z1" required readonly></td>
+                        <td>RI1</td>
+                        <td><input type="text" class="form-control" name="ri1_z0" required readonly></td>
+                    </tr>
+                    <tr>
+                        <td>j XI1</td>
+                        <td><input type="text" class="form-control" name="j_xi1_z1" required readonly></td>
+                        <td>j XI1</td>
+                        <td><input type="text" class="form-control" name="j_xi1_z0" required readonly></td>
+                    </tr>
+                    <tr>
+                        <td>RI2</td>
+                        <td><input type="text" class="form-control" name="ri2_z1" required readonly></td>
+                        <td>RI2</td>
+                        <td><input type="text" class="form-control" name="ri2_z0" required readonly></td>
+                    </tr>
+                    <tr>
+                        <td>j XI2</td>
+                        <td><input type="text" class="form-control" name="j_xi2_z1" required readonly></td>
+                        <td>j XI2</td>
+                        <td><input type="text" class="form-control" name="j_xi2_z0" required readonly></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            <button type="submit" class="btn btn-primary">Calculate</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
             <!-- Submit Button -->
             <button type="submit" class="btn btn-success mt-3">Add Impedansi Trafo</button>
         </form>
     </td>
 </tr>
-        
+
 <script>
 // Function to calculate impedance
 function calculateImpedance(garduId) {
@@ -272,7 +276,49 @@ function calculateZ0Km(garduId) {
     const z0Km2 = 3 * z1KmOutput;
 
     document.getElementById('z0_km_' + garduId + '_1').value = z0Km1.toFixed(3);
-    document.getElementById('z0_km_' + garduId + '_2').value = z0Km2.toFixed(9);
+    document.getElementById('z0_km_' + garduId + '_2').value = z0Km2.toFixed(9); 
 }
+
+// Function to Z1 Jar and RI1
+function calculateZ1JarwithRT1(garduId){
+    
+}
+
+// Function to Z1 Jar and j Xl1
+function calculateZ1JarwithjXl1(garduId){
+
+}
+
+// Function to Z1 Jar and RI2
+function calculateZ1JarwithRI2(garduId){
+
+}
+
+// Function to Z1 Jar and j Xl2
+function calculateZ1JarwithjXl2(garduId){
+
+}
+
+
+// Function to Z0 Jar and RI1
+function calculateZ0JarwithRI1(garduId){
+
+}
+
+// Function to Z0 Jar and j Xl1
+function calculateZ0JarwithjXl1(garduId){
+
+}
+
+// Function to Z0 Jar and RI2
+function calculateZ0JarwithRI2(garduId){
+
+}
+
+// Function to Z0 Jar and j Xl2
+function calculateZ0JarwithjXl2(garduId){
+
+}
+
 
 </script>
