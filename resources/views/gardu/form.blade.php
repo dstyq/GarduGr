@@ -132,11 +132,11 @@
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="">Seksi GI-GH1</label>
-                    <input type="number" step="0.01" name="seksi_gi_gh1" class="form-control" required>
+                    <input type="number" step="0.01" name="seksi_gi_gh1" class="form-control" id="seksi_gi_gh1_{{ $gardu->id }}" required>
                 </div>
                 <div class="col-md-6">
                     <label for="">Seksi G1-ujung</label>
-                    <input type="number" step="0.01" name="seksi_g1_ujung" class="form-control" required>
+                    <input type="number" step="0.01" name="seksi_g1_ujung" class="form-control" id="seksi_g1_ujung_{{ $gardu->id }}" required>
                 </div>
             </div>
 
@@ -184,7 +184,7 @@
             <h5 class="mt-4">SUMARY IMPEDANSI</h5>
 
             <!-- Impedansi Ukuran Positif -->
-            <h5 class="mt-4">IMPEDANSI URUTAN POSITIF </h5>
+            <h5 class="mt-4">IMPEDANSI URUTAN POSITIF</h5>
 
             <!-- Submit Button -->
             <button type="submit" class="btn btn-success mt-3">Add Impedansi Trafo</button>
@@ -199,7 +199,7 @@
         const voltSekunder = parseFloat(document.getElementById('volt_sekunder_' + garduId).value) || 0;
         if (mvaShortCircuit > 0 && voltSekunder > 0) {
             const impedanceSumber = (voltSekunder ** 2) / mvaShortCircuit;
-            document.getElementById('impedansi_sumber_' + garduId).value = impedanceSumber.toFixed(9);
+            document.getElementById('impedansi_sumber_' + garduId).value = impedanceSumber.toFixed(7);
         } else {
             alert('Please enter valid values for MVA Short Circuit and Volt Sekunder.');
         }
@@ -209,7 +209,7 @@
     function calculateKapasitasDelta(garduId) {
         const kapasitas = parseFloat(document.getElementById('kapasitas_' + garduId).value) || 0;
         const kapasitasDelta = kapasitas / 3;
-        document.getElementById('kapasitas_delta_' + garduId).value = kapasitasDelta.toFixed(2);
+        document.getElementById('kapasitas_delta_' + garduId).value = kapasitasDelta.toFixed(0);
     }
 
     // Function to calculate I Nominal
@@ -251,7 +251,7 @@
         } else {
             xt0 = xt1 * 10;
         }
-        document.getElementById('xt_0_' + garduId).value = xt0.toFixed(9);
+        document.getElementById('xt_0_' + garduId).value = xt0.toFixed(1);
     }
 
     // Function to calculate XLPE-AL Cable
@@ -269,8 +269,13 @@
 
     // Function to calculate Z1/km
     function calculateZ1Km(garduId) {
-        const xlpeALCableOutput = parseFloat(document.getElementById('xlpe_al_cable_output_' + garduId).value) || 0;
-        document.getElementById('z1_km_output_' + garduId).value = xlpeALCableOutput.toFixed(9);
+        const z1Km = parseFloat(document.getElementById('z1_km_' + garduId).value) || 0;
+        if (z1Km > 0) {
+            const z1KmOutput = z1Km * 1.1; // Example calculation, you can adjust the formula
+            document.getElementById('z1_km_output_' + garduId).value = z1KmOutput.toFixed(9);
+        } else {
+            alert('Please enter a valid value for Z1/km.');
+        }
     }
 
     // Function to calculate Z0/km
@@ -278,91 +283,16 @@
         const z1Km = parseFloat(document.getElementById('z1_km_' + garduId).value) || 0;
         const z1KmOutput = parseFloat(document.getElementById('z1_km_output_' + garduId).value) || 0;
 
-        const z0Km1 = 2.2 * z1Km;
-        const z0Km2 = 3 * z1KmOutput;
+        if (z1Km > 0 && z1KmOutput > 0) {
+            const z0Km1 = 2.2 * z1Km;
+            const z0Km2 = 3 * z1KmOutput;
 
-        document.getElementById('z0_km_' + garduId + '_1').value = z0Km1.toFixed(3);
-        document.getElementById('z0_km_' + garduId + '_2').value = z0Km2.toFixed(9);
-    }
-
-    // Function to calculate all Z1 and Z0 
-    function calculateAll(garduId) {
-        // Calculate Z1 Jar with RI1
-        const z1Km = parseFloat(document.getElementById('z1_km_' + garduId).value) || 0;
-        const seksiGIGH1 = parseFloat(document.getElementById('seksi_gi_gh1').value) || 0;
-        if (z1Km > 0 && seksiGIGH1 > 0) {
-            const ri1 = z1Km * seksiGIGH1;
-            document.getElementsByName('ri1_z1')[0].value = ri1.toFixed(3);
+            document.getElementById('z0_km_' + garduId + '_1').value = z0Km1.toFixed(3);
+            document.getElementById('z0_km_' + garduId + '_2').value = z0Km2.toFixed(9);
         } else {
-            alert('Please enter valid values for Z1/km and Seksi GI-GH1.');
-            return;
-        }
-
-        // Calculate Z1 Jar with j Xl1
-        const z1KmOutput = parseFloat(document.getElementById('z1_km_output_' + garduId).value) || 0;
-        if (z1KmOutput > 0 && seksiGIGH1 > 0) {
-            const jXi1 = z1KmOutput * seksiGIGH1;
-            document.getElementsByName('j_xi1_z1')[0].value = jXi1.toFixed(3);
-        } else {
-            alert('Please enter valid values for Z1/km Output and Seksi GI-GH1.');
-            return;
-        }
-
-        // Calculate Z1 Jar with RI2
-        const seksiG1Ujung = parseFloat(document.getElementById('seksi_g1_ujung').value) || 0;
-        if (z1Km > 0 && seksiG1Ujung > 0) {
-            const ri2 = z1Km * seksiG1Ujung;
-            document.getElementsByName('ri2_z1')[0].value = ri2.toFixed(3);
-        } else {
-            alert('Please enter valid values for Z1/km and Seksi G1-ujung.');
-            return;
-        }
-
-        // Calculate Z1 Jar with j Xl2
-        if (z1KmOutput > 0 && seksiG1Ujung > 0) {
-            const jXi2 = z1KmOutput * seksiG1Ujung;
-            document.getElementsByName('j_xi2_z1')[0].value = jXi2.toFixed(3);
-        } else {
-            alert('Please enter valid values for Z1/km Output and Seksi G1-ujung.');
-            return;
-        }
-
-        // Calculate Z0 Jar with RI1
-        const z0Km1 = parseFloat(document.getElementById('z0_km_' + garduId + '_1').value) || 0;
-        if (seksiGIGH1 > 0 && z0Km1 > 0) {
-            const ri1Z0 = seksiGIGH1 * z0Km1;
-            document.getElementsByName('ri1_z0')[0].value = ri1Z0.toFixed(3);
-        } else {
-            alert('Please enter valid values for Seksi GI-GH1 and Z0/km 1.');
-            return;
-        }
-
-        // Calculate Z0 Jar with j Xl1
-        const z0Km2 = parseFloat(document.getElementById('z0_km_' + garduId + '_2').value) || 0;
-        if (seksiGIGH1 > 0 && z0Km2 > 0) {
-            const jXi1Z0 = seksiGIGH1 * z0Km2;
-            document.getElementsByName('j_xi1_z0')[0].value = jXi1Z0.toFixed(3);
-        } else {
-            alert('Please enter valid values for Seksi GI-GH1 and Z0/km 2.');
-            return;
-        }
-
-        // Calculate Z0 Jar with RI2
-        if (seksiG1Ujung > 0 && z0Km1 > 0) {
-            const ri2Z0 = z0Km1 * seksiG1Ujung;
-            document.getElementsByName('ri2_z0')[0].value = ri2Z0.toFixed(3);
-        } else {
-            alert('Please enter valid values for Seksi G1-ujung and Z0/km 1.');
-            return;
-        }
-
-        // Calculate Z0 Jar with j Xl2
-        if (seksiG1Ujung > 0 && z0Km2 > 0) {
-            const jXi2Z0 = z0Km2 * seksiG1Ujung;
-            document.getElementsByName('j_xi2_z0')[0].value = jXi2Z0.toFixed(3);
-        } else {
-            alert('Please enter valid values for Seksi G1-ujung and Z0/km 2.');
-            return;
+            alert('Please enter valid values for Z1/km and Z1/km Output to calculate Z0/km.');
         }
     }
+
+   
 </script>

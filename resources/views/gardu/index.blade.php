@@ -32,7 +32,7 @@
             <button class="btn btn-outline-secondary" type="submit">Search</button>
         </div>
     </form>
-    
+
     @if($gardus->isEmpty())
         <div class="alert alert-warning" role="alert">
             No Gardu records found.
