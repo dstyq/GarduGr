@@ -45,8 +45,12 @@
             </div>
 
             <div class="form-group">
-                <label for="belitan_delta">Belitan Delta</label>
-                <input type="text" name="belitan_delta" class="form-control">
+                <label for="belitan_delta">Belitan Delta</label><br>
+                <input type="radio" name="belitan_delta" value="ada" id="belitan_delta_ada_{{ $gardu->id }}" class="form-check-input">
+                <label for="belitan_delta_ada_{{ $gardu->id }}" class="form-check-label">Ada</label>
+
+                <input type="radio" name="belitan_delta" value="tidak_ada" id="belitan_delta_tidak_ada_{{ $gardu->id }}" class="form-check-input" checked>
+                <label for="belitan_delta_tidak_ada_{{ $gardu->id }}" class="form-check-label">Tidak Ada</label>
             </div>
 
             <div class="form-group">
@@ -83,13 +87,13 @@
                 <label for="xt_1_{{ $gardu->id }}">XT 1 (Ohm)</label>
                 <input type="number" step="0.01" name="xt_1" class="form-control" id="xt_1_{{ $gardu->id }}" required readonly>
             </div>
-            <button type="button" class="btn btn-secondary" onclick="calculateXT1(10)">Calculate XT 1</button>
+            <button type="button" class="btn btn-secondary" id="calculateXT1Btn" data-gardu-id="{{ $gardu->id }}">Calculate XT 1</button>
 
             <div class="form-group">
                 <label for="xt_0_{{ $gardu->id }}">XT 0 (Ohm)</label>
                 <input type="number" step="0.01" name="xt_0" class="form-control" id="xt_0_{{ $gardu->id }}" required readonly>
             </div>
-            <button type="button" class="btn btn-secondary" onclick="calculateXT0(10)">Calculate XT 0</button>
+            <button type="button" class="btn btn-secondary" id="calculateXT0Btn" data-gardu-id="{{ $gardu->id }}">Calculate XT 0</button>
 
             <!-- XLPE-AL Cable -->
             <div class="form-group">
@@ -101,7 +105,7 @@
                 <label for="xlpe_al_cable_output_{{ $gardu->id }}">XLPE-AL Cable (ωL)</label>
                 <input type="number" step="0.01" name="xlpe_al_cable" class="form-control" id="xlpe_al_cable_output_{{ $gardu->id }}" required readonly>
             </div>
-            <button type="button" class="btn btn-secondary" onclick="calculateXLPEALCable({{ $gardu->id }})">Calculate XLPE-AL Cable</button>
+            <button type="button" class="btn btn-secondary" id="calculateXLPEALCableBtn" data-gardu-id="{{ $gardu->id }}">Calculate XLPE-AL Cable</button>
 
             <!-- Impedansi Penyulang 20kV -->
             <h5 class="mt-4">IMPEDANSI PENYULANG 20kV</h5>
@@ -116,7 +120,7 @@
                 <label for="z1_km_output_{{ $gardu->id }}"></label>
                 <input type="number" step="0.01" name="z1_km_output" class="form-control" id="z1_km_output_{{ $gardu->id }}" required readonly>
             </div>
-            <button type="button" class="btn btn-secondary" onclick="calculateZ1Km({{ $gardu->id }})">Calculate Z1/km</button>
+            <button type="button" class="btn btn-secondary" id="calculateZ1KmBtn" data-gardu-id="{{ $gardu->id }}">Calculate Z1/km</button>
 
             <div class="form-group">
                 <label>Z0/km</label>
@@ -127,7 +131,7 @@
                     <input type="number" step="0.01" name="z0_km_2" class="form-control" id="z0_km_{{ $gardu->id }}_2" required readonly>
                 </div>
             </div>
-            <button type="button" class="btn btn-secondary" onclick="calculateZ0Km({{ $gardu->id }})">Calculate Z0/km</button>
+            <button type="button" class="btn btn-secondary" id="calculateZ0KmBtn" data-gardu-id="{{ $gardu->id }}">Calculate Z0/km</button>
 
             <div class="form-group row">
                 <div class="col-md-6">
@@ -140,6 +144,7 @@
                 </div>
             </div>
 
+            <!-- Z1 and Z0 Table -->
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -174,19 +179,18 @@
                     </tr>
                     <tr>
                         <td colspan="4" class="text-center">
-                            <button type="button" class="btn btn-primary" onclick="calculateAll({{ $gardu->id }})">Calculate All</button>
+                            <button type="button" class="btn btn-primary" id="calculateAllBtn" data-gardu-id="{{ $gardu->id }}">Calculate All</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
 
-            <!-- Sumary Impedansi -->
-            <h5 class="mt-4">SUMARY IMPEDANSI</h5>
+            <!-- Summary Impedansi -->
+            <h5 class="mt-4">SUMMARY IMPEDANSI</h5>
 
-            <!-- Impedansi Ukuran Positif -->
+            <!-- Impedansi Urutan Positif -->
             <h5 class="mt-4">IMPEDANSI URUTAN POSITIF</h5>
 
-            <!-- Submit Button -->
             <button type="submit" class="btn btn-success mt-3">Add Impedansi Trafo</button>
         </form>
     </td>

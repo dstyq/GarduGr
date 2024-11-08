@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('[data-gardu-id]').forEach(button => {
         const garduId = button.getAttribute('data-gardu-id');
         
+        // Event listeners for each button
         if (button.id === 'calculateImpedanceBtn') {
             button.addEventListener('click', function () {
                 calculateImpedance(garduId);
@@ -44,7 +45,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // General function to retrieve numeric values from inputs
 function getNumericValue(id, defaultValue = 0) {
-    return parseFloat(document.getElementById(id).value) || defaultValue;
+    const value = parseFloat(document.getElementById(id).value);
+    return isNaN(value) ? defaultValue : value;
 }
 
 // Function to calculate impedansi sumber
@@ -102,19 +104,20 @@ function calculateXT1(garduId) {
 
 // Function to calculate XT0
 function calculateXT0(garduId) {
-    const belitanDelta = document.querySelector('input[name="belitan_delta"]').value.trim();
+    const belitanDelta = document.querySelector('input[name="belitan_delta"]:checked').value;
     const xt1 = getNumericValue('xt_1_' + garduId);
     const kapasitas = getNumericValue('kapasitas_' + garduId);
     const kapasitasDelta = getNumericValue('kapasitas_delta_' + garduId);
 
     let xt0;
-    if (belitanDelta) {
+    if (belitanDelta === 'ada') {
         xt0 = (kapasitas / kapasitasDelta) * xt1;
     } else {
         xt0 = xt1 * 10;
     }
     document.getElementById('xt_0_' + garduId).value = xt0.toFixed(1);
 }
+
 
 // Function to calculate XLPE-AL Cable
 function calculateXLPEALCable(garduId) {
