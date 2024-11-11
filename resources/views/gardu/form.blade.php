@@ -186,7 +186,7 @@
             </table>
 
             <!-- Summary Impedansi -->
-            <h5 class="mt-4">SUMMARY IMPEDANSI</h5>
+            <h5 class="mt-4">SUMMARY IMPEDANSI (IMPEDANSI URUTAN POSITIF)</h5>
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="r1_sumber_{{ $gardu->id }}">R1 sumber</label>
@@ -237,11 +237,58 @@
             <div class="d-flex justify-content-center">
                 <button type="button" class="btn btn-secondary" id="calculateAll3Btn" data-gardu-id="{{ $gardu->id }}">Calculate All</button>
             </div>
+            <p>Z1 Ekivalen</p>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="r1gi_flt_{{ $gardu->id }}">R1GI-Flt</label>
+                    <input type="number" step="0.01" name="r1gi_flt" class="form-control" id="r1gi_flt_{{ $gardu->id }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="x1gi_flt_{{ $gardu->id }}">X1GI-Flt</label>
+                    <input type="number" step="0.01" name="x1gi_flt" class="form-control" id="x1gi_flt_{{ $gardu->id }}" required>
+                </div>
+            </div>
 
             <h6 class="mt-4">IMPEDANSI HUBUNHAN SINGKAT PENYULANG DI GI</h5>
+            <div class="form-group">
+                <label for="3_fasa_{{ $gardu->id }}">3 fasa</label>
+                <input type="number" step="0.01" name="3_fasa" class="form-control" id="3_fasa_{{ $gardu->id }}" required readonly>
+            </div>
 
-                <!-- Impedansi Urutan Positif -->
-                <h5 class="mt-4">IMPEDANSI URUTAN POSITIF</h5>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="2_fasa_{{ $gardu->id }}">2 FASA</label>
+                    <input type="number" step="0.01" name="2_fasa" class="form-control" id="2_fasa_{{ $gardu->id }}" required readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="1_fasa_{{ $gardu->id }}">1 FASA</label>
+                    <input type="number" step="0.01" name="1_fasa" class="form-control" id="1_fasa_{{ $gardu->id }}" required readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="lok_gangg_{{ $gardu->id }}">Lok.gangg</label>
+                <input type="number" step="0.01" name="lok_gangg" class="form-control" id="lok_gangg_{{ $gardu->id }}" required readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="pnj_jar_{{ $gardu->id }}">%pnj jar</label>
+                <input type="number" step="0.01" name="pnj_jar" class="form-control" id="pnj_jar_{{ $gardu->id }}" required readonly>
+            </div>
+            
+            <!-- Impedansi Urutan Positif -->
+            <h5 class="mt-4">IMPEDANSI URUTAN NOL</h5>
+            <p>Z0 Ekivalen</p>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="r1gi_flt_{{ $gardu->id }}">R1GI-Flt</label>
+                    <input type="number" step="0.01" name="r1gi_flt" class="form-control" id="r1gi_flt_{{ $gardu->id }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="x1gi_flt_{{ $gardu->id }}">X1GI-Flt</label>
+                    <input type="number" step="0.01" name="x1gi_flt" class="form-control" id="x1gi_flt_{{ $gardu->id }}" required>
+                </div>
+            </div>
 
                 <button type="submit" class="btn btn-success mt-3">Add Impedansi Trafo</button>
         </form>
