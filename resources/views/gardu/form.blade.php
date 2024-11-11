@@ -290,6 +290,49 @@
                 </div>
             </div>
 
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="r1_sumber_{{ $gardu->id }}">R1 sumber</label>
+                    <input type="number" step="0.01" name="r1_sumber" class="form-control" id="r1_sumber_{{ $gardu->id }}" required readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="x1_sumber_{{ $gardu->id }}">X1 sumber</label>
+                    <input type="number" step="0.01" name="x1_sumber" class="form-control" id="x1_sumber_{{ $gardu->id }}" required>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="r1_trafo_{{ $gardu->id }}">R1 trafo</label>
+                    <input type="number" step="0.01" name="r1_trafo" class="form-control" id="r1_trafo_{{ $gardu->id }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="x1_trafo_{{ $gardu->id }}">X1 trafo</label>
+                    <input type="number" step="0.01" name="x1_trafo" class="form-control" id="x1_trafo_{{ $gardu->id }}" required readonly>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="r1_gh1_ujung_{{ $gardu->id }}">R1GH1-ujung</label>
+                    <input type="number" step="0.01" name="r1_gh1_ujung" class="form-control" id="r1_gh1_ujung_{{ $gardu->id }}" required readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="x1_gh1_ujung_{{ $gardu->id }}">X1GH1-ujung</label>
+                    <input type="number" step="0.01" name="x1_gh1_ujung" class="form-control" id="x1_gh1_ujung_{{ $gardu->id }}" required readonly>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="r1gi_flt_{{ $gardu->id }}">R1GI-Flt</label>
+                    <input type="number" step="0.01" name="r1gi_flt" class="form-control" id="r1gi_flt_{{ $gardu->id }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="x1gi_flt_{{ $gardu->id }}">X1GI-Flt</label>
+                    <input type="number" step="0.01" name="x1gi_flt" class="form-control" id="x1gi_flt_{{ $gardu->id }}" required>
+                </div>
+            </div>
                 <button type="submit" class="btn btn-success mt-3">Add Impedansi Trafo</button>
         </form>
     </td>
