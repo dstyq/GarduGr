@@ -135,7 +135,7 @@ function calculateXLPEALCable(garduId) {
 function calculateZ1Km(garduId) {
     const z1Km = getNumericValue('z1_km_' + garduId);
     if (z1Km > 0) {
-        const z1KmOutput = z1Km * 1.1; // Example calculation
+        const z1KmOutput = z1Km * 1.1; 
         document.getElementById('z1_km_output_' + garduId).value = z1KmOutput.toFixed(9);
     } else {
         alert('Please enter a valid value for Z1/km.');

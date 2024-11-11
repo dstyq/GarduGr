@@ -187,11 +187,63 @@
 
             <!-- Summary Impedansi -->
             <h5 class="mt-4">SUMMARY IMPEDANSI</h5>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="r1_sumber_{{ $gardu->id }}">R1 sumber</label>
+                    <input type="number" step="0.01" name="r1_sumber" class="form-control" id="r1_sumber_{{ $gardu->id }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="x1_sumber_{{ $gardu->id }}">X1 sumber</label>
+                    <input type="number" step="0.01" name="x1_sumber" class="form-control" id="x1_sumber_{{ $gardu->id }}" required readonly>
+                </div>
+            </div>
 
-            <!-- Impedansi Urutan Positif -->
-            <h5 class="mt-4">IMPEDANSI URUTAN POSITIF</h5>
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-secondary" id="calculateX1SumberBtn" data-gardu-id="{{ $gardu->id }}">Calculate X1 Sumber</button>
+            </div>
 
-            <button type="submit" class="btn btn-success mt-3">Add Impedansi Trafo</button>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="r1_trafo_{{ $gardu->id }}">R1 trafo</label>
+                    <input type="number" step="0.01" name="r1_trafo" class="form-control" id="r1_trafo_{{ $gardu->id }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="x1_trafo_{{ $gardu->id }}">X1 trafo</label>
+                    <input type="number" step="0.01" name="x1_trafo" class="form-control" id="x1_trafo_{{ $gardu->id }}" required readonly>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="r1_gi_gh1_{{ $gardu->id }}">R1 GI-GH1</label>
+                    <input type="number" step="0.01" name="r1_gi_gh1" class="form-control" id="r1_gi_gh1_{{ $gardu->id }}" required readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="x1_gi_gh1_{{ $gardu->id }}">X1 GI-GH1</label>
+                    <input type="number" step="0.01" name="x1_gi_gh1" class="form-control" id="x1_gi_gh1_{{ $gardu->id }}" required readonly>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="r1_gh1_ujung_{{ $gardu->id }}">R1GH1-ujung</label>
+                    <input type="number" step="0.01" name="r1_gh1_ujung" class="form-control" id="r1_gh1_ujung_{{ $gardu->id }}" required readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="x1_gh1_ujung_{{ $gardu->id }}">X1GH1-ujung</label>
+                    <input type="number" step="0.01" name="x1_gh1_ujung" class="form-control" id="x1_gh1_ujung_{{ $gardu->id }}" required readonly>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-secondary" id="calculateAll3Btn" data-gardu-id="{{ $gardu->id }}">Calculate All</button>
+            </div>
+
+            <h6 class="mt-4">IMPEDANSI HUBUNHAN SINGKAT PENYULANG DI GI</h5>
+
+                <!-- Impedansi Urutan Positif -->
+                <h5 class="mt-4">IMPEDANSI URUTAN POSITIF</h5>
+
+                <button type="submit" class="btn btn-success mt-3">Add Impedansi Trafo</button>
         </form>
     </td>
 </tr>
