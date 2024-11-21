@@ -357,6 +357,11 @@
                     <label for="pnj_jar2_{{ $gardu->id }}">%pnj jar</label>
                     <input type="number" step="0.01" name="pnj_jar2" class="form-control" id="pnj_jar2_{{ $gardu->id }}" required readonly>
                 </div>
+
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-secondary" id="LokkGanggPnjJarBtn" data-gardu-id="{{ $gardu->id }}">Calculate Lokk.gangg dan %pnj jar</button>
+                </div>
+
                 <button type="submit" class="btn btn-success mt-3">Add Impedansi Trafo</button>
         </form>
     </td>

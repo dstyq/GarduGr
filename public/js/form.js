@@ -13,7 +13,10 @@ document.addEventListener('DOMContentLoaded', function () {
             'calculateAllBtn': calculateAll,
             'calculateX1SumberBtn': calculateX1Sumber,
             'calculateX1TrafoBtn': calculateX1Trafo,
-            'calculateAllBtn2': calculateAll2
+            'calculateAllBtn2': calculateAll2,
+            'calculateAllBtn3': calculateAll3,
+            'calculateAllBtn4': calculateAll4,
+            'LokkGanggPnjJarBtn': calculateLokkGanggPnjJar
         };
 
         if (buttonActions[button.id]) {
@@ -182,14 +185,14 @@ function calculateAll(garduId) {
 
 // Function to calculate X1 Sumber
 function calculateX1Sumber(garduId) {
-    const impedansiSumber = getNumericValue('impedansi_sumber_' + garduId);
-    const voltSekunder = getNumericValue('volt_sekunder_2_' + garduId);
-    const kapasitas = getNumericValue('kapasitas_' + garduId);
-    if (impedansiSumber > 0 && voltSekunder > 0 && kapasitas > 0) {
-        const x1Sumber = (impedansiSumber * voltSekunder) / kapasitas;
-        document.getElementById('x1_sumber_' + garduId).value = x1Sumber.toFixed(2);
+    const mvaShortCircuit = getNumericValue('mva_short_circuit_' + garduId);
+    const voltSekunder = getNumericValue('volt_sekunder_' + garduId);    
+
+    if (mvaShortCircuit > 0 && voltSekunder > 0) {
+        const x1Sumber = (voltSekunder ** 2) / mvaShortCircuit;
+        document.getElementById('x1_sumber_' + garduId).value = x1Sumber.toFixed(5); 
     } else {
-        showError('Please enter valid values for Impedansi Sumber, Volt Sekunder, and Kapasitas to calculate X1 Sumber.');
+        showError('Please enter valid values for MVA Short Circuit and Volt Sekunder.');
     }
 }
 
@@ -237,23 +240,37 @@ function calculateAll2(garduId) {
     }
 }
 
-ini caranya doang(biar ga bolak balik excel)
-// Function to calculate FASA3, FASA 2, FASA 1, Lokk.gangg, %pnj jar
-fasa 3 = (volt sekunder/SQRT(3))*1000/((Z1 R1GI-Flt)^2+(Z1 X1GI-flt)^2)^0.5
-fasa 2 = 3 fasa*(SQRT(3)/2)
-fasa 1 = 3*(volt sekunder/3^0.5)*1000/((2*Z1 R1GI-Flt+Z0 R1GI-Flt)^2+(2*Z1 X1GI-flt+Z0 X1GI-flt)^2)^0.5
-Lokk.gangg = (R1 GI-GH1/ri1_z1)*100
-%pnj jar = =(X1 GI-GH1/j_xi1_z1)*100
+// Function to calculate FASA3, FASA 2, FASA 1, Lokk.gangg, %pnj jar(all3)
+function calculateAll3() {
+    // Retrieve input values
+    const voltSekunder = parseFloat(document.getElementById("volt_sekunder").value);
+    const z1R1GiFlt = parseFloat(document.getElementById("z1_r1gi_flt").value);
+    const z1X1GiFlt = parseFloat(document.getElementById("z1_x1gi_flt").value);
+    const z0R1GiFlt = parseFloat(document.getElementById("z0_r1gi_flt").value);
+    const z0X1GiFlt = parseFloat(document.getElementById("z0_x1gi_flt").value);
+    const r1GiGh1 = parseFloat(document.getElementById("r1_gi_gh1").value);
+    const ri1Z1 = parseFloat(document.getElementById("ri1_z1").value);
+    const x1GiGh1 = parseFloat(document.getElementById("x1_gi_gh1").value);
+    const jXi1Z1 = parseFloat(document.getElementById("j_xi1_z1").value);
 
-// Function to calculate R1 smber
-3*Pentanahan Netral
-// Function to calculate X1 trafo
-sama caranya kaya mencari Xto
-// Function to calculate R1GH1-ujung, X1GH1-ujung, R1 GI-GH1, X1 GI-GH1 (All 3)
-R1GH1-ujung2 =0*H66
-X1GH1-ujung2 =0*j_xi2_z0
-R1 GI-GH12 =G97-E101-E103-E105
-X1 GI-GH12 =G98-E102-E104-E106
-// Function to calculate Lokk.gangg, %pnj jar
-Lokk.gangg2 = (R1 GI-GH12/ri1_z0)*100
-%pnj jar2 = (X1 GI-GH12/j_xi1_z0)*100
+    if (voltSekunder > 0 && z1R1GiFlt > 0 && z1X1GiFlt > 0 && z0R1GiFlt > 0 && z0X1GiFlt > 0 && r1GiGh1 > 0 && ri1Z1 > 0 && x1GiGh1 > 0 && jXi1Z1 > 0) {
+
+        const fasa3 = (voltSekunder / Math.sqrt(3)) * 1000 / Math.sqrt(Math.pow(z1R1GiFlt, 2) + Math.pow(z1X1GiFlt, 2));
+        document.getElementById("fasa_3_result").value = fasa3.toFixed(2);
+
+        const fasa2 = 3 * fasa3 * (Math.sqrt(3) / 2);
+        document.getElementById("fasa_2_result").value = fasa2.toFixed(2);
+
+        const fasa1 = 3 * (voltSekunder / Math.sqrt(3)) * 1000 / Math.sqrt(Math.pow(2 * z1R1GiFlt + z0R1GiFlt, 2) + Math.pow(2 * z1X1GiFlt + z0X1GiFlt, 2));
+        document.getElementById("fasa_1_result").value = fasa1.toFixed(2);
+
+        const lokkGangg = (r1GiGh1 / ri1Z1) * 100;
+        document.getElementById("lokk_gangg_result").value = lokkGangg.toFixed(2);
+
+        const pnjJar = (x1GiGh1 / jXi1Z1) * 100;
+        document.getElementById("pnj_jar_result").value = pnjJar.toFixed(2);
+
+    } else {
+        showError("Please enter valid values for all fields.");
+    }
+}
