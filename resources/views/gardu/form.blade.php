@@ -96,14 +96,15 @@
             <button type="button" class="btn btn-secondary" id="calculateXT0Btn" data-gardu-id="{{ $gardu->id }}">Calculate XT 0</button>
 
             <!-- XLPE-AL Cable -->
-            <div class="form-group">
-                <label for="xlpe_al_cable_{{ $gardu->id }}">XLPE-AL Cable (mH/km)</label>
-                <input type="number" step="0.01" name="inductance_per_km" class="form-control" id="xlpe_al_cable_{{ $gardu->id }}" required>
-            </div>
-
-            <div class="form-group">
-                <label for="xlpe_al_cable_output_{{ $gardu->id }}">XLPE-AL Cable (ωL)</label>
-                <input type="number" step="0.01" name="xlpe_al_cable" class="form-control" id="xlpe_al_cable_output_{{ $gardu->id }}" required readonly>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="xlpe_al_cable_{{ $gardu->id }}">XLPE-AL Cable (mH/km)</label>
+                    <input type="number" step="0.01" name="inductance_per_km" class="form-control" id="xlpe_al_cable_{{ $gardu->id }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="xlpe_al_cable_output_{{ $gardu->id }}">XLPE-AL Cable (ωL)</label>
+                    <input type="number" step="0.01" name="xlpe_al_cable" class="form-control" id="xlpe_al_cable_output_{{ $gardu->id }}" required readonly>
+                </div>
             </div>
             <button type="button" class="btn btn-secondary" id="calculateXLPEALCableBtn" data-gardu-id="{{ $gardu->id }}">Calculate XLPE-AL Cable</button>
 
@@ -187,6 +188,8 @@
 
             <!-- Summary Impedansi -->
             <h5 class="mt-4">SUMMARY IMPEDANSI (IMPEDANSI URUTAN POSITIF)</h5>
+
+            <!-- R1 Sumber & X1 Sumber -->
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="r1_sumber_{{ $gardu->id }}">R1 sumber</label>
@@ -202,6 +205,7 @@
                 <button type="button" class="btn btn-secondary" id="calculateX1SumberBtn" data-gardu-id="{{ $gardu->id }}">Calculate X1 Sumber</button>
             </div>
 
+            <!-- R1 Trafo & X1 Trafo -->
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="r1_trafo_{{ $gardu->id }}">R1 trafo</label>
@@ -210,6 +214,33 @@
                 <div class="col-md-6">
                     <label for="x1_trafo_{{ $gardu->id }}">X1 trafo</label>
                     <input type="number" step="0.01" name="x1_trafo" class="form-control" id="x1_trafo_{{ $gardu->id }}" required readonly>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-secondary" id="calculateX1TrafoBtn" data-gardu-id="{{ $gardu->id }}">Calculate X1 Trafo</button>
+            </div>
+
+            <p>Z1 Ekivalen</p>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="z1_r1gi_flt_{{ $gardu->id }}">R1GI-Flt</label>
+                    <input type="number" step="0.01" name="z1_r1gi_flt" class="form-control" id="z1_r1gi_flt_{{ $gardu->id }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="z1_x1gi_flt_{{ $gardu->id }}">X1GI-Flt</label>
+                    <input type="number" step="0.01" name="z1_x1gi_flt" class="form-control" id="z1_x1gi_flt_{{ $gardu->id }}" required>
+                </div>
+            </div>
+            <p>Z0 Ekivalen</p>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="z0_r1gi_flt_{{ $gardu->id }}">R1GI-Flt</label>
+                    <input type="number" step="0.01" name="z0_r1gi_flt" class="form-control" id="z0_r1gi_flt_{{ $gardu->id }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="z0_x1gi_flt_{{ $gardu->id }}">X1GI-Flt</label>
+                    <input type="number" step="0.01" name="z0_x1gi_flt" class="form-control" id="z0_x1gi_flt_{{ $gardu->id }}" required>
                 </div>
             </div>
 
@@ -235,104 +266,97 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-secondary" id="calculateAll3Btn" data-gardu-id="{{ $gardu->id }}">Calculate All</button>
-            </div>
-            <p>Z1 Ekivalen</p>
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <label for="r1gi_flt_{{ $gardu->id }}">R1GI-Flt</label>
-                    <input type="number" step="0.01" name="r1gi_flt" class="form-control" id="r1gi_flt_{{ $gardu->id }}" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="x1gi_flt_{{ $gardu->id }}">X1GI-Flt</label>
-                    <input type="number" step="0.01" name="x1gi_flt" class="form-control" id="x1gi_flt_{{ $gardu->id }}" required>
-                </div>
+                <button type="button" class="btn btn-secondary" id="calculateAllBtn2" data-gardu-id="{{ $gardu->id }}">Calculate All</button>
             </div>
 
             <h6 class="mt-4">IMPEDANSI HUBUNHAN SINGKAT PENYULANG DI GI</h5>
-            <div class="form-group">
-                <label for="3_fasa_{{ $gardu->id }}">3 fasa</label>
-                <input type="number" step="0.01" name="3_fasa" class="form-control" id="3_fasa_{{ $gardu->id }}" required readonly>
-            </div>
+                <div class="form-group row">
+                    <div class="col-sm">
+                        <label for="3_fasa_{{ $gardu->id }}">3 FASA</label>
+                        <input type="number" step="0.01" name="3_fasa" class="form-control" id="3_fasa_{{ $gardu->id }}" required readonly>
+                    </div>
+                    <div class="col-sm">
+                        <label for="2_fasa_{{ $gardu->id }}">2 FASA</label>
+                        <input type="number" step="0.01" name="2_fasa" class="form-control" id="2_fasa_{{ $gardu->id }}" required readonly>
+                    </div>
+                    <div class="col-sm">
+                        <label for="1_fasa_{{ $gardu->id }}">1 FASA</label>
+                        <input type="number" step="0.01" name="1_fasa" class="form-control" id="1_fasa_{{ $gardu->id }}" required readonly>
+                    </div>
+                </div>
 
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <label for="2_fasa_{{ $gardu->id }}">2 FASA</label>
-                    <input type="number" step="0.01" name="2_fasa" class="form-control" id="2_fasa_{{ $gardu->id }}" required readonly>
+                <div class="form-group">
+                    <label for="lok_gangg_{{ $gardu->id }}">Lok.gangg</label>
+                    <input type="number" step="0.01" name="lok_gangg" class="form-control" id="lok_gangg_{{ $gardu->id }}" required readonly>
                 </div>
-                <div class="col-md-6">
-                    <label for="1_fasa_{{ $gardu->id }}">1 FASA</label>
-                    <input type="number" step="0.01" name="1_fasa" class="form-control" id="1_fasa_{{ $gardu->id }}" required readonly>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label for="lok_gangg_{{ $gardu->id }}">Lok.gangg</label>
-                <input type="number" step="0.01" name="lok_gangg" class="form-control" id="lok_gangg_{{ $gardu->id }}" required readonly>
-            </div>
+                <div class="form-group">
+                    <label for="pnj_jar_{{ $gardu->id }}">%pnj jar</label>
+                    <input type="number" step="0.01" name="pnj_jar" class="form-control" id="pnj_jar_{{ $gardu->id }}" required readonly>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-secondary" id="calculateAllBtn3" data-gardu-id="{{ $gardu->id }}">Calculate All</button>
+                </div>
 
-            <div class="form-group">
-                <label for="pnj_jar_{{ $gardu->id }}">%pnj jar</label>
-                <input type="number" step="0.01" name="pnj_jar" class="form-control" id="pnj_jar_{{ $gardu->id }}" required readonly>
-            </div>
-            
-            <!-- Impedansi Urutan Positif -->
-            <h5 class="mt-4">IMPEDANSI URUTAN NOL</h5>
-            <p>Z0 Ekivalen</p>
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <label for="r1gi_flt_{{ $gardu->id }}">R1GI-Flt</label>
-                    <input type="number" step="0.01" name="r1gi_flt" class="form-control" id="r1gi_flt_{{ $gardu->id }}" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="x1gi_flt_{{ $gardu->id }}">X1GI-Flt</label>
-                    <input type="number" step="0.01" name="x1gi_flt" class="form-control" id="x1gi_flt_{{ $gardu->id }}" required>
-                </div>
-            </div>
+                <!-- Impedansi Urutan Positif -->
+                <h5 class="mt-4">IMPEDANSI URUTAN NOL</h5>
 
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <label for="r1_sumber_{{ $gardu->id }}">R1 sumber</label>
-                    <input type="number" step="0.01" name="r1_sumber" class="form-control" id="r1_sumber_{{ $gardu->id }}" required readonly>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="r1_sumber2_{{ $gardu->id }}">R1 sumber</label>
+                        <input type="number" step="0.01" name="r1_sumber2" class="form-control" id="r1_sumber2_{{ $gardu->id }}" required readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="x1_sumber2_{{ $gardu->id }}">X1 sumber</label>
+                        <input type="number" step="0.01" name="x1_sumber2" class="form-control" id="x1_sumber2_{{ $gardu->id }}" required>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <label for="x1_sumber_{{ $gardu->id }}">X1 sumber</label>
-                    <input type="number" step="0.01" name="x1_sumber" class="form-control" id="x1_sumber_{{ $gardu->id }}" required>
-                </div>
-            </div>
 
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <label for="r1_trafo_{{ $gardu->id }}">R1 trafo</label>
-                    <input type="number" step="0.01" name="r1_trafo" class="form-control" id="r1_trafo_{{ $gardu->id }}" required>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="r1_trafo2_{{ $gardu->id }}">R1 trafo</label>
+                        <input type="number" step="0.01" name="r1_trafo2" class="form-control" id="r1_trafo2_{{ $gardu->id }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="x1_trafo2_{{ $gardu->id }}">X1 trafo</label>
+                        <input type="number" step="0.01" name="x1_trafo2" class="form-control" id="x1_trafo2_{{ $gardu->id }}" required readonly>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <label for="x1_trafo_{{ $gardu->id }}">X1 trafo</label>
-                    <input type="number" step="0.01" name="x1_trafo" class="form-control" id="x1_trafo_{{ $gardu->id }}" required readonly>
-                </div>
-            </div>
 
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <label for="r1_gh1_ujung_{{ $gardu->id }}">R1GH1-ujung</label>
-                    <input type="number" step="0.01" name="r1_gh1_ujung" class="form-control" id="r1_gh1_ujung_{{ $gardu->id }}" required readonly>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="r1_gh1_ujung2_{{ $gardu->id }}">R1GH1-ujung</label>
+                        <input type="number" step="0.01" name="r1_gh1_ujung2" class="form-control" id="r1_gh1_ujung2_{{ $gardu->id }}" required readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="x1_gh1_ujung2_{{ $gardu->id }}">X1GH1-ujung</label>
+                        <input type="number" step="0.01" name="x1_gh1_ujung2" class="form-control" id="x1_gh1_ujung2_{{ $gardu->id }}" required readonly>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <label for="x1_gh1_ujung_{{ $gardu->id }}">X1GH1-ujung</label>
-                    <input type="number" step="0.01" name="x1_gh1_ujung" class="form-control" id="x1_gh1_ujung_{{ $gardu->id }}" required readonly>
-                </div>
-            </div>
 
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <label for="r1gi_flt_{{ $gardu->id }}">R1GI-Flt</label>
-                    <input type="number" step="0.01" name="r1gi_flt" class="form-control" id="r1gi_flt_{{ $gardu->id }}" required>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="r1gi_flt2_{{ $gardu->id }}">R1GI-Flt</label>
+                        <input type="number" step="0.01" name="r1gi_flt2" class="form-control" id="r1gi_flt2_{{ $gardu->id }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="x1gi_flt2_{{ $gardu->id }}">X1GI-Flt</label>
+                        <input type="number" step="0.01" name="x1gi_flt2" class="form-control" id="x1gi_flt2_{{ $gardu->id }}" required>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <label for="x1gi_flt_{{ $gardu->id }}">X1GI-Flt</label>
-                    <input type="number" step="0.01" name="x1gi_flt" class="form-control" id="x1gi_flt_{{ $gardu->id }}" required>
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-secondary" id="calculateAllBtn4" data-gardu-id="{{ $gardu->id }}">Calculate All</button>
                 </div>
-            </div>
+
+                <div class="form-group">
+                    <label for="lok_gangg2_{{ $gardu->id }}">Lok.gangg</label>
+                    <input type="number" step="0.01" name="lok_gangg2" class="form-control" id="lok_gangg2_{{ $gardu->id }}" required readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="pnj_jar2_{{ $gardu->id }}">%pnj jar</label>
+                    <input type="number" step="0.01" name="pnj_jar2" class="form-control" id="pnj_jar2_{{ $gardu->id }}" required readonly>
+                </div>
                 <button type="submit" class="btn btn-success mt-3">Add Impedansi Trafo</button>
         </form>
     </td>
