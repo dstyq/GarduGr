@@ -239,3 +239,105 @@ function calculateAll2(garduId) {
         showError('Please enter valid values for all fields to calculate R1 GI-GH1 and X1 GI-GH1.');
     }   
 }
+
+// Function to calculate Fasa 3, Fasa 2, Fasa 1, Lokk.gangg, and %pnj jar
+function calculateAll3(garduId) {
+    const voltSekunder = parseFloat(document.getElementById("volt_sekunder").value);
+    const z0R1GiFlt = parseFloat(document.getElementById("z0_r1gi_flt_" + garduId).value);
+    const z0X1GiFlt = parseFloat(document.getElementById("z0_x1gi_flt_" + garduId).value);
+    const z1R1GiFlt = parseFloat(document.getElementById("z1_r1gi_flt_" + garduId).value);
+    const z1X1GiFlt = parseFloat(document.getElementById("z1_x1gi_flt_" + garduId).value);
+    const r1GiGh1 = parseFloat(document.getElementById("r1_gi_gh1_" + garduId).value);
+    const ri1Z1 = parseFloat(document.getElementById("ri1_z1_" + garduId).value);
+    const x1GiGh1 = parseFloat(document.getElementById("x1_gi_gh1_" + garduId).value);
+    const jXi1Z1 = parseFloat(document.getElementById("j_xi1_z1_" + garduId).value);
+
+    if (voltSekunder > 0 && z1R1GiFlt > 0 && z1X1GiFlt > 0 && z0R1GiFlt > 0 && z0X1GiFlt > 0 && r1GiGh1 > 0 && ri1Z1 > 0 && x1GiGh1 > 0 && jXi1Z1 > 0) {
+        // Calculate Fasa 3
+        const fasa3 = (voltSekunder / Math.sqrt(3)) * 1000 / Math.sqrt(Math.pow(z1R1GiFlt, 2) + Math.pow(z1X1GiFlt, 2));
+        document.getElementById("3_fasa_" + garduId).value = fasa3.toFixed(2);
+
+        // Calculate Fasa 2
+        const fasa2 = 3 * fasa3 * (Math.sqrt(3) / 2);
+        document.getElementById("2_fasa_" + garduId).value = fasa2.toFixed(2);
+
+        // Calculate Fasa 1
+        const fasa1 = 3 * (voltSekunder / Math.sqrt(3)) * 1000 / Math.sqrt(Math.pow(2 * z1R1GiFlt + z0R1GiFlt, 2) + Math.pow(2 * z1X1GiFlt + z0X1GiFlt, 2));
+        document.getElementById("1_fasa_" + garduId).value = fasa1.toFixed(2);
+
+        const lokkGangg = (r1GiGh1 / ri1Z1) * 100;
+        document.getElementById("lok_gangg_" + garduId).value = lokkGangg.toFixed(2);
+
+        const pnjJar = (x1GiGh1 / jXi1Z1) * 100;
+        document.getElementById("pnj_jar_" + garduId).value = pnjJar.toFixed(2);
+
+    } else {
+        showError("Please enter valid values for all fields.");
+    }
+}
+
+// Function to calculate R1 smber2 
+function calculateR1Sumber2() {
+    const r1Smber2 = getNumericValue("r1_sumber2");
+    const voltSekunder = getNumericValue("volt_sekunder");
+
+    if (r1Smber2 > 0 && voltSekunder > 0) {
+        const resultR1Smber2 = (voltSekunder / r1Smber2) * 1000;
+        document.getElementById("r1_sumber2_").value = resultR1Smber2.toFixed(2);
+    } else {
+        showError("Please enter valid values for R1 smber2 and Volt Sekunder.");
+    }
+}
+
+// Function to calculate X1 trafo2
+function calculateX1Trafo2() {
+    const impedansiTrafo2 = getNumericValue('impedansi_trafo2');
+    const voltSekunder = getNumericValue('volt_sekunder');
+    const kapasitas = getNumericValue('kapasitas2');
+
+    if (impedansiTrafo2 > 0 && voltSekunder > 0 && kapasitas > 0) {
+        const x1Trafo2 = (impedansiTrafo2 / 100) * (voltSekunder ** 2) / kapasitas;
+        document.getElementById('x1_trafo2_').value = x1Trafo2.toFixed(5);
+    } else {
+        showError('Please enter valid values for Impedansi Trafo2, Volt Sekunder, and Kapasitas.');
+    }
+}
+
+// Function to calculate R1GH1-ujung2, X1GH1-ujung2, R1 GI-GH12, X1 GI-GH12
+function calculateAll4() {
+    const r1GH1Ujung = getNumericValue('r1_gh1_ujung2');
+    const x1GH1Ujung = getNumericValue('x1_gh1_ujung2');
+    const r1GiGh12 = getNumericValue('r1_gi_gh12');
+    const x1GiGh12 = getNumericValue('x1_gi_gh12');
+
+    const r1GH1Ujung2 = r1GH1Ujung * 0; 
+    const x1GH1Ujung2 = x1GH1Ujung * 0;  
+
+    const r1GiGh12Result = r1GiGh12 - r1GH1Ujung - x1GH1Ujung;
+    const x1GiGh12Result = x1GiGh12 - r1GH1Ujung - x1GH1Ujung;
+
+    document.getElementById('r1_gh1_ujung2_').value = r1GH1Ujung2.toFixed(2);
+    document.getElementById('x1_gh1_ujung2_').value = x1GH1Ujung2.toFixed(2);
+    document.getElementById('r1_gi_gh12_').value = r1GiGh12Result.toFixed(2);
+    document.getElementById('x1_gi_gh12_').value = x1GiGh12Result.toFixed(2);
+}
+
+// Function to calculate Lokk.gangg2 and %pnj jar2
+function calculateLokkGanggPnjJar() {
+    const r1GiGh12 = getNumericValue('r1_gi_gh12');
+    const ri1Z0 = getNumericValue('ri1_z0');
+    const x1GiGh12 = getNumericValue('x1_gi_gh12');
+    const jXi1Z0 = getNumericValue('j_xi1_z0');
+
+    if (r1GiGh12 > 0 && ri1Z0 > 0 && x1GiGh12 > 0 && jXi1Z0 > 0) {
+        // Calculate Lokk.gangg2
+        const lokkGangg2 = (r1GiGh12 / ri1Z0) * 100;
+        document.getElementById("lokk_gangg2_").value = lokkGangg2.toFixed(2);
+
+        // Calculate %pnj jar2
+        const pnjJar2 = (x1GiGh12 / jXi1Z0) * 100;
+        document.getElementById("pnj_jar2_").value = pnjJar2.toFixed(2);
+    } else {
+        showError("Please enter valid values for Lokk.gangg2 and %pnj jar2.");
+    }
+}
