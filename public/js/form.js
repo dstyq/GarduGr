@@ -13,9 +13,11 @@ document.addEventListener('DOMContentLoaded', function () {
             'calculateAllBtn': calculateAll,
             'calculateX1SumberBtn': calculateX1Sumber,
             'calculateX1TrafoBtn': calculateX1Trafo,
-            'calculateAllBtn2': calculateAll2,
-            'calculateAllBtn3': calculateAll3,
-            'calculateAllBtn4': calculateAll4,
+            'calculateAll2Btn': calculateAll2,
+            'calculateAll3Btn': calculateAll3,
+            'calculateR1Sumber2Btn': calculateR1Sumber2,
+            'calculateX1Trafo2Btn': calculateX1Trafo2,
+            'calculateAll4Btn': calculateAll4,
             'LokkGanggPnjJarBtn': calculateLokkGanggPnjJar
         };
 
@@ -44,7 +46,7 @@ function calculateImpedance(garduId) {
 
     if (mvaShortCircuit > 0 && voltSekunder > 0) {
         const impedanceSumber = (voltSekunder ** 2) / mvaShortCircuit;
-        document.getElementById('impedansi_sumber_' + garduId).value = impedanceSumber.toFixed(7);
+        document.getElementById('impedansi_sumber_' + garduId).value = impedanceSumber.toFixed(8);
     } else {
         showError('Please enter valid values for MVA Short Circuit and Volt Sekunder.');
     }
@@ -204,13 +206,13 @@ function calculateX1Trafo(garduId) {
 
     if (impedansiTrafo > 0 && voltSekunder > 0 && kapasitas > 0) {
         const x1Trafo = (impedansiTrafo / 100) * (voltSekunder ** 2) / kapasitas;
-        document.getElementById('x1_trafo_' + garduId).value = x1Trafo.toFixed(7);
+        document.getElementById('x1_trafo_' + garduId).value = x1Trafo.toFixed(5);
     } else {
         showError('Please enter valid values for Impedansi Trafo, Volt Sekunder, and Kapasitas to calculate X1 Trafo.');
     }
 }
 
-// Function to calculate R1 GI-GH1, X1 GI-GH1, R1GH1-ujung, X1GH1-ujung(All 2)
+// Function to calculate R1 GI-GH1, X1 GI-GH1, R1GH1-ujung, X1GH1-ujung (All 2)
 function calculateAll2(garduId) {
     const z1R1giFlt = getNumericValue('z1_r1gi_flt_' + garduId);
     const r1Sumber = getNumericValue('r1_sumber_' + garduId);
@@ -222,55 +224,18 @@ function calculateAll2(garduId) {
     const x1Trafo = getNumericValue('x1_trafo_' + garduId);
     const jXi2Z1 = getNumericValue('j_xi2_z1_' + garduId);
 
-    if (z1R1giFlt > 0 && r1Sumber > 0 && r1Trafo > 0 && r1GH1Ujung >= 0 && x1Sumber > 0 && x1Trafo > 0 && x1GH1Ujung >= 0) {
+    if (z1R1giFlt > 0 && r1Sumber > 0 && r1Trafo > 0 && r12Z1 >= 0 && x1Sumber > 0 && x1Trafo > 0 && jXi2Z1 >= 0) {
         const r1GI_GH1 = z1R1giFlt - r1Sumber - r1Trafo - r12Z1;
-
         const x1GI_GH1 = z1X1giFlt - x1Sumber - x1Trafo - jXi2Z1;
 
-        const r1GH1_Ujung = 0 * r12Z1;
+        const r1GH1_Ujung = r12Z1;
+        const x1GH1_Ujung = jXi2Z1;
 
-        const x1GH1_Ujung = 0 * jXi2Z1;
-
-        document.getElementById('r1_gi_gh1_' + garduId).value = r1GI_GH1.toFixed(2);
-        document.getElementById('x1_gi_gh1_' + garduId).value = x1GI_GH1.toFixed(2);
-        document.getElementById('r1_gh1_ujung_' + garduId).value = r1GH1UjungOutput.toFixed(2);
-        document.getElementById('x1_gh1_ujung_' + garduId).value = x1GH1UjungOutput.toFixed(2);
+        document.getElementById('r1_gi_gh1_' + garduId).value = r1GI_GH1.toFixed(3);
+        document.getElementById('x1_gi_gh1_' + garduId).value = x1GI_GH1.toFixed(3);
+        document.getElementById('r1_gh1_ujung_' + garduId).value = r1GH1_Ujung.toFixed(1);
+        document.getElementById('x1_gh1_ujung_' + garduId).value = x1GH1_Ujung.toFixed(1);
     } else {
-        showError('Please enter valid values for ....');
-    }
-}
-
-// Function to calculate FASA3, FASA 2, FASA 1, Lokk.gangg, %pnj jar(all3)
-function calculateAll3() {
-    // Retrieve input values
-    const voltSekunder = parseFloat(document.getElementById("volt_sekunder").value);
-    const z1R1GiFlt = parseFloat(document.getElementById("z1_r1gi_flt").value);
-    const z1X1GiFlt = parseFloat(document.getElementById("z1_x1gi_flt").value);
-    const z0R1GiFlt = parseFloat(document.getElementById("z0_r1gi_flt").value);
-    const z0X1GiFlt = parseFloat(document.getElementById("z0_x1gi_flt").value);
-    const r1GiGh1 = parseFloat(document.getElementById("r1_gi_gh1").value);
-    const ri1Z1 = parseFloat(document.getElementById("ri1_z1").value);
-    const x1GiGh1 = parseFloat(document.getElementById("x1_gi_gh1").value);
-    const jXi1Z1 = parseFloat(document.getElementById("j_xi1_z1").value);
-
-    if (voltSekunder > 0 && z1R1GiFlt > 0 && z1X1GiFlt > 0 && z0R1GiFlt > 0 && z0X1GiFlt > 0 && r1GiGh1 > 0 && ri1Z1 > 0 && x1GiGh1 > 0 && jXi1Z1 > 0) {
-
-        const fasa3 = (voltSekunder / Math.sqrt(3)) * 1000 / Math.sqrt(Math.pow(z1R1GiFlt, 2) + Math.pow(z1X1GiFlt, 2));
-        document.getElementById("fasa_3_result").value = fasa3.toFixed(2);
-
-        const fasa2 = 3 * fasa3 * (Math.sqrt(3) / 2);
-        document.getElementById("fasa_2_result").value = fasa2.toFixed(2);
-
-        const fasa1 = 3 * (voltSekunder / Math.sqrt(3)) * 1000 / Math.sqrt(Math.pow(2 * z1R1GiFlt + z0R1GiFlt, 2) + Math.pow(2 * z1X1GiFlt + z0X1GiFlt, 2));
-        document.getElementById("fasa_1_result").value = fasa1.toFixed(2);
-
-        const lokkGangg = (r1GiGh1 / ri1Z1) * 100;
-        document.getElementById("lokk_gangg_result").value = lokkGangg.toFixed(2);
-
-        const pnjJar = (x1GiGh1 / jXi1Z1) * 100;
-        document.getElementById("pnj_jar_result").value = pnjJar.toFixed(2);
-
-    } else {
-        showError("Please enter valid values for all fields.");
-    }
+        showError('Please enter valid values for all fields to calculate R1 GI-GH1 and X1 GI-GH1.');
+    }   
 }
