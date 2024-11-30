@@ -198,6 +198,7 @@ function calculateX1Sumber(garduId) {
     }
 }
 
+
 // Function to calculate X1 Trafo
 function calculateX1Trafo(garduId) {
     const impedansiTrafo = getNumericValue('impedansi_trafo_' + garduId);
