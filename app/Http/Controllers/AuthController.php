@@ -9,32 +9,49 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    /**
+     * Menangani proses login pengguna.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function login(Request $request)
     {
-        // Validasi input
+        // Validasi input dari pengguna
         $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
+            'username' => 'required|string',  // Username harus diisi dan berupa string
+            'password' => 'required|string',  // Password harus diisi dan berupa string
         ]);
 
-        // Coba untuk login
-        if (Auth::attempt(['username' => $request->username, 'password' => $request->password], $request->remember)) {
-            Log::info('User logged in: ' . $request->username); // Log untuk login berhasil
-            // Jika berhasil login, alihkan ke dashboard
+        // Mendapatkan kredensial dari input pengguna
+        $credentials = ['username' => $request->username, 'password' => $request->password];
+
+        // Coba untuk login menggunakan kredensial
+        if (Auth::attempt($credentials, $request->remember)) {
+            // Jika login berhasil, catat log dan alihkan ke dashboard
+            Log::info('User logged in: ' . $request->username);
             return redirect()->route('dashboard.index')->with('success', 'Login berhasil!');
         }
 
-        Log::warning('Failed login attempt for: ' . $request->username); // Log untuk login gagal
-        // Jika gagal, kembalikan ke halaman login dengan pesan error
+        // Jika login gagal, catat log dan lemparkan error
+        Log::warning('Failed login attempt for: ' . $request->username);
         throw ValidationException::withMessages([
-            'username' => ['Username atau password salah.'],
+            'username' => ['Username atau password salah.'],  // Tampilkan pesan error jika gagal login
         ]);
     }
 
-    // Tambahkan method logout jika diperlukan
+    /**
+     * Menangani proses logout pengguna.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout(Request $request)
     {
+        // Proses logout dan hapus sesi pengguna
         Auth::logout();
+        
+        // Alihkan kembali ke halaman login dengan pesan sukses
         return redirect()->route('user.login')->with('success', 'Logout berhasil!');
     }
 }

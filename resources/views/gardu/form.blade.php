@@ -78,8 +78,8 @@
             </div>
 
             <div class="form-group">
-                <label for="pentahanan_netral">Pentahanan Netral (Ohm)</label>
-                <input type="number" step="0.01" name="pentahanan_netral" class="form-control" required>
+                <label for="pentanahan_netral">Pentanahan Netral (Ohm)</label>
+                <input type="number" step="0.01" name="pentanahan_netral" class="form-control" id="pentanahan_netral{{ $gardu->id }}" required>
             </div>
 
             <!-- XT Calculations -->
@@ -156,15 +156,15 @@
                 <tbody>
                     <tr>
                         <td>RI1</td>
-                        <td><input type="text" class="form-control" name="ri1_z1" required readonly></td>
+                        <td><input type="text" class="form-control" name="ri1_z1" id="ri1_z1_{{ $gardu->id }}" required readonly></td>
                         <td>RI1</td>
-                        <td><input type="text" class="form-control" name="ri1_z0" required readonly></td>
+                        <td><input type="text" class="form-control" name="ri1_z0" id="ri1_z0_{{ $gardu->id }}" required readonly></td>
                     </tr>
                     <tr>
                         <td>j XI1</td>
-                        <td><input type="text" class="form-control" name="j_xi1_z1" required readonly></td>
+                        <td><input type="text" class="form-control" name="j_xi1_z1" id="j_xi1_z1_{{ $gardu->id }}" required readonly></td>
                         <td>j XI1</td>
-                        <td><input type="text" class="form-control" name="j_xi1_z0" required readonly></td>
+                        <td><input type="text" class="form-control" name="j_xi1_z0" id="j_xi1_z0_{{ $gardu->id }}" required readonly></td>
                     </tr>
                     <tr>
                         <td>RI2</td>
@@ -224,17 +224,6 @@
             <p>Z1 Ekivalen</p>
             <div class="form-group row">
                 <div class="col-md-6">
-                    <label for="z1_r1gi_flt_{{ $gardu->id }}">R1GI-Flt</label>
-                    <input type="number" step="0.01" name="z1_r1gi_flt" class="form-control" id="z1_r1gi_flt_{{ $gardu->id }}" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="z1_x1gi_flt_{{ $gardu->id }}">X1GI-Flt</label>
-                    <input type="number" step="0.01" name="z1_x1gi_flt" class="form-control" id="z1_x1gi_flt_{{ $gardu->id }}" required>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-6">
                     <label for="r1_gi_gh1_{{ $gardu->id }}">R1 GI-GH1</label>
                     <input type="number" step="0.01" name="r1_gi_gh1" class="form-control" id="r1_gi_gh1_{{ $gardu->id }}" required readonly>
                 </div>
@@ -252,6 +241,17 @@
                 <div class="col-md-6">
                     <label for="x1_gh1_ujung_{{ $gardu->id }}">X1GH1-ujung</label>
                     <input type="number" step="0.01" name="x1_gh1_ujung" class="form-control" id="x1_gh1_ujung_{{ $gardu->id }}" required readonly>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="z1_r1gi_flt_{{ $gardu->id }}">R1GI-Flt</label>
+                    <input type="number" step="0.01" name="z1_r1gi_flt" class="form-control" id="z1_r1gi_flt_{{ $gardu->id }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="z1_x1gi_flt_{{ $gardu->id }}">X1GI-Flt</label>
+                    <input type="number" step="0.01" name="z1_x1gi_flt" class="form-control" id="z1_x1gi_flt_{{ $gardu->id }}" required>
                 </div>
             </div>
 
@@ -318,7 +318,7 @@
             </div>
 
             <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-secondary" id="calculateR1Sumber2Btn" data-gardu-id="{{ $gardu->id }}">Calculate X1 Sumber</button>
+                <button type="button" class="btn btn-secondary" id="calculateR1Sumber2Btn" data-gardu-id="{{ $gardu->id }}">Calculate R1 Sumber</button>
             </div>
 
             <div class="form-group row">
@@ -343,17 +343,19 @@
                 </div>
                 <div class="col-md-6">
                     <label for="x1_gh1_ujung2_{{ $gardu->id }}">X1GH1-ujung</label>
-                    <input type="number" step="0.01" name="x1_gh1_ujung2" class="form-control" id="x1_gh1_ujung2_{{ $gardu->id }}" required readonly>
+                    <input type="number" step="0.01" name="x1_gh1_ujung2" class="form-control" id="
+                    
+                    {{ $gardu->id }}" required readonly>
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-6">
-                    <label for="r1gi_flt2_{{ $gardu->id }}">R1GI-Flt</label>
+                    <label for="r1_gi_gh1_2_{{ $gardu->id }}">R1 GI-GH1</label>
                     <input type="number" step="0.01" name="r1gi_flt2" class="form-control" id="r1gi_flt2_{{ $gardu->id }}" required>
                 </div>
                 <div class="col-md-6">
-                    <label for="x1gi_flt2_{{ $gardu->id }}">X1GI-Flt</label>
+                    <label for="x1_gi_gh1_2_{{ $gardu->id }}">X1 GI-GH1</label>
                     <input type="number" step="0.01" name="x1gi_flt2" class="form-control" id="x1gi_flt2_{{ $gardu->id }}" required>
                 </div>
             </div>

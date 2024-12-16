@@ -7,10 +7,10 @@ use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('permission:dashboard', ['only' => 'dashboard']);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('permission:dashboard', ['only' => 'dashboard']);
+    // }
 
     public function dashboard()
     {
