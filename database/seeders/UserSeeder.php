@@ -26,21 +26,17 @@ class UserSeeder extends Seeder
                 'name' => 'Root',
                 'username' => 'root',
                 'email' => 'root@root.com',
-                'password' => Hash::make('root'), // Hash password
+                'password' => Hash::make('root'), 
             ]);
 
-            // Buat role 'Admin' jika belum ada
             $role = Role::firstOrCreate(['name' => 'Admin']);
         } else {
-            // Jika pengguna sudah ada, ambil role 'Admin'
             $role = Role::where('name', 'Admin')->first();
         }
 
-        // Ambil semua permissions dan sinkronisasikan dengan role
         $permissions = Permission::pluck('id')->all();
         $role->syncPermissions($permissions);
 
-        // Assign role kepada pengguna
         $user->assignRole($role);
     }
 }

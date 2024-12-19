@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
         // URL::forceScheme('https');
 
         // Memastikan tabel yang diperlukan ada
-        $this->checkDatabaseTables();
+        //$this->checkDatabaseTables();
     }
 
     /**

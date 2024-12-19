@@ -99,7 +99,7 @@
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="xlpe_al_cable_{{ $gardu->id }}">XLPE-AL Cable (mH/km)</label>
-                    <input type="number" step="0.01" name="inductance_per_km" class="form-control" id="xlpe_al_cable_{{ $gardu->id }}" required>
+                    <input type="number" step="0.001" name="inductance_per_km" class="form-control" id="xlpe_al_cable_{{ $gardu->id }}" required>
                 </div>
                 <div class="col-md-6">
                     <label for="xlpe_al_cable_output_{{ $gardu->id }}">XLPE-AL Cable (ωL)</label>
@@ -114,7 +114,7 @@
 
             <div class="form-group">
                 <label for="z1_km_{{ $gardu->id }}">Z1/km</label>
-                <input type="number" step="0.01" name="z1_km" class="form-control" id="z1_km_{{ $gardu->id }}" required>
+                <input type="number" step="0.001" name="z1_km" class="form-control" id="z1_km_{{ $gardu->id }}" required>
             </div>
 
             <div class="form-group">
@@ -247,11 +247,11 @@
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="z1_r1gi_flt_{{ $gardu->id }}">R1GI-Flt</label>
-                    <input type="number" step="0.01" name="z1_r1gi_flt" class="form-control" id="z1_r1gi_flt_{{ $gardu->id }}" required>
+                    <input type="number" step="0.0001" name="z1_r1gi_flt" class="form-control" id="z1_r1gi_flt_{{ $gardu->id }}" required>
                 </div>
                 <div class="col-md-6">
                     <label for="z1_x1gi_flt_{{ $gardu->id }}">X1GI-Flt</label>
-                    <input type="number" step="0.01" name="z1_x1gi_flt" class="form-control" id="z1_x1gi_flt_{{ $gardu->id }}" required>
+                    <input type="number" step="0.00001" name="z1_x1gi_flt" class="form-control" id="z1_x1gi_flt_{{ $gardu->id }}" required>
                 </div>
             </div>
 
@@ -266,11 +266,11 @@
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="z0_r1gi_flt_{{ $gardu->id }}">R1GI-Flt</label>
-                    <input type="number" step="0.01" name="z0_r1gi_flt" class="form-control" id="z0_r1gi_flt_{{ $gardu->id }}" required>
+                    <input type="number" step="0.0001" name="z0_r1gi_flt" class="form-control" id="z0_r1gi_flt_{{ $gardu->id }}" required>
                 </div>
                 <div class="col-md-6">
                     <label for="z0_x1gi_flt_{{ $gardu->id }}">X1GI-Flt</label>
-                    <input type="number" step="0.01" name="z0_x1gi_flt" class="form-control" id="z0_x1gi_flt_{{ $gardu->id }}" required>
+                    <input type="number" step="0.001" name="z0_x1gi_flt" class="form-control" id="z0_x1gi_flt_{{ $gardu->id }}" required>
                 </div>
             </div>
 
@@ -343,20 +343,18 @@
                 </div>
                 <div class="col-md-6">
                     <label for="x1_gh1_ujung2_{{ $gardu->id }}">X1GH1-ujung</label>
-                    <input type="number" step="0.01" name="x1_gh1_ujung2" class="form-control" id="
-                    
-                    {{ $gardu->id }}" required readonly>
+                    <input type="number" step="0.01" name="x1_gh1_ujung2" class="form-control" id="x1_gh1_ujung2_{{ $gardu->id }}" required readonly>
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="r1_gi_gh1_2_{{ $gardu->id }}">R1 GI-GH1</label>
-                    <input type="number" step="0.01" name="r1gi_flt2" class="form-control" id="r1gi_flt2_{{ $gardu->id }}" required>
+                    <input type="number" step="0.01" name="r1gi_flt2" class="form-control" id="r1_gi_gh1_2_{{ $gardu->id }}" required readonly>
                 </div>
                 <div class="col-md-6">
                     <label for="x1_gi_gh1_2_{{ $gardu->id }}">X1 GI-GH1</label>
-                    <input type="number" step="0.01" name="x1gi_flt2" class="form-control" id="x1gi_flt2_{{ $gardu->id }}" required>
+                    <input type="number" step="0.01" name="x1gi_flt1_2" class="form-control" id="x1_gi_gh1_2_{{ $gardu->id }}" required readonly>
                 </div>
             </div>
             <div class="d-flex justify-content-center">
@@ -382,4 +380,5 @@
     </td>
 </tr>
 
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 <script src="{{ asset('js/form.js') }}"></script>
