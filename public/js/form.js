@@ -272,7 +272,7 @@ function calculateAll3(garduId) {
         document.getElementById("2_fasa_" + garduId).value = fasa2.toFixed(2);
         document.getElementById("1_fasa_" + garduId).value = fasa1.toFixed(4);
         document.getElementById("lok_gangg_" + garduId).value = lokkGangg.toFixed(0);
-        document.getElementById("pnj_jar_" + garduId).value = pnjJar.toFixed(0);
+        document.getElementById("pnj_jar_" + garduId).value = pnjJar.toFixed(6);
     } else {
         showError("Please enter valid values for all fields.");
     }
