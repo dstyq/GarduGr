@@ -19,8 +19,8 @@ class AuthController extends Controller
     {
         // Validasi input dari pengguna
         $request->validate([
-            'username' => 'required|string',  // Username harus diisi dan berupa string
-            'password' => 'required|string',  // Password harus diisi dan berupa string
+            'username' => 'required|string',  
+            'password' => 'required|string', 
         ]);
 
         // Mendapatkan kredensial dari input pengguna
@@ -36,7 +36,7 @@ class AuthController extends Controller
         // Jika login gagal, catat log dan lemparkan error
         Log::warning('Failed login attempt for: ' . $request->username);
         throw ValidationException::withMessages([
-            'username' => ['Username atau password salah.'],  // Tampilkan pesan error jika gagal login
+            'username' => ['Username atau password salah.'], 
         ]);
     }
 
